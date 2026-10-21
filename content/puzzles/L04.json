@@ -1,0 +1,799 @@
+{
+ "level": "L04",
+ "source": "Lichess puzzle database (CC0), https://database.lichess.org/#puzzles",
+ "puzzles": [
+  {
+   "id": "6r9T4",
+   "source": "lichess:6r9T4",
+   "fen": "8/8/5kP1/K4P2/7N/1p6/8/8 w - - 0 59",
+   "moves": [
+    "a5a4",
+    "b3b2",
+    "a4b3",
+    "b2b1q"
+   ],
+   "rating": 471,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "knightEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "9uX5g",
+   "source": "lichess:9uX5g",
+   "fen": "3B4/8/k2b4/3K4/P7/6p1/8/8 w - - 0 55",
+   "moves": [
+    "d5d6",
+    "g3g2",
+    "a4a5",
+    "g2g1q"
+   ],
+   "rating": 482,
+   "themes": [
+    "advancedPawn",
+    "bishopEndgame",
+    "crushing",
+    "endgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "tK6Uq",
+   "source": "lichess:tK6Uq",
+   "fen": "4k3/8/4n1KP/8/3B4/1p6/8/8 b - - 12 79",
+   "moves": [
+    "e6d4",
+    "h6h7",
+    "e8e7",
+    "h7h8q"
+   ],
+   "rating": 542,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "knightEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "pTlfj",
+   "source": "lichess:pTlfj",
+   "fen": "q2R3k/p1P3pp/8/5b2/8/P7/5PPP/6K1 b - - 1 35",
+   "moves": [
+    "a8d8",
+    "c7d8q"
+   ],
+   "rating": 550,
+   "themes": [
+    "advancedPawn",
+    "backRankMate",
+    "endgame",
+    "hangingPiece",
+    "mate",
+    "mateIn1",
+    "oneMove",
+    "promotion"
+   ]
+  },
+  {
+   "id": "KM0Nq",
+   "source": "lichess:KM0Nq",
+   "fen": "8/8/1P6/4k3/2K2p1p/8/7P/8 b - - 0 48",
+   "moves": [
+    "f4f3",
+    "b6b7",
+    "f3f2",
+    "b7b8q"
+   ],
+   "rating": 647,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "master",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "xcW6J",
+   "source": "lichess:xcW6J",
+   "fen": "8/1kB5/1P4p1/8/2p4P/2Kp4/8/8 w - - 2 66",
+   "moves": [
+    "c3c4",
+    "d3d2",
+    "c4c3",
+    "d2d1q"
+   ],
+   "rating": 684,
+   "themes": [
+    "advancedPawn",
+    "bishopEndgame",
+    "crushing",
+    "endgame",
+    "master",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "43col",
+   "source": "lichess:43col",
+   "fen": "7k/3P3p/p3Np2/4b3/8/P7/1rQ2PPP/6K1 b - - 0 39",
+   "moves": [
+    "b2c2",
+    "d7d8q"
+   ],
+   "rating": 758,
+   "themes": [
+    "advancedPawn",
+    "endgame",
+    "mate",
+    "mateIn1",
+    "oneMove",
+    "promotion"
+   ]
+  },
+  {
+   "id": "SgFGm",
+   "source": "lichess:SgFGm",
+   "fen": "3r1rBk/7P/pp3qpQ/2p1np2/3p2p1/3P4/PP3P2/2KR3R b - - 7 26",
+   "moves": [
+    "f6g7",
+    "h6g7",
+    "h8g7",
+    "h7h8q"
+   ],
+   "rating": 784,
+   "themes": [
+    "advancedPawn",
+    "attraction",
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "KzpmU",
+   "source": "lichess:KzpmU",
+   "fen": "1r1rk3/pN4Q1/8/4P3/8/8/P1p2PPP/2n1R1K1 w - - 0 30",
+   "moves": [
+    "e1c1",
+    "d8d1",
+    "c1d1",
+    "c2d1q"
+   ],
+   "rating": 881,
+   "themes": [
+    "advancedPawn",
+    "backRankMate",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "NQMS0",
+   "source": "lichess:NQMS0",
+   "fen": "4n2R/8/1nk1KN2/3p4/8/2p5/8/8 w - - 0 68",
+   "moves": [
+    "h8e8",
+    "c3c2",
+    "e6f5",
+    "c2c1q"
+   ],
+   "rating": 890,
+   "themes": [
+    "advancedPawn",
+    "advantage",
+    "endgame",
+    "master",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "3pw2D",
+   "source": "lichess:3pw2D",
+   "fen": "8/kpR5/2p5/5P2/8/8/pr4P1/3R2K1 w - - 0 39",
+   "moves": [
+    "d1a1",
+    "b2b1",
+    "a1b1",
+    "a2b1q"
+   ],
+   "rating": 940,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "promotion",
+    "rookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "nt3tD",
+   "source": "lichess:nt3tD",
+   "fen": "2kr4/p4Q2/4p3/1qp1P3/3pN1n1/5N1P/PPP2bP1/R1B2K2 w - - 2 18",
+   "moves": [
+    "c2c4",
+    "d4c3"
+   ],
+   "rating": 945,
+   "themes": [
+    "discoveredAttack",
+    "enPassant",
+    "mate",
+    "mateIn1",
+    "middlegame",
+    "oneMove"
+   ]
+  },
+  {
+   "id": "l3oYI",
+   "source": "lichess:l3oYI",
+   "fen": "3r4/1Bb5/2P3k1/p4p2/P1RB4/3p4/3P2p1/3K1rR1 w - - 2 40",
+   "moves": [
+    "g1f1",
+    "g2f1q"
+   ],
+   "rating": 947,
+   "themes": [
+    "advancedPawn",
+    "endgame",
+    "mate",
+    "mateIn1",
+    "oneMove",
+    "promotion"
+   ]
+  },
+  {
+   "id": "YYFFU",
+   "source": "lichess:YYFFU",
+   "fen": "r3r1k1/p5Rp/1n6/3pB3/8/8/P5PP/4K2R b K - 0 29",
+   "moves": [
+    "g8f8",
+    "e1g1"
+   ],
+   "rating": 991,
+   "themes": [
+    "castling",
+    "discoveredAttack",
+    "endgame",
+    "mate",
+    "mateIn1",
+    "oneMove"
+   ]
+  },
+  {
+   "id": "658Hx",
+   "source": "lichess:658Hx",
+   "fen": "2kr2nQ/pp3p1p/1q2p3/1b2P3/3p3b/5N2/PPPBK1PP/1R1N3R w - - 2 16",
+   "moves": [
+    "c2c4",
+    "d4c3"
+   ],
+   "rating": 1037,
+   "themes": [
+    "discoveredAttack",
+    "discoveredCheck",
+    "enPassant",
+    "mate",
+    "mateIn1",
+    "middlegame",
+    "oneMove"
+   ]
+  },
+  {
+   "id": "UzZg3",
+   "source": "lichess:UzZg3",
+   "fen": "r3R2k/p4Ppp/3B4/8/6n1/2N2Kb1/PP3P1q/5R2 b - - 1 26",
+   "moves": [
+    "a8e8",
+    "f7e8q"
+   ],
+   "rating": 1072,
+   "themes": [
+    "advancedPawn",
+    "backRankMate",
+    "mate",
+    "mateIn1",
+    "middlegame",
+    "oneMove",
+    "promotion"
+   ]
+  },
+  {
+   "id": "0md9A",
+   "source": "lichess:0md9A",
+   "fen": "3r3k/p2P1Qpp/1p6/2p3P1/8/P4P1q/5b1P/3R3K b - - 1 35",
+   "moves": [
+    "f2g3",
+    "f7e8",
+    "d8e8",
+    "d7e8q"
+   ],
+   "rating": 1074,
+   "themes": [
+    "advancedPawn",
+    "backRankMate",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "w8D68",
+   "source": "lichess:w8D68",
+   "fen": "8/1p2kp2/pPp1p1p1/P1P1K1P1/8/8/8/8 b - - 7 47",
+   "moves": [
+    "f7f5",
+    "g5f6",
+    "e7f7",
+    "e5d6"
+   ],
+   "rating": 1094,
+   "themes": [
+    "advantage",
+    "enPassant",
+    "endgame",
+    "master",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "CNBVg",
+   "source": "lichess:CNBVg",
+   "fen": "7k/1p5p/p7/P1p5/8/8/5pK1/8 b - - 0 51",
+   "moves": [
+    "b7b5",
+    "a5b6",
+    "f2f1q",
+    "g2f1"
+   ],
+   "rating": 1125,
+   "themes": [
+    "crushing",
+    "enPassant",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "rOhQo",
+   "source": "lichess:rOhQo",
+   "fen": "8/8/8/p6p/1b3p2/1P1N2kP/2P3P1/5K2 w - - 0 58",
+   "moves": [
+    "d3b4",
+    "a5b4",
+    "c2c4",
+    "b4c3"
+   ],
+   "rating": 1152,
+   "themes": [
+    "crushing",
+    "enPassant",
+    "endgame",
+    "short"
+   ]
+  },
+  {
+   "id": "TWRdc",
+   "source": "lichess:TWRdc",
+   "fen": "r1bqk2r/pp1p1p2/2N4p/6p1/1b2n3/2N3B1/PP3PPP/R2QKB1R b KQkq - 0 11",
+   "moves": [
+    "d7c6",
+    "d1d8",
+    "e8d8",
+    "e1c1"
+   ],
+   "rating": 1163,
+   "themes": [
+    "castling",
+    "crushing",
+    "discoveredAttack",
+    "discoveredCheck",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "RXVCI",
+   "source": "lichess:RXVCI",
+   "fen": "2k5/4P3/3K4/8/7p/8/5pp1/1R6 b - - 0 64",
+   "moves": [
+    "f2f1q",
+    "e7e8q"
+   ],
+   "rating": 1165,
+   "themes": [
+    "advancedPawn",
+    "endgame",
+    "mate",
+    "mateIn1",
+    "oneMove",
+    "promotion"
+   ]
+  },
+  {
+   "id": "Z9WMP",
+   "source": "lichess:Z9WMP",
+   "fen": "1r4k1/5pp1/1P5p/8/8/4P3/2prNPPP/R1R3K1 w - - 9 29",
+   "moves": [
+    "a1a2",
+    "d2d1",
+    "c1d1",
+    "c2d1q"
+   ],
+   "rating": 1170,
+   "themes": [
+    "advancedPawn",
+    "backRankMate",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "rOZop",
+   "source": "lichess:rOZop",
+   "fen": "2r1r1k1/pQ3ppp/5n2/1N2N3/qP3Bb1/8/6PP/1R2K2R b K - 2 20",
+   "moves": [
+    "e8e5",
+    "f4e5",
+    "c8e8",
+    "e1g1"
+   ],
+   "rating": 1205,
+   "themes": [
+    "advantage",
+    "castling",
+    "defensiveMove",
+    "hangingPiece",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "vtGTA",
+   "source": "lichess:vtGTA",
+   "fen": "8/3b1kpp/3P1p2/3Bp3/8/6P1/4KP1P/8 b - - 3 28",
+   "moves": [
+    "d7e6",
+    "d6d7",
+    "e6d5",
+    "d7d8q"
+   ],
+   "rating": 1238,
+   "themes": [
+    "advancedPawn",
+    "bishopEndgame",
+    "crushing",
+    "endgame",
+    "pin",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "BeR4j",
+   "source": "lichess:BeR4j",
+   "fen": "r3kbnr/pp3pp1/7p/3qP3/3N2QP/8/PP3P2/R3KB1R b KQkq - 0 14",
+   "moves": [
+    "d5h1",
+    "e1c1",
+    "h1f1",
+    "d1f1"
+   ],
+   "rating": 1240,
+   "themes": [
+    "castling",
+    "crushing",
+    "master",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "AgC34",
+   "source": "lichess:AgC34",
+   "fen": "4k2r/pp2qp2/5Bbp/2p3p1/2Pp2P1/3P1Q1P/PP3PB1/R3r1K1 w k - 0 22",
+   "moves": [
+    "a1e1",
+    "e7e1",
+    "g1h2",
+    "e8g8"
+   ],
+   "rating": 1262,
+   "themes": [
+    "advantage",
+    "castling",
+    "defensiveMove",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "KQoL6",
+   "source": "lichess:KQoL6",
+   "fen": "r5k1/p1R4p/1p1p3q/3P1p2/P2P2p1/4PpP1/1P1Q1P1P/5K2 w - - 1 27",
+   "moves": [
+    "h2h4",
+    "g4h3",
+    "d2d1",
+    "h3h2"
+   ],
+   "rating": 1271,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "enPassant",
+    "endgame",
+    "short"
+   ]
+  },
+  {
+   "id": "VnI6U",
+   "source": "lichess:VnI6U",
+   "fen": "rnb2k2/pppq2b1/8/1P1B1Q2/3P4/6P1/P4P1P/R1B1R1K1 b - - 0 19",
+   "moves": [
+    "d7f5",
+    "c1a3",
+    "c7c5",
+    "b5c6"
+   ],
+   "rating": 1273,
+   "themes": [
+    "discoveredAttack",
+    "discoveredCheck",
+    "enPassant",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "morphysMate",
+    "short"
+   ]
+  },
+  {
+   "id": "vZ3H9",
+   "source": "lichess:vZ3H9",
+   "fen": "8/RP3p2/8/1r1pk3/8/8/6PK/8 b - - 3 49",
+   "moves": [
+    "d5d4",
+    "a7a5",
+    "b5a5",
+    "b7b8q"
+   ],
+   "rating": 1295,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "deflection",
+    "endgame",
+    "pin",
+    "promotion",
+    "rookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "etlHw",
+   "source": "lichess:etlHw",
+   "fen": "8/1p6/p7/P1p1k1pp/4P2P/1P2K1P1/8/8 b - - 0 40",
+   "moves": [
+    "g5h4",
+    "g3h4",
+    "b7b5",
+    "a5b6"
+   ],
+   "rating": 1304,
+   "themes": [
+    "crushing",
+    "enPassant",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "fymQS",
+   "source": "lichess:fymQS",
+   "fen": "3r2k1/1p1rbpp1/4pN1p/p3P2P/1Pqp4/P2R2Q1/6P1/3R2K1 b - - 1 30",
+   "moves": [
+    "e7f6",
+    "e5f6",
+    "g7g5",
+    "h5g6"
+   ],
+   "rating": 1308,
+   "themes": [
+    "advantage",
+    "enPassant",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "S5iby",
+   "source": "lichess:S5iby",
+   "fen": "8/2n5/P1N2kPK/8/1P6/3p4/8/8 w - - 1 60",
+   "moves": [
+    "a6a7",
+    "d3d2",
+    "g6g7",
+    "d2d1q"
+   ],
+   "rating": 1314,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "knightEndgame",
+    "master",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "DmyL6",
+   "source": "lichess:DmyL6",
+   "fen": "2k1rR2/ppp1P3/8/2p1p1p1/8/2P3P1/PP5r/2KR4 b - - 3 28",
+   "moves": [
+    "h2h8",
+    "d1d8",
+    "e8d8",
+    "e7d8q"
+   ],
+   "rating": 1351,
+   "themes": [
+    "advancedPawn",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "promotion",
+    "rookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "07n6T",
+   "source": "lichess:07n6T",
+   "fen": "r3k2r/1b1p1pp1/p3p2p/2qnP3/2B3Q1/P1P5/3B1PPP/R4RK1 w kq - 0 17",
+   "moves": [
+    "g4g7",
+    "e8c8",
+    "c4a6",
+    "b7a6"
+   ],
+   "rating": 1365,
+   "themes": [
+    "advantage",
+    "castling",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "TL1UD",
+   "source": "lichess:TL1UD",
+   "fen": "r3kb1r/ppp2ppp/2n5/8/4P3/5P1P/PP3PP1/R1BK1B1R w kq - 1 11",
+   "moves": [
+    "f1b5",
+    "e8c8",
+    "d1e2",
+    "c6d4"
+   ],
+   "rating": 1395,
+   "themes": [
+    "advantage",
+    "castling",
+    "discoveredAttack",
+    "discoveredCheck",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "4byem",
+   "source": "lichess:4byem",
+   "fen": "r3k2r/pp3ppp/2p1n3/4bb2/8/2K1PPP1/PP2Qq1P/RNB2BNR w kq - 5 15",
+   "moves": [
+    "c3d2",
+    "e8c8"
+   ],
+   "rating": 1399,
+   "themes": [
+    "castling",
+    "discoveredAttack",
+    "discoveredCheck",
+    "mate",
+    "mateIn1",
+    "middlegame",
+    "oneMove",
+    "pillsburysMate"
+   ]
+  },
+  {
+   "id": "I7h4B",
+   "source": "lichess:I7h4B",
+   "fen": "5b1R/4kp1p/1pp3p1/4n1P1/1P6/P7/6PP/2K5 b - - 1 28",
+   "moves": [
+    "h7h5",
+    "g5h6",
+    "f8h6",
+    "h8h6"
+   ],
+   "rating": 1400,
+   "themes": [
+    "advantage",
+    "enPassant",
+    "endgame",
+    "short"
+   ]
+  },
+  {
+   "id": "KUdp5",
+   "source": "lichess:KUdp5",
+   "fen": "5rk1/P7/8/8/8/1R1p2pP/4prP1/4R1K1 w - - 1 44",
+   "moves": [
+    "a7a8q",
+    "f2f1",
+    "e1f1",
+    "e2f1q"
+   ],
+   "rating": 1400,
+   "themes": [
+    "advancedPawn",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "promotion",
+    "queenRookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "LVddH",
+   "source": "lichess:LVddH",
+   "fen": "rn3b1k/pq3P1p/6p1/1pp1N1BQ/2p5/2N3P1/PP3P1P/R4K2 b - - 0 20",
+   "moves": [
+    "g6h5",
+    "g5f6",
+    "f8g7",
+    "f7f8q"
+   ],
+   "rating": 1400,
+   "themes": [
+    "advancedPawn",
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "pin",
+    "promotion",
+    "short"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,742 @@
+{
+ "level": "L10",
+ "source": "Lichess puzzle database (CC0), https://database.lichess.org/#puzzles",
+ "puzzles": [
+  {
+   "id": "Vy7z2",
+   "source": "lichess:Vy7z2",
+   "fen": "8/6p1/7p/4q2P/1PR3P1/1K3k2/8/8 b - - 5 48",
+   "moves": [
+    "e5e3",
+    "c4c3",
+    "e3c3",
+    "b3c3"
+   ],
+   "rating": 634,
+   "themes": [
+    "crushing",
+    "defensiveMove",
+    "endgame",
+    "pin",
+    "queenRookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "wUs5p",
+   "source": "lichess:wUs5p",
+   "fen": "3b4/8/4kp2/p1R3pp/4P3/4K1P1/P6P/8 w - - 0 50",
+   "moves": [
+    "e3d4",
+    "d8b6",
+    "d4c4",
+    "b6c5"
+   ],
+   "rating": 653,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "xq2W3",
+   "source": "lichess:xq2W3",
+   "fen": "8/8/4p1pk/5q1p/2P5/4KQ2/1P4P1/8 b - - 3 45",
+   "moves": [
+    "f5g5",
+    "f3f4",
+    "e6e5",
+    "f4g5"
+   ],
+   "rating": 659,
+   "themes": [
+    "crushing",
+    "defensiveMove",
+    "endgame",
+    "master",
+    "pin",
+    "queenEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "Nfxvx",
+   "source": "lichess:Nfxvx",
+   "fen": "8/8/p6p/1p2k3/6r1/2P5/PP1Qp3/4K3 w - - 0 45",
+   "moves": [
+    "d2e2",
+    "g4e4",
+    "e2e4",
+    "e5e4"
+   ],
+   "rating": 665,
+   "themes": [
+    "crushing",
+    "defensiveMove",
+    "endgame",
+    "pin",
+    "queenRookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "3FEXP",
+   "source": "lichess:3FEXP",
+   "fen": "1rq3k1/4br2/2p1p1pp/2NnPp2/3P1P2/4B1PP/1R1Q3K/1R6 b - - 0 30",
+   "moves": [
+    "e7c5",
+    "b2b8",
+    "c8b8",
+    "b1b8"
+   ],
+   "rating": 684,
+   "themes": [
+    "crushing",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "iGBE7",
+   "source": "lichess:iGBE7",
+   "fen": "7k/2r3p1/7p/8/p5Q1/P6P/1b4P1/7K w - - 0 40",
+   "moves": [
+    "g4d1",
+    "c7c1",
+    "d1c1",
+    "b2c1"
+   ],
+   "rating": 694,
+   "themes": [
+    "crushing",
+    "endgame",
+    "master",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "tDHAj",
+   "source": "lichess:tDHAj",
+   "fen": "k2r4/P5pp/2R5/2p2p2/2r5/6P1/3p1P1P/3Q2K1 w - - 0 34",
+   "moves": [
+    "c6c7",
+    "c4c1",
+    "g1g2",
+    "c1d1"
+   ],
+   "rating": 712,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pin",
+    "queenRookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "ZsgRy",
+   "source": "lichess:ZsgRy",
+   "fen": "8/p2p1k1p/1p2p3/8/8/4R3/5KRq/8 b - - 1 40",
+   "moves": [
+    "h2f4",
+    "e3f3",
+    "f4f3",
+    "f2f3"
+   ],
+   "rating": 729,
+   "themes": [
+    "advantage",
+    "defensiveMove",
+    "endgame",
+    "pin",
+    "queenRookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "bhvfQ",
+   "source": "lichess:bhvfQ",
+   "fen": "8/7k/p5p1/6P1/1P4qP/P5R1/6K1/8 b - - 4 60",
+   "moves": [
+    "g4h4",
+    "g3h3",
+    "h4h3",
+    "g2h3"
+   ],
+   "rating": 731,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pin",
+    "queenRookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "bMnCV",
+   "source": "lichess:bMnCV",
+   "fen": "4b3/5k1p/4r1p1/3Qp3/8/1P4P1/P3PPKP/8 w - - 5 35",
+   "moves": [
+    "a2a4",
+    "e8c6",
+    "e2e4",
+    "c6d5"
+   ],
+   "rating": 738,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "4CAus",
+   "source": "lichess:4CAus",
+   "fen": "8/p5p1/4p2k/3p4/3P4/2Pb1N1p/PP4PP/7K w - - 0 36",
+   "moves": [
+    "g2g3",
+    "d3e4",
+    "h1g1",
+    "e4f3"
+   ],
+   "rating": 773,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "c5lNN",
+   "source": "lichess:c5lNN",
+   "fen": "rnbqk2r/pp2bppp/2p5/3pP3/8/2PB1Q2/PPP3PP/R1B1K1NR w KQkq - 0 8",
+   "moves": [
+    "f3g3",
+    "e7h4",
+    "g1f3",
+    "h4g3"
+   ],
+   "rating": 799,
+   "themes": [
+    "advantage",
+    "master",
+    "opening",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "kNIOJ",
+   "source": "lichess:kNIOJ",
+   "fen": "r4bk1/p4p1p/1qp1p1p1/3pP3/3P4/Q6P/PP3PP1/RN2K2R w KQ - 0 15",
+   "moves": [
+    "a3c3",
+    "f8b4",
+    "e1g1",
+    "b4c3"
+   ],
+   "rating": 824,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "4msxG",
+   "source": "lichess:4msxG",
+   "fen": "4q1k1/1Q3pp1/2p4p/3p4/1P6/2r3P1/5P1P/R5K1 b - - 1 30",
+   "moves": [
+    "c3b3",
+    "a1a8",
+    "e8a8",
+    "b7a8"
+   ],
+   "rating": 833,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "tIffC",
+   "source": "lichess:tIffC",
+   "fen": "4n1k1/2q2ppp/1pPbp3/pB6/P2Q1P2/4P1P1/1B5P/6K1 w - - 1 27",
+   "moves": [
+    "e3e4",
+    "d6c5",
+    "g1g2",
+    "c5d4"
+   ],
+   "rating": 855,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "Kxbcj",
+   "source": "lichess:Kxbcj",
+   "fen": "r1bqkb1r/pp1n3p/4p1p1/8/3pP3/8/PPP1B1PP/RNBQ1RK1 w kq - 0 12",
+   "moves": [
+    "d1d4",
+    "f8c5",
+    "c1e3",
+    "c5d4"
+   ],
+   "rating": 867,
+   "themes": [
+    "advantage",
+    "opening",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "nwPjI",
+   "source": "lichess:nwPjI",
+   "fen": "r3k2r/pb6/1p1pq2p/4n3/2P2p1N/P1NB4/1P1Q1PPP/4R1K1 b kq - 0 19",
+   "moves": [
+    "e8c8",
+    "d3f5",
+    "e6f5",
+    "h4f5"
+   ],
+   "rating": 875,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "VsqON",
+   "source": "lichess:VsqON",
+   "fen": "r4rk1/ppp2ppp/1bp4q/8/4P1bP/2NPP3/PPPQB1P1/2KR3R w - - 5 13",
+   "moves": [
+    "e2g4",
+    "b6e3",
+    "d2e3",
+    "h6e3"
+   ],
+   "rating": 896,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "WTAd1",
+   "source": "lichess:WTAd1",
+   "fen": "r2q1r1k/pp3p2/2n1p2p/3pP3/3P4/P1P3Q1/3B1P2/R4RK1 w - - 0 28",
+   "moves": [
+    "d2h6",
+    "f8g8",
+    "g1h1",
+    "g8g3"
+   ],
+   "rating": 929,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "N4450",
+   "source": "lichess:N4450",
+   "fen": "Q4k2/p2q4/1p1pr1p1/5p1p/5P2/P7/6PP/2R3K1 b - - 9 37",
+   "moves": [
+    "d7e8",
+    "c1c8",
+    "e8c8",
+    "a8c8"
+   ],
+   "rating": 945,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "epsux",
+   "source": "lichess:epsux",
+   "fen": "6r1/1p2q2k/p1b1pprp/8/4NP1Q/3R2P1/PP5P/3R2K1 b - - 2 28",
+   "moves": [
+    "c6e4",
+    "d3d7",
+    "g8g7",
+    "d7e7"
+   ],
+   "rating": 953,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "cpcF2",
+   "source": "lichess:cpcF2",
+   "fen": "3b4/7p/2p3k1/3b1p2/R4P2/2P3P1/1P3K1P/8 w - - 1 28",
+   "moves": [
+    "a4d4",
+    "d8b6",
+    "f2e2",
+    "b6d4"
+   ],
+   "rating": 957,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "PZVpN",
+   "source": "lichess:PZVpN",
+   "fen": "6k1/pp3p2/1qn1r2p/7Q/4NP1B/1Pb5/P4P1P/4R1K1 w - - 0 25",
+   "moves": [
+    "h5g4",
+    "e6g6",
+    "g4g6",
+    "f7g6"
+   ],
+   "rating": 990,
+   "themes": [
+    "advantage",
+    "defensiveMove",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "GSnXB",
+   "source": "lichess:GSnXB",
+   "fen": "r1b1k2r/p1q2pp1/2nbp2p/8/P1BP4/2nQ1N1N/5BPP/R3K2R w KQkq - 0 18",
+   "moves": [
+    "d3c3",
+    "d6b4",
+    "c3b4",
+    "c6b4"
+   ],
+   "rating": 992,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "w4sm5",
+   "source": "lichess:w4sm5",
+   "fen": "8/1p2r3/p2q2pk/7p/P1Bp4/1P3R1P/2Pb2P1/5Q1K w - - 3 38",
+   "moves": [
+    "f3f7",
+    "e7e1",
+    "f1e1",
+    "d2e1"
+   ],
+   "rating": 1008,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "Wip8p",
+   "source": "lichess:Wip8p",
+   "fen": "1k1r3r/ppq2pp1/2p1pn2/4bbBp/3P3P/1BP2P2/PP2Q1P1/R4K1R w - - 0 20",
+   "moves": [
+    "d4e5",
+    "f5d3",
+    "e2d3",
+    "d8d3"
+   ],
+   "rating": 1033,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "QWvd5",
+   "source": "lichess:QWvd5",
+   "fen": "2r5/5pk1/6p1/1p3b1p/1P1q3P/P1NpR1P1/1K1Q4/8 b - - 4 40",
+   "moves": [
+    "c8c3",
+    "d2c3",
+    "d4c3",
+    "b2c3"
+   ],
+   "rating": 1082,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "QNesm",
+   "source": "lichess:QNesm",
+   "fen": "rn2kb1r/p4pp1/2p1p3/4Pn1p/3P3P/3QBN2/Pq3PP1/RN2K2R w KQkq - 0 12",
+   "moves": [
+    "d3c3",
+    "f8b4",
+    "c3b4",
+    "b2b4"
+   ],
+   "rating": 1090,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "k7vSt",
+   "source": "lichess:k7vSt",
+   "fen": "4rb2/7k/1p2r1p1/p2QPpBp/2Pp3P/qP1P2P1/4R3/4R1K1 w - - 1 39",
+   "moves": [
+    "d5d4",
+    "f8c5",
+    "g5e3",
+    "c5d4"
+   ],
+   "rating": 1095,
+   "themes": [
+    "crushing",
+    "master",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "bdlxr",
+   "source": "lichess:bdlxr",
+   "fen": "2r5/p7/4kp2/5p1Q/5P1P/P7/6RK/4q3 b - - 0 39",
+   "moves": [
+    "e1e3",
+    "g2e2",
+    "e3e2",
+    "h5e2"
+   ],
+   "rating": 1096,
+   "themes": [
+    "crushing",
+    "endgame",
+    "master",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "skoJN",
+   "source": "lichess:skoJN",
+   "fen": "Nn3rk1/1p2bpp1/p1q1b2p/4p3/4P3/1N3Q2/PPP3PP/2KR1B1R w - - 1 16",
+   "moves": [
+    "f3e3",
+    "e7g5",
+    "e3g5",
+    "h6g5"
+   ],
+   "rating": 1115,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "UGwHz",
+   "source": "lichess:UGwHz",
+   "fen": "r1bq1rk1/ppp3pp/2n5/2bNNp2/4n3/3B4/PPPPQPPP/R1B2RK1 b - - 0 9",
+   "moves": [
+    "d8d5",
+    "d3c4",
+    "c8e6",
+    "c4d5"
+   ],
+   "rating": 1149,
+   "themes": [
+    "advantage",
+    "opening",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "MNi0r",
+   "source": "lichess:MNi0r",
+   "fen": "2r1r1k1/pp3p1p/4p1pB/3bP1Q1/3R3P/1P4R1/P4qPK/8 b - - 1 25",
+   "moves": [
+    "f2f5",
+    "g5f5",
+    "e6f5",
+    "d4d5"
+   ],
+   "rating": 1171,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "A7YDt",
+   "source": "lichess:A7YDt",
+   "fen": "4r3/pb3pk1/1n4pp/1N6/4P3/PP5P/2P1BP2/3K3R w - - 0 25",
+   "moves": [
+    "b5d6",
+    "e8d8",
+    "d1c1",
+    "d8d6"
+   ],
+   "rating": 1182,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "x6js3",
+   "source": "lichess:x6js3",
+   "fen": "1k1q2n1/pp6/2B1b3/8/1Q1P4/1P6/P3P2r/3K1R2 b - - 2 23",
+   "moves": [
+    "b7b6",
+    "f1f8",
+    "d8f8",
+    "b4f8"
+   ],
+   "rating": 1191,
+   "themes": [
+    "crushing",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "qnMVO",
+   "source": "lichess:qnMVO",
+   "fen": "5b1r/1b1k1ppp/2q5/8/3Q1B2/8/PP3PPP/5RK1 b - - 0 22",
+   "moves": [
+    "d7c8",
+    "f1c1",
+    "c6c1",
+    "f4c1"
+   ],
+   "rating": 1200,
+   "themes": [
+    "crushing",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "3rivP",
+   "source": "lichess:3rivP",
+   "fen": "4r1k1/5q1p/3p4/1PpN4/3b1P2/1P1B4/6PP/5Q1K b - - 0 32",
+   "moves": [
+    "f7d5",
+    "d3c4",
+    "d5f7",
+    "c4f7"
+   ],
+   "rating": 1200,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "o1eNt",
+   "source": "lichess:o1eNt",
+   "fen": "7r/ppk1nbbp/2p2pp1/4n3/4P3/1NN3B1/PPP3PP/2KB1R2 b - - 0 17",
+   "moves": [
+    "h8d8",
+    "g3e5",
+    "f6e5",
+    "f1f7"
+   ],
+   "rating": 1200,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "7q8Fx",
+   "source": "lichess:7q8Fx",
+   "fen": "1nkrq3/ppp2R2/3p2p1/3Pb2p/1PP1p3/P3P3/6PP/4BQK1 b - - 5 23",
+   "moves": [
+    "d8d7",
+    "f7f8",
+    "e8f8",
+    "f1f8"
+   ],
+   "rating": 1200,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  },
+  {
+   "id": "B2YQW",
+   "source": "lichess:B2YQW",
+   "fen": "r1b1k2r/ppp1bp1p/3p1p2/q7/2P1Q3/1P2P3/P2N1PPP/1K1R1B1R w kq - 0 15",
+   "moves": [
+    "d2f3",
+    "c8f5",
+    "e4f5",
+    "a5f5"
+   ],
+   "rating": 1200,
+   "themes": [
+    "advantage",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  }
+ ]
+}
