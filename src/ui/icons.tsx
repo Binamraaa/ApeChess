@@ -1,0 +1,61 @@
+import type { SVGProps } from 'react';
+
+type P = SVGProps<SVGSVGElement> & { size?: number };
+
+function Svg({ size = 20, children, ...rest }: P) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" {...rest}>
+      {children}
+    </svg>
+  );
+}
+
+export const Flame = (p: P) => (
+  <Svg {...p}>
+    <path
+      d="M12 2.5c.6 3.2 4.8 5.6 4.8 10.4a4.8 4.8 0 0 1-9.6 0c0-1.9.9-3.3 1.9-4.3.2 1.5 1 2.6 2.1 2.9-.6-3.2.1-6.4.8-9z"
+      fill="currentColor"
+    />
+  </Svg>
+);
+
+export const Bolt = (p: P) => (
+  <Svg {...p}>
+    <path d="M13.5 2 5 13.5h6L10 22l9-12h-6.2L13.5 2z" fill="currentColor" />
+  </Svg>
+);
+
+export const Star = ({ filled = true, ...p }: P & { filled?: boolean }) => (
+  <Svg {...p}>
+    <path
+      d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9L12 2.8z"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth={filled ? 0 : 1.8}
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
+export const Lock = (p: P) => (
+  <Svg {...p}>
+    <rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="currentColor" />
+    <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" stroke="currentColor" strokeWidth="2.2" />
+  </Svg>
+);
+
+export const Close = (p: P) => (
+  <Svg {...p}>
+    <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+  </Svg>
+);
+
+export const Bulb = (p: P) => (
+  <Svg {...p}>
+    <path
+      d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.5.4.8 1 .8 1.6V17h6v-1.1c0-.6.3-1.2.8-1.6A6.5 6.5 0 0 0 12 2.5z"
+      fill="currentColor"
+    />
+    <path d="M9.5 19.5h5M10.5 22h3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </Svg>
+);

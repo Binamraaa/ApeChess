@@ -1,0 +1,208 @@
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/nunito';
+
+:root {
+  /* Palette from Bapu's artwork. Tune here. */
+  --cream: #f6ebd9;
+  --paper: #fbf4e8;
+  --paper-edge: #e8d9bf;
+  --ink: #3b2f27;
+  --ink-soft: #6b5a4c;
+  --rust: #a8461f;
+  --rust-deep: #7a3b1e;
+  --amber: #f5c75e;
+  --amber-deep: #d39b2a;
+  --teal: #1f5c57;
+  --teal-deep: #143f3b;
+  --teal-soft: #dcebe4;
+  --good: #2f8a57;
+  --good-soft: #e1f1e4;
+  --bad: #c2452d;
+  --bad-soft: #f8e1d8;
+  --wood: #8a5a3b;
+  --wood-deep: #5e3b25;
+  --sq-light: #f1e2c4;
+  --sq-dark: #7ba08a;
+
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Nunito Variable', system-ui, sans-serif;
+
+  --radius: 18px;
+  --gutter: 16px;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* Subtle paper grain, echoing Bapu's illustration style. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.18 0 0 0 0 0.15 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Buttons: chunky and pressable ---------- */
+
+.btn {
+  --face: var(--amber);
+  --edge: var(--amber-deep);
+  --text: var(--ink);
+  appearance: none;
+  border: 0;
+  border-radius: 16px;
+  padding: 14px 20px;
+  min-height: 52px;
+  background: var(--face);
+  color: var(--text);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+  box-shadow: 0 5px 0 var(--edge);
+  transform: translateY(0);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  touch-action: manipulation;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--edge);
+}
+
+.btn:disabled {
+  filter: grayscale(0.6) opacity(0.6);
+  cursor: default;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-teal {
+  --face: var(--teal);
+  --edge: var(--teal-deep);
+  --text: #fff;
+}
+
+.btn-good {
+  --face: var(--good);
+  --edge: #1f633d;
+  --text: #fff;
+}
+
+.btn-ghost {
+  --face: var(--paper);
+  --edge: var(--paper-edge);
+  --text: var(--ink);
+}
+
+.icon-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.icon-btn:active {
+  background: var(--paper-edge);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes rise-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

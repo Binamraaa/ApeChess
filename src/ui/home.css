@@ -1,0 +1,259 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: max(10px, env(safe-area-inset-top)) var(--gutter) max(24px, env(safe-area-inset-bottom));
+}
+
+.home-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: var(--teal);
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+.wordmark span {
+  color: var(--rust);
+  font-style: italic;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px 6px 9px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.chip-streak.lit {
+  color: #d8572a;
+}
+
+.chip-xp {
+  color: var(--amber-deep);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero-arch {
+  align-self: center;
+  width: min(44vw, 170px);
+  aspect-ratio: 5 / 6;
+  border-radius: 999px 999px 22px 22px;
+  overflow: hidden;
+  background: var(--sq-light);
+  box-shadow: 0 0 0 5px var(--paper), 0 0 0 8px var(--wood), 0 14px 30px rgba(59, 47, 39, 0.22);
+  margin-top: 6px;
+}
+
+.hero-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+/* ---------- Lesson card ---------- */
+
+.lesson {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+  box-shadow: 0 5px 0 var(--paper-edge);
+}
+
+.lesson-unit {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.lesson-head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.lesson-head h2 {
+  font-size: 22px;
+}
+
+.lesson-badge {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: var(--teal);
+  box-shadow: 0 4px 0 var(--teal-deep);
+}
+
+.lesson-badge img {
+  display: block;
+}
+
+.lesson-concept {
+  margin-top: 4px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.lesson-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lesson-meta {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star-on {
+  color: var(--amber-deep);
+}
+
+.star-off {
+  color: var(--paper-edge);
+}
+
+.btn-start {
+  font-size: 18px;
+  min-height: 56px;
+}
+
+/* ---------- Path ---------- */
+
+.path h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.path-row {
+  list-style: none;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 6px var(--gutter) 10px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.path-row::-webkit-scrollbar {
+  display: none;
+}
+
+.node {
+  position: relative;
+  flex: none;
+  width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+/* The trail between nodes. */
+.node:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 27px;
+  left: calc(50% + 30px);
+  width: calc(100% - 56px);
+  border-top: 4px dotted var(--paper-edge);
+}
+
+.node-dot {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  cursor: pointer;
+  background: var(--amber);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--amber-deep);
+}
+
+.node-dot:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--amber-deep);
+}
+
+.node-locked .node-dot {
+  background: var(--paper-edge);
+  color: #a8957f;
+  box-shadow: 0 5px 0 #d6c4a5;
+  cursor: default;
+}
+
+.node-current .node-dot {
+  animation: beckon 2.2s ease-in-out infinite;
+}
+
+@keyframes beckon {
+  0%, 100% { box-shadow: 0 5px 0 var(--amber-deep), 0 0 0 0 rgba(245, 199, 94, 0.6); }
+  50% { box-shadow: 0 5px 0 var(--amber-deep), 0 0 0 10px rgba(245, 199, 94, 0); }
+}
+
+.node-title {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--ink-soft);
+}
+
+.node-locked .node-title {
+  color: #a8957f;
+}
+
+.path-note {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
