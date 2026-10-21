@@ -4,10 +4,15 @@ import { currentPuzzle, initialRun, progress, runReducer, type RunAction, type R
 import { scoreLevel } from '../../levels/scoring';
 import type { LevelDef } from '../../levels/types';
 import { getLevelProgress, markStarted } from '../../progress/store';
+import { formatTime } from '../format';
 import { Close } from '../icons';
 import { ConceptCard } from './ConceptCard';
 import { DemoPlayer } from './DemoPlayer';
+import { ChoicePlayer } from './ChoicePlayer';
+import { DrillPlayer } from './DrillPlayer';
+import { EndgamePlayer } from './EndgamePlayer';
 import { PuzzlePlayer } from './PuzzlePlayer';
+import { QuizPlayer } from './QuizPlayer';
 import { SummaryCard } from './SummaryCard';
 import './level.css';
 
@@ -20,9 +25,27 @@ function phaseLabel(level: LevelDef, s: RunState): string {
     case 'guided':
       return `Guided ${s.index + 1}/${level.guided.length}`;
     case 'practice':
-      return `Practice ${s.index + 1}/${level.practice.length}`;
+      return `${level.timed ? 'Puzzle' : 'Practice'} ${s.index + 1}/${level.practice.length}`;
     case 'summary':
       return 'Done!';
+  }
+}
+
+type StepProps = Parameters<typeof PuzzlePlayer>[0];
+
+/** One guided or practice step, played by the component for its kind. */
+function Step(props: StepProps) {
+  switch (props.puzzle.kind ?? 'puzzle') {
+    case 'drill':
+      return <DrillPlayer {...props} />;
+    case 'quiz':
+      return <QuizPlayer {...props} />;
+    case 'choice':
+      return <ChoicePlayer {...props} />;
+    case 'endgame':
+      return <EndgamePlayer {...props} />;
+    default:
+      return <PuzzlePlayer {...props} />;
   }
 }
 
@@ -75,6 +98,17 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
     window.scrollTo(0, 0);
   }, [state.phase, state.index]);
 
+  // The boss level is timed from its first puzzle to the summary.
+  const [clock, setClock] = useState<{ start?: number; now: number }>({ now: Date.now() });
+  const playing = state.phase === 'guided' || state.phase === 'practice';
+  useEffect(() => {
+    if (!level.timed || !playing) return;
+    setClock((c) => ({ start: c.start ?? Date.now(), now: Date.now() }));
+    const t = window.setInterval(() => setClock((c) => ({ ...c, now: Date.now() })), 1000);
+    return () => clearInterval(t);
+  }, [level.timed, playing]);
+  const seconds = clock.start ? Math.round((clock.now - clock.start) / 1000) : 0;
+
   const puzzle = currentPuzzle(level, state);
   const score = useMemo(() => scoreLevel(state.outcomes), [state.outcomes]);
   const next = () => dispatch({ type: 'next' });
@@ -95,14 +129,17 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
         >
           <div className="progress-fill" style={{ width: `${Math.max(progress(level, state) * 100, 4)}%` }} />
         </div>
-        <span className="level-phase">{phaseLabel(level, state)}</span>
+        <span className="level-phase">
+          {phaseLabel(level, state)}
+          {level.timed && playing && <span className="level-clock">{formatTime(seconds)}</span>}
+        </span>
       </header>
 
       <main className="level-main">
         {state.phase === 'concept' && <ConceptCard level={level} onContinue={next} />}
         {state.phase === 'demo' && <DemoPlayer puzzle={level.demo} onContinue={next} />}
         {(state.phase === 'guided' || state.phase === 'practice') && puzzle && (
-          <PuzzlePlayer
+          <Step
             key={puzzle.id}
             puzzle={puzzle}
             mode={state.phase}
@@ -112,7 +149,15 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
           />
         )}
         {state.phase === 'summary' && (
-          <SummaryCard level={level} score={score} played={played} onDone={onExit} onNext={onNext} onReplay={() => onReplay(played)} />
+          <SummaryCard
+            level={level}
+            score={score}
+            played={played}
+            seconds={level.timed ? seconds : undefined}
+            onDone={onExit}
+            onNext={onNext}
+            onReplay={() => onReplay(played)}
+          />
         )}
       </main>
     </div>

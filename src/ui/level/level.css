@@ -236,7 +236,7 @@
 
 .summary-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 10px;
 }
 
@@ -294,4 +294,57 @@
 .summary-tip {
   font-size: 14px;
   color: var(--ink-soft);
+}
+
+/* ---------- Quiz and choice answers ---------- */
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.quiz-btn {
+  min-height: 52px;
+  font-size: 16px;
+}
+
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice-btn {
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 50px;
+  font-size: 16px;
+}
+
+.choice-letter {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.choice-blue .choice-letter { background: #1f5c57; }
+.choice-green .choice-letter { background: #2f8a57; }
+.choice-yellow .choice-letter { background: #c9861b; }
+.choice-red .choice-letter { background: #c2452d; }
+
+.choice-btn:disabled {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.level-clock {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  color: var(--rust);
 }

@@ -5,26 +5,51 @@ import type { Key } from 'chessground/types';
 import { Board } from '../../board/Board';
 import { BapuBubble } from '../../bapu/BapuBubble';
 import { moveFacts } from '../../bapu/explain';
+import { drillFen, drillMove, parseDrill } from '../../levels/drill';
 import { parseUci } from '../../levels/puzzle';
 import type { PuzzleDef } from '../../levels/types';
-import { tacticArrows } from './shapes';
+import { starShapes, tacticArrows } from './shapes';
 
 interface Frame {
   fen: string;
-  move?: Move;
+  move?: Pick<Move, 'from' | 'to'>;
   shapes: DrawShape[];
+  check?: boolean;
+  turn?: 'white' | 'black';
+}
+
+/** The side the demo is about: given explicitly, else the side not to move (the opponent moves first). */
+function heroOf(p: PuzzleDef): 'white' | 'black' {
+  if (p.orientation) return p.orientation;
+  if (p.kind === 'drill') return 'white';
+  return new Chess(p.fen).turn() === 'w' ? 'black' : 'white';
 }
 
 /** Precomputes every position of the demo line, so stepping is just an index. */
 function framesOf(p: PuzzleDef): Frame[] {
+  if (p.kind === 'drill') {
+    // A single piece walking onto stars (Level 1); no chess rules needed.
+    let b = parseDrill(p.fen);
+    let left = p.targets ?? [];
+    const frames: Frame[] = [{ fen: drillFen(b), shapes: starShapes(left) }];
+    for (const uci of p.moves) {
+      const { from, to } = parseUci(uci);
+      b = drillMove(b, to);
+      left = left.filter((t) => t !== to);
+      frames.push({ fen: drillFen(b), move: { from, to } as Frame['move'], shapes: starShapes(left) });
+    }
+    return frames;
+  }
   const chess = new Chess(p.fen);
-  const frames: Frame[] = [{ fen: p.fen, shapes: [] }];
+  const hero = heroOf(p)[0];
+  const status = (): Pick<Frame, 'check' | 'turn'> => ({ check: chess.inCheck(), turn: chess.turn() === 'w' ? 'white' : 'black' });
+  const frames: Frame[] = [{ fen: p.fen, shapes: [], ...status() }];
   p.moves.forEach((uci, i) => {
     const before = chess.fen();
     const move = chess.move(parseUci(uci));
     // Arrows on the hero's moves show the idea; none on the last move, where it's already cashed in.
-    const idea = i % 2 === 1 && i < p.moves.length - 1;
-    frames.push({ fen: chess.fen(), move, shapes: idea ? tacticArrows(moveFacts(before, move)) : [] });
+    const idea = move.color === hero && i < p.moves.length - 1;
+    frames.push({ fen: chess.fen(), move, shapes: idea ? tacticArrows(moveFacts(before, move)) : [], ...status() });
   });
   return frames;
 }
@@ -40,10 +65,17 @@ export function DemoPlayer({ puzzle, onContinue }: Props) {
   const [i, setI] = useState(0);
   const frame = frames[i];
   const last = i === frames.length - 1;
-  // The opponent moves first, so the "hero" of the demo is the side not to move.
-  const hero = new Chess(puzzle.fen).turn() === 'w' ? 'black' : 'white';
+  const hero = heroOf(puzzle);
   const opponent = hero === 'white' ? 'Black' : 'White';
-  const text = i === 0 ? `Watch closely. ${opponent} is about to make a tiny mistake.` : puzzle.narration?.[i - 1];
+  // A narration with one extra line opens with its own intro instead of the default one.
+  const narration = puzzle.narration ?? [];
+  const intro = narration.length > puzzle.moves.length;
+  const text =
+    i === 0
+      ? intro
+        ? narration[0]
+        : `Watch closely. ${opponent} is about to make a tiny mistake.`
+      : narration[intro ? i : i - 1];
 
   return (
     <div className="play">
@@ -57,9 +89,9 @@ export function DemoPlayer({ puzzle, onContinue }: Props) {
       <Board
         fen={frame.fen}
         orientation={hero}
-        turnColor={new Chess(frame.fen).turn() === 'w' ? 'white' : 'black'}
+        turnColor={frame.turn ?? 'white'}
         lastMove={frame.move ? [frame.move.from as Key, frame.move.to as Key] : undefined}
-        check={new Chess(frame.fen).inCheck()}
+        check={frame.check}
         shapes={frame.shapes}
       />
 

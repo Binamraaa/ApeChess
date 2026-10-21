@@ -1,0 +1,326 @@
+{
+ "level": "L03",
+ "source": "Lichess puzzle database (CC0), https://database.lichess.org/#puzzles, plus generated stalemates",
+ "puzzles": [
+  {
+   "id": "L03-check-1",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "5r1k/pQR3pp/5rp1/3B4/q7/7P/P3nPP1/5RK1 w - - 5 31",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-2",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "8/5R2/p4kpp/3B4/5q2/8/5P1P/6K1 b - - 7 41",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-3",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "7Q/8/3p1kp1/1p6/2b5/2q4P/5PPK/8 b - - 1 37",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-4",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "8/3R4/p1pk4/2q3bp/1QP5/P7/KP6/3r4 b - - 4 45",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-5",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "7Q/5qk1/p2p4/b1p1pr2/P7/6P1/4KP1R/8 b - - 5 39",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-6",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "1r2Q1k1/5p1p/p5pb/2q5/p2n4/P2Q2B1/r2N1PPP/3KR2R b - - 0 28",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-7",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "3R2k1/1p3pp1/pB2q2p/2P1b3/1P6/6QP/4r1P1/7K b - - 6 34",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-8",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "4k3/1R6/6N1/5p1p/7P/6rK/5b2/8 w - - 0 48",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-9",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "2R5/5pk1/pb4p1/1p1q4/3P1P1p/P6r/1PQ3P1/3R3K w - - 0 46",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-check-10",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "4r3/2p1qR1k/p1Pp2pb/1p1Q3p/7P/2P5/PP4P1/1K6 b - - 3 35",
+   "moves": [],
+   "answer": "check"
+  },
+  {
+   "id": "L03-mate-1",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "3r4/R7/2p5/p1P2p2/1p4k1/1P2K3/P1n1NP2/8 w - - 5 42",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-2",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "5rkQ/1q3r2/3p2p1/3p4/3B4/2P2P2/P5PP/6K1 b - - 1 31",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-3",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "1r6/6R1/p5kp/4p2N/2pn2K1/1P6/P5PP/8 b - - 0 31",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-4",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "1r2kQnr/3b1ppp/1q2p3/8/8/B3P1P1/5P1P/5RK1 b k - 2 25",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-5",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "r1b4r/pp1p1Q1k/5Bnp/1q4p1/5p2/8/PPP3PP/2KR3R b - - 0 21",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-6",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "R5k1/8/6K1/7P/8/8/6p1/7r b - - 1 59",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-7",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "2k5/p1p2ppp/2R5/8/8/5qPb/PPQ2b1P/R6K w - - 2 23",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-8",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "6k1/2R4p/6p1/5p2/4nPP1/4NK2/5r1P/8 w - - 1 41",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-9",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "5r2/4r1k1/3p1pbp/1Pp5/2P5/P2P1R2/4P1Bp/1R2QKq1 w - - 2 33",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-mate-10",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "6k1/p4p2/P3pQ2/1p4P1/q7/1KP5/1P6/8 w - - 2 47",
+   "moves": [],
+   "answer": "mate"
+  },
+  {
+   "id": "L03-stalemate-1",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "k7/8/1Q6/8/8/8/8/7K b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-2",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "k7/2Q5/8/8/3K4/8/8/8 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-3",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "k1K5/8/8/8/8/4B3/1N6/8 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-4",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "3R4/8/8/8/8/5KBk/8/8 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-5",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "8/8/8/8/8/6Q1/3K4/7k b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-6",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "7k/8/6Q1/8/8/8/8/K7 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-7",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "7k/8/6K1/8/8/1B6/8/1R6 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-8",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "8/8/8/8/8/5Q2/8/2K1k3 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-9",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "8/8/8/5K2/8/8/5Q2/7k b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-stalemate-10",
+   "kind": "quiz",
+   "source": "custom",
+   "fen": "k7/2K5/8/8/8/5N2/8/6B1 b - - 0 1",
+   "moves": [],
+   "answer": "stalemate"
+  },
+  {
+   "id": "L03-none-1",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "5r1k/pQR3pp/5rp1/3B4/q2n4/7P/P4PP1/5RK1 b - - 4 30",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-2",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "8/4R3/p4kpp/3B4/5q2/8/5P1P/6K1 w - - 6 41",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-3",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "3r4/R7/2p5/p1P2p2/1p4k1/nP2K3/P3NP2/8 b - - 4 41",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-4",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "8/7k/R6p/3p4/5r2/2P1p2P/P5P1/6K1 b - - 0 40",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-5",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "3r4/4kp1p/1PQ1p1p1/p3b3/1p2P2P/1P5K/6P1/8 b - - 2 36",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-6",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "8/1R6/p1pk4/2q3bp/1QP5/P7/KP6/3r4 w - - 3 45",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-7",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "rnbqk2r/pp3ppp/5n2/4N3/2p5/2P5/P1PPQPPP/R1B1K2R w KQkq - 0 9",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-8",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "r4rk1/4p1bp/3p2p1/q1pP1P2/4QP2/4B3/1pK4P/1B1R3R b - - 1 22",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-9",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "1r4k1/4Pp1p/p5pb/2q5/p2n4/P2Q2B1/r2N1PPP/3KR2R w - - 1 28",
+   "moves": [],
+   "answer": "none"
+  },
+  {
+   "id": "L03-none-10",
+   "kind": "quiz",
+   "source": "lichess",
+   "fen": "8/8/2B5/4pK2/3k1pPp/7P/8/6n1 w - - 4 58",
+   "moves": [],
+   "answer": "none"
+  }
+ ]
+}

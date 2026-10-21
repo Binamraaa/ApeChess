@@ -4,15 +4,22 @@ export const PRACTICE_SIZE = 7;
 /** How many recently played puzzles to remember per level. */
 export const RECENT_LIMIT = 60;
 
-/** Every puzzle a level can draw practice from: hand-authored ones plus its pack, minus the featured puzzles. */
-export function practicePool(level: LevelDef): PuzzleDef[] {
-  const featured = new Set([level.demo, ...level.guided].flatMap((p) => [p.id, p.source]).filter(Boolean));
+/** Drops the level's featured puzzles and duplicates from a list of candidates. */
+function withoutFeatured(level: LevelDef, puzzles: PuzzleDef[]): PuzzleDef[] {
+  // Lichess sources name one puzzle; "custom" is shared by every hand-made one, so it doesn't count.
+  const named = (p: PuzzleDef) => [p.id, p.source?.startsWith('lichess:') ? p.source : undefined];
+  const featured = new Set([level.demo, ...level.guided].flatMap(named).filter(Boolean));
   const seen = new Set<string>();
-  return [...level.practice, ...(level.pack ?? [])].filter((p) => {
+  return puzzles.filter((p) => {
     if (featured.has(p.id) || (p.source && featured.has(p.source)) || seen.has(p.id)) return false;
     seen.add(p.id);
     return true;
   });
+}
+
+/** Every puzzle a level can draw practice from: hand-authored ones plus its pack, minus the featured puzzles. */
+export function practicePool(level: LevelDef): PuzzleDef[] {
+  return withoutFeatured(level, [...level.practice, ...(level.pack ?? [])]);
 }
 
 /**
@@ -33,7 +40,14 @@ export function pickPractice(pool: PuzzleDef[], recent: string[], n = PRACTICE_S
 
 /** The level as played this run, with a fresh practice set. */
 export function levelRun(level: LevelDef, recent: string[], random = Math.random): LevelDef {
-  return { ...level, practice: pickPractice(practicePool(level), recent, PRACTICE_SIZE, random) };
+  if (level.pools?.length) {
+    // Mixed levels: draw each group separately, then play them easiest first.
+    const practice = level.pools
+      .flatMap((pool) => pickPractice(withoutFeatured(level, pool.puzzles), recent, pool.count, random))
+      .sort((a, b) => (a.rating ?? 0) - (b.rating ?? 0));
+    return { ...level, practice };
+  }
+  return { ...level, practice: pickPractice(practicePool(level), recent, level.practiceSize ?? PRACTICE_SIZE, random) };
 }
 
 /** Updates the recently-played list after a run. */

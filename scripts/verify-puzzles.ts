@@ -14,7 +14,10 @@ function puzzlesOf(file: string): { title: string; puzzles: PuzzleDef[] } {
   const json = JSON.parse(readFileSync(file, 'utf8'));
   if (json.puzzles) return { title: `pack ${json.level}`, puzzles: json.puzzles };
   const level = json as LevelDef;
-  return { title: level.title, puzzles: [level.demo, ...level.guided, ...level.practice] };
+  // Only Lichess-format puzzles: not drills, quizzes, choices or endgames, and not demos that
+  // start with the hero's own move (those set an orientation).
+  const steps = [level.demo, ...level.guided, ...level.practice].filter((p) => (p.kind ?? 'puzzle') === 'puzzle' && !p.orientation);
+  return { title: level.title, puzzles: steps };
 }
 
 async function main() {

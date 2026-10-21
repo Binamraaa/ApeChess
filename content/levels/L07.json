@@ -1,0 +1,267 @@
+{
+  "id": "L07",
+  "number": 7,
+  "unit": 2,
+  "unitTitle": "Finishing the Game",
+  "title": "Opening Principles",
+  "theme": "choice",
+  "icon": "wN",
+  "concept": "Control the centre, develop knights and bishops, castle early, and don’t bring the queen out too soon.",
+  "glossary": {
+    "term": "Develop",
+    "definition": "Bring a knight or bishop off its starting square so it can join the game."
+  },
+  "summary": "In the opening: grab the centre, bring out knights and bishops, castle early, and keep the queen home until the pieces are out. And always ask what your opponent is threatening.",
+  "demo": {
+    "id": "L07-demo",
+    "source": "custom",
+    "orientation": "white",
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "moves": [
+      "e2e4",
+      "e7e5",
+      "g1f3",
+      "b8c6",
+      "f1c4",
+      "f8c5",
+      "e1g1"
+    ],
+    "narration": [
+      "The first moves of a game decide a lot. Bapu’s three rules: grab the centre, bring out knights and bishops, castle early. Watch.",
+      "Pawn to e4: a centre square, and it opens lines for the queen and bishop.",
+      "Black does the same. Fair enough.",
+      "Knight to f3: develops toward the centre and attacks e5.",
+      "Black defends with a knight of its own. Development with purpose.",
+      "Bishop to c4: out, and aiming at f7, the weakest square near Black’s king.",
+      "Black copies the idea. Both sides are developing nicely.",
+      "Castle! The king is tucked away and the rook is ready to join. Centre, development, castling: three rules, seven moves."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L07-g1",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "moves": [],
+      "options": [
+        {
+          "uci": "a2a3",
+          "why": "Pawn to a3 does nothing for the centre and doesn’t help a single piece come out."
+        },
+        {
+          "uci": "h2h4",
+          "why": "Pawn to h4 weakens the side where your king usually lives, and ignores the centre."
+        },
+        {
+          "uci": "e2e4",
+          "best": true,
+          "why": "Pawn to e4 grabs a centre square and opens lines for your queen and bishop. A dream first move."
+        }
+      ],
+      "hint": "Which move does something for the centre AND helps your pieces come out?"
+    },
+    {
+      "id": "L07-g2",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+      "moves": [],
+      "options": [
+        {
+          "uci": "f2f3",
+          "why": "Pawn to f3 weakens your king and steals the knight’s best square."
+        },
+        {
+          "uci": "g1f3",
+          "best": true,
+          "why": "Knight to f3 comes out toward the centre and attacks the pawn on e5 straight away. Development with a threat!"
+        },
+        {
+          "uci": "d1h5",
+          "why": "Queen to h5 comes out too early. Black will chase her with knights and pawns, gaining moves while you retreat."
+        }
+      ],
+      "hint": "Knights love the centre. Which move brings one out AND puts pressure on Black?"
+    },
+    {
+      "id": "L07-g3",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 1 5",
+      "moves": [],
+      "options": [
+        {
+          "uci": "e1g1",
+          "best": true,
+          "why": "Castle! Your king hides behind the pawns, and the rook moves toward the centre where it can join the game."
+        },
+        {
+          "uci": "e1f1",
+          "why": "King to f1 walks the king one step and loses the right to castle forever. Castling does the same job much better."
+        },
+        {
+          "uci": "h1g1",
+          "why": "Rook to g1 gives up castling on the kingside, so your king is stuck in the middle for good."
+        }
+      ],
+      "hint": "Your knight and bishop are out. What’s the last step of a good opening?"
+    }
+  ],
+  "practice": [
+    {
+      "id": "L07-p1",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+      "moves": [],
+      "options": [
+        {
+          "uci": "f7f6",
+          "why": "Pawn to f6 defends e5, but it opens the diagonal to your king and takes the knight’s best square."
+        },
+        {
+          "uci": "d8f6",
+          "why": "Queen to f6 defends e5, but the queen comes out early, blocks your knight, and becomes a target."
+        },
+        {
+          "uci": "b8c6",
+          "best": true,
+          "why": "Knight to c6 comes out and defends the pawn on e5. One move, two jobs."
+        }
+      ]
+    },
+    {
+      "id": "L07-p2",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 0 2",
+      "moves": [],
+      "options": [
+        {
+          "uci": "g2g4",
+          "why": "Pawn to g4 just gives a pawn away: Black’s bishop on c8 takes it for free."
+        },
+        {
+          "uci": "g1f3",
+          "best": true,
+          "why": "Knight to f3 heads for the centre, controls e5, and gets ready for castling."
+        },
+        {
+          "uci": "g1h3",
+          "why": "Knight to h3 sits on the edge, where it controls only a few squares. A knight on the rim is dim!"
+        }
+      ]
+    },
+    {
+      "id": "L07-p3",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
+      "moves": [],
+      "options": [
+        {
+          "uci": "g7g6",
+          "best": true,
+          "why": "Pawn to g6 blocks the queen’s threat on f7 AND attacks her. Always check what your opponent threatens before you move!"
+        },
+        {
+          "uci": "g8f6",
+          "why": "Knight to f6 attacks the queen, but it ignores the real threat: queen takes f7 is checkmate!"
+        },
+        {
+          "uci": "a7a6",
+          "why": "Pawn to a6 ignores the threat on f7. Queen takes f7 is checkmate. Ouch."
+        }
+      ]
+    },
+    {
+      "id": "L07-p4",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnbqkb1r/pppp1ppp/4pn2/8/2PP4/2N5/PP2PPPP/R1BQKBNR b KQkq - 1 3",
+      "moves": [],
+      "options": [
+        {
+          "uci": "h7h5",
+          "why": "Pawn to h5 weakens your kingside and does nothing for development."
+        },
+        {
+          "uci": "f6g4",
+          "why": "Knight to g4 moves the same piece twice in the opening, and it does nothing there."
+        },
+        {
+          "uci": "f8b4",
+          "best": true,
+          "why": "Bishop to b4 comes out with purpose: it pins the knight and fights for the e4 square."
+        }
+      ]
+    },
+    {
+      "id": "L07-p5",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+      "moves": [],
+      "options": [
+        {
+          "uci": "f1a6",
+          "why": "Bishop to a6 just gives the bishop away: the b7 pawn or the knight takes it."
+        },
+        {
+          "uci": "g1f3",
+          "best": true,
+          "why": "Knight to f3 develops toward the centre and prepares to break open the middle with d4."
+        },
+        {
+          "uci": "d1h5",
+          "why": "Queen to h5 is far too early: she’ll get chased around while Black develops."
+        }
+      ]
+    },
+    {
+      "id": "L07-p6",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1 b kq - 2 5",
+      "moves": [],
+      "options": [
+        {
+          "uci": "e8g8",
+          "best": true,
+          "why": "Castle too! Your king gets safe and your rook joins the game. Now both sides are ready for the middlegame."
+        },
+        {
+          "uci": "f6g4",
+          "why": "Knight to g4 moves the same piece twice to make a one-move threat. White simply plays h3 and you’ve lost time."
+        },
+        {
+          "uci": "h8g8",
+          "why": "Rook to g8 gives up castling on that side and leaves your king stuck in the centre."
+        }
+      ]
+    },
+    {
+      "id": "L07-p7",
+      "kind": "choice",
+      "source": "custom",
+      "fen": "rnb1kbnr/ppp1pppp/8/3q4/8/2N5/PPPP1PPP/R1BQKBNR b KQkq - 1 3",
+      "moves": [],
+      "options": [
+        {
+          "uci": "d5e5",
+          "why": "Queen to e5, check, just invites Be2 or Nge2 and the queen will be chased again."
+        },
+        {
+          "uci": "d5g2",
+          "why": "Taking the g2 pawn walks the queen into a trap: Qf3 and she’s in serious trouble."
+        },
+        {
+          "uci": "d5a5",
+          "best": true,
+          "why": "Queen to a5 escapes to a safe square where she still eyes the board. When the queen is chased, find her a safe spot fast."
+        }
+      ]
+    }
+  ]
+}

@@ -12,11 +12,12 @@ import {
   explainSolved,
   explainWrong,
   isFork,
+  lineInsights,
   moveFacts,
   type MoveFacts,
 } from '../../bapu/explain';
 import { THEMES, type Theme } from '../../bapu/themes';
-import { PuzzleSession, parseUci, type MoveResult } from '../../levels/puzzle';
+import { PuzzleSession, moveToUci, parseUci, type MoveResult } from '../../levels/puzzle';
 import type { PuzzleOutcome } from '../../levels/scoring';
 import type { PuzzleDef } from '../../levels/types';
 import { Bulb } from '../icons';
@@ -43,6 +44,7 @@ interface View {
 interface Props {
   puzzle: PuzzleDef;
   mode: 'guided' | 'practice';
+  /** The level's theme: picks the prompt and hints. Bapu's explanations use the puzzle's own theme if it has one. */
   theme: Theme;
   onSolved: (outcome: PuzzleOutcome) => void;
   onContinue: () => void;
@@ -71,8 +73,9 @@ function goodLabel(f: MoveFacts): string {
  * One guided or practice puzzle. Rules and checking live in PuzzleSession;
  * this component only sequences animations and Bapu's lines.
  */
-export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Props) {
-  const copy = THEMES[theme];
+export function PuzzlePlayer({ puzzle, mode, theme: levelTheme, onSolved, onContinue }: Props) {
+  const copy = THEMES[levelTheme];
+  const theme = puzzle.theme ?? levelTheme;
   const [session] = useState(() => new PuzzleSession(puzzle));
   const [view, setView] = useState<View>({ fen: puzzle.fen, check: false, version: 0 });
   const [status, setStatus] = useState<Status>('intro');
@@ -83,7 +86,15 @@ export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Prop
   const [hintLevel, setHintLevel] = useState(0);
 
   // Read inside timers, so kept in a ref rather than state.
-  const track = useRef({ mistakes: 0, hinted: false, revealed: false, offScript: false, played: [] as MoveFacts[] });
+  const track = useRef({
+    mistakes: 0,
+    hinted: false,
+    revealed: false,
+    offScript: false,
+    played: [] as MoveFacts[],
+    /** Every move so far in UCI, opponent's first move included. */
+    line: [puzzle.moves[0]],
+  });
   const timers = useRef<number[]>([]);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   const later = (fn: () => void, ms: number) => {
@@ -117,7 +128,7 @@ export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Prop
     const t = track.current;
     setStatus('solved');
     // The hand-written explanation describes the intended line; a different mate gets its own words.
-    const text = (!t.offScript && puzzle.explanation) || explainSolved(t.played, theme);
+    const text = (!t.offScript && puzzle.explanation) || explainSolved(t.played, theme, lineInsights(puzzle.fen, t.line));
     say('good', text, t.revealed ? 'Here’s the idea' : t.mistakes ? 'Got there!' : 'Brilliant!');
     if (!t.revealed) vibrate(30);
     onSolved({ puzzleId: puzzle.id, firstTry: t.mistakes === 0, hintUsed: t.hinted, revealed: t.revealed });
@@ -128,6 +139,8 @@ export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Prop
     const t = track.current;
     const facts = moveFacts(fenBefore, result.move);
     t.played.push(facts);
+    t.line.push(moveToUci(result.move));
+    if (result.kind === 'correct') t.line.push(moveToUci(result.reply));
     // No arrows on the final move: the piece often "forks" again there, which is noise.
     setShapes(result.kind !== 'solved' ? tacticArrows(facts) : []);
     setHintLevel(0);

@@ -38,6 +38,13 @@ describe('practicePool', () => {
   });
 });
 
+describe('practicePool with hand-made puzzles', () => {
+  it('keeps hand-made practice even though featured puzzles are also "custom"', () => {
+    const level = { demo: pz('demo', 900, 'custom'), guided: [], practice: [pz('h1', 900, 'custom')], pack: [] } as unknown as LevelDef;
+    expect(practicePool(level).map((p) => p.id)).toEqual(['h1']);
+  });
+});
+
 describe('updateRecent', () => {
   it('puts the latest run first without duplicates', () => {
     expect(updateRecent(['a', 'b', 'c'], ['c', 'd'])).toEqual(['c', 'd', 'a', 'b']);

@@ -7,18 +7,21 @@ import { starsToPass } from '../../levels/unlock';
 import type { LevelDef } from '../../levels/types';
 import { saveLevelResult } from '../../progress/store';
 import { Bolt, Star } from '../icons';
+import { formatTime } from '../format';
 
 interface Props {
   level: LevelDef;
   score: LevelScore;
   /** Practice puzzle ids from this run, remembered so the next run picks fresh ones. */
   played: string[];
+  /** Time taken, for timed levels. */
+  seconds?: number;
   onDone: () => void;
   onNext?: () => void;
   onReplay: () => void;
 }
 
-export function SummaryCard({ level, score, played, onDone, onNext, onReplay }: Props) {
+export function SummaryCard({ level, score, played, seconds, onDone, onNext, onReplay }: Props) {
   const headline = { 1: 'Level complete!', 2: 'Sharp moves!', 3: THEMES[level.theme].mastery }[score.stars];
   const entry = ORDER.find((l) => l.id === level.id);
   const passed = score.stars >= (entry ? starsToPass(entry) : 1);
@@ -53,6 +56,12 @@ export function SummaryCard({ level, score, played, onDone, onNext, onReplay }: 
           </span>
           <span className="stat-label">first try</span>
         </div>
+        {seconds !== undefined && (
+          <div className="stat">
+            <span className="stat-value">{formatTime(seconds)}</span>
+            <span className="stat-label">time</span>
+          </div>
+        )}
         <div className="stat stat-xp">
           <span className="stat-value">
             <Bolt size={20} /> +{score.totalXp}
@@ -71,9 +80,11 @@ export function SummaryCard({ level, score, played, onDone, onNext, onReplay }: 
 
       {score.stars < 3 && (
         <p className="summary-tip">
-          {score.stars === 1
-            ? 'Get 7 of 10 right on the first try for ★★.'
-            : 'Get 9 of 10 on the first try, without hints, for ★★★.'}
+          {!passed
+            ? `Checkpoints need ★★ to open the next level: get ${Math.ceil(score.total * 0.7)} of ${score.total} right on the first try.`
+            : score.stars === 1
+              ? `Get ${Math.ceil(score.total * 0.7)} of ${score.total} right on the first try for ★★.`
+              : `Get ${Math.ceil(score.total * 0.9)} of ${score.total} on the first try, without hints, for ★★★.`}
         </p>
       )}
 

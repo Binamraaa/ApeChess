@@ -17,3 +17,11 @@ export function tacticArrows(f: MoveFacts): DrawShape[] {
   if (line) return [arrow(line.by.square, line.behind.square)];
   return [];
 }
+
+const STAR =
+  '<polygon points="50,12 61,39 90,40 67,58 75,87 50,70 25,87 33,58 10,40 39,39" fill="#f5c75e" stroke="#b9791a" stroke-width="4" stroke-linejoin="round"/>';
+
+/** Gold stars on the squares a drill still has to visit. */
+export function starShapes(squares: string[]): DrawShape[] {
+  return squares.map((sq) => ({ orig: sq as Key, customSvg: { html: STAR } }));
+}

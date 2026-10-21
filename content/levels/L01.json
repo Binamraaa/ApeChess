@@ -1,0 +1,170 @@
+{
+  "id": "L01",
+  "number": 1,
+  "unit": 1,
+  "unitTitle": "Foundations",
+  "title": "How Pieces Move",
+  "theme": "drill",
+  "icon": "wR",
+  "concept": "Every piece has its own way of walking. Learn the walk before the dance.",
+  "summary": "Rook: straight lines. Bishop: diagonals. Queen: both. Knight: an L that jumps. King: one step. Pawn: forward, but it captures diagonally.",
+  "demo": {
+    "id": "L01-demo",
+    "kind": "drill",
+    "source": "custom",
+    "fen": "8/8/8/8/8/8/8/R7",
+    "targets": [
+      "a6",
+      "f6",
+      "f2"
+    ],
+    "moves": [
+      "a1a6",
+      "a6f6",
+      "f6f2"
+    ],
+    "narration": [
+      "Meet the rook. It glides in straight lines, as far as it likes. Watch it collect the stars.",
+      "Straight up the a-file to a6. Rooks don’t mind distance.",
+      "Now sideways along the row to f6.",
+      "And straight down to f2. Three stars, three moves. Your turn!"
+    ]
+  },
+  "guided": [
+    {
+      "id": "L01-g1",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/2B5",
+      "moves": [],
+      "targets": [
+        "a3",
+        "d6",
+        "h2"
+      ],
+      "par": 3,
+      "hint": "Bishops only move diagonally, so they stay on one colour forever."
+    },
+    {
+      "id": "L01-g2",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/1N6",
+      "moves": [],
+      "targets": [
+        "c3",
+        "e4",
+        "d6"
+      ],
+      "par": 3,
+      "hint": "The knight jumps in an L: two squares one way, then one to the side."
+    },
+    {
+      "id": "L01-g3",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/3Q4",
+      "moves": [],
+      "targets": [
+        "d7",
+        "a4",
+        "h4"
+      ],
+      "par": 3,
+      "hint": "The queen moves like a rook AND a bishop. Look for long lines."
+    }
+  ],
+  "practice": [
+    {
+      "id": "L01-p1",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/7p/8/8/8/7R",
+      "moves": [],
+      "targets": [
+        "h8",
+        "a8",
+        "a1"
+      ],
+      "par": 3
+    },
+    {
+      "id": "L01-p2",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/5B2",
+      "moves": [],
+      "targets": [
+        "b5",
+        "e8",
+        "h5"
+      ],
+      "par": 3
+    },
+    {
+      "id": "L01-p3",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/6N1",
+      "moves": [],
+      "targets": [
+        "f3",
+        "h4",
+        "g6",
+        "e7"
+      ],
+      "par": 4
+    },
+    {
+      "id": "L01-p4",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/4K3",
+      "moves": [],
+      "targets": [
+        "e3",
+        "g4",
+        "d5"
+      ],
+      "par": 7
+    },
+    {
+      "id": "L01-p5",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/4p3/8/8/3P4/8",
+      "moves": [],
+      "targets": [
+        "d4",
+        "e5",
+        "e6"
+      ],
+      "par": 3
+    },
+    {
+      "id": "L01-p6",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/Q7",
+      "moves": [],
+      "targets": [
+        "h8",
+        "h1",
+        "a8",
+        "d5"
+      ],
+      "par": 4
+    },
+    {
+      "id": "L01-p7",
+      "kind": "drill",
+      "source": "custom",
+      "fen": "8/8/8/8/8/8/8/N7",
+      "moves": [],
+      "targets": [
+        "b1"
+      ],
+      "par": 3
+    }
+  ]
+}

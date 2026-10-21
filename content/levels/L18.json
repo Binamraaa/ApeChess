@@ -1,0 +1,103 @@
+{
+  "id": "L18",
+  "number": 18,
+  "unit": 5,
+  "unitTitle": "Converting the Win",
+  "title": "Mate with Queen or Rook",
+  "theme": "endgame",
+  "icon": "wQ",
+  "concept": "Box the king in, shrink the box, bring your own king to help.",
+  "glossary": {
+    "term": "The box",
+    "definition": "The squares the lone king can still reach. Every good move makes the box smaller, until there's nowhere left."
+  },
+  "summary": "With a queen or a rook: cut the king off, shrink its box row by row, bring your own king close, and give mate on the edge. Watch out for stalemate: always leave the king a move until you can mate.",
+  "demo": {
+    "id": "L18-demo",
+    "source": "custom",
+    "orientation": "white",
+    "fen": "8/3K2k1/1Q6/8/8/8/8/8 w - - 0 1",
+    "moves": [
+      "d7e7",
+      "g7g8",
+      "b6d4",
+      "g8h7",
+      "e7f7",
+      "h7h6",
+      "d4h4"
+    ],
+    "narration": [
+      "Queen and king against a lone king: a win, if you know the method. Squeeze the king to the edge, then bring your own king in to help.",
+      "Your king steps up to e7. It isn't just watching: it guards squares the queen can't.",
+      "Black's king backs off toward the corner.",
+      "Queen to d4. No check, just a smaller box: the long diagonal and the whole 4th row are now out of bounds.",
+      "Black's king shuffles to h7. Its box is tiny.",
+      "Your king steps to f7, guarding g8, g7 and g6. The black king has one square left.",
+      "Off to h6, the last square in the box.",
+      "Queen to h4, checkmate! The queen checks along the h-file, and your king covers g6 and g7. Teamwork."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L18-g1",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "5K2/8/4k3/6Q1/8/8/8/8 w - - 0 1",
+      "moves": [],
+      "limit": 10,
+      "hint": "Use the queen to cut the board in two, then shrink the box. Bring your king up before you go for mate."
+    },
+    {
+      "id": "L18-g2",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "8/8/1K2R3/8/8/8/1k6/8 w - - 0 1",
+      "moves": [],
+      "limit": 20,
+      "hint": "The rook cuts off a whole row or file. Push the king to the edge, bring your king face to face with it, then check from the side."
+    }
+  ],
+  "practice": [
+    {
+      "id": "L18-p1",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "K7/8/8/8/8/8/1k6/3Q4 w - - 0 1",
+      "moves": [],
+      "limit": 10
+    },
+    {
+      "id": "L18-p2",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "2K5/8/8/6k1/Q7/8/8/8 w - - 0 1",
+      "moves": [],
+      "limit": 10
+    },
+    {
+      "id": "L18-p3",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "8/5K2/8/1Q6/8/5k2/8/8 w - - 0 1",
+      "moves": [],
+      "limit": 10
+    },
+    {
+      "id": "L18-p4",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "8/7K/8/8/6k1/8/4R3/8 w - - 0 1",
+      "moves": [],
+      "limit": 20
+    },
+    {
+      "id": "L18-p5",
+      "kind": "endgame",
+      "source": "custom",
+      "fen": "8/3R4/8/8/4K3/6k1/8/8 w - - 0 1",
+      "moves": [],
+      "limit": 20
+    }
+  ],
+  "practiceSize": 4
+}

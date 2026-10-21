@@ -6,7 +6,9 @@
   "license": "GPL-3.0-or-later",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-engine.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/copy-engine.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",

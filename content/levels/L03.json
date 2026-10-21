@@ -1,0 +1,64 @@
+{
+  "id": "L03",
+  "number": 3,
+  "unit": 1,
+  "unitTitle": "Foundations",
+  "title": "Check, Mate & Stalemate",
+  "theme": "quiz",
+  "icon": "wK",
+  "concept": "Check means the king is attacked. Mate means it can't escape. Stalemate means nobody wins, so don't do it when you're winning!",
+  "glossary": {
+    "term": "Stalemate",
+    "definition": "It's your move, your king is NOT in check, but you have no legal move at all. The game ends in a draw."
+  },
+  "summary": "Check: the king is attacked. Checkmate: attacked with no way out, game over. Stalemate: not attacked but no legal move, a draw. When you're winning, always leave the king a move until you can mate.",
+  "demo": {
+    "id": "L03-demo",
+    "source": "custom",
+    "orientation": "white",
+    "fen": "7k/8/6K1/8/8/8/8/3Q4 w - - 0 1",
+    "moves": [
+      "d1d4",
+      "h8g8",
+      "d4d8"
+    ],
+    "narration": [
+      "Three words every chess player must know: check, checkmate and stalemate. Let's meet the first two.",
+      "Queen to d4 is CHECK: the queen attacks the king along the long diagonal. Black must get out of it right now.",
+      "The king escapes to g8. Check isn't the end of the world, as long as there's a way out.",
+      "Queen to d8 is CHECKMATE: the king is attacked, every square around it is covered by your queen and king, and nothing can block or capture. Game over!"
+    ]
+  },
+  "guided": [
+    {
+      "id": "L03-g1",
+      "kind": "quiz",
+      "source": "custom",
+      "fen": "4k3/8/8/8/8/8/4R3/4K3 b - - 0 1",
+      "moves": [],
+      "answer": "check",
+      "hint": "Trace a line from each white piece. Does any of them hit the black king? If so, can the king step somewhere safe?"
+    },
+    {
+      "id": "L03-g2",
+      "kind": "quiz",
+      "source": "custom",
+      "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+      "moves": [],
+      "answer": "stalemate",
+      "hint": "Is the black king attacked right now? Now look at every square it could step to.",
+      "explanation": "Stalemate! Black's king isn't attacked, but every square it could step to is covered by the queen or the king. No legal move means a draw: White was a whole queen up and still didn't win. When you're winning, always leave the king a square until you can mate."
+    },
+    {
+      "id": "L03-g3",
+      "kind": "quiz",
+      "source": "custom",
+      "fen": "3R2k1/5ppp/8/8/8/8/5PPP/6K1 b - - 0 1",
+      "moves": [],
+      "answer": "mate",
+      "hint": "The king is attacked. Can it run? Can anything block the rook, or capture it?",
+      "explanation": "Checkmate! The rook attacks the king along the back row, the king's own pawns block every escape, and nothing can block or capture the rook. You'll meet this one again: it's called a back-rank mate."
+    }
+  ],
+  "practice": []
+}

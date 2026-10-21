@@ -7,3 +7,4 @@ coverage/
 Thumbs.db
 # Raw Lichess puzzle CSV is huge, never commit it
 data/raw/
+public/stockfish/

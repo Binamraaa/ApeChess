@@ -10,11 +10,16 @@ const packs = Object.fromEntries(
   Object.entries(packFiles).map(([path, pack]) => [idOf(path), (pack as { puzzles: PuzzleDef[] }).puzzles]),
 );
 
-/** Playable levels, keyed by id. */
+const raw = Object.fromEntries(Object.entries(levelFiles).map(([path, level]) => [idOf(path), level as LevelDef]));
+
+/** Playable levels, keyed by id. Mixed levels get their practice pools from the other levels' packs. */
 export const LEVELS: Record<string, LevelDef> = Object.fromEntries(
-  Object.entries(levelFiles).map(([path, level]) => {
-    const id = idOf(path);
-    return [id, { ...(level as LevelDef), pack: packs[id] ?? [] }];
+  Object.entries(raw).map(([id, level]) => {
+    const pools = level.mix?.map((m) => ({
+      count: m.count,
+      puzzles: m.levels.flatMap((src) => (packs[src] ?? []).map((p) => ({ ...p, theme: m.theme ?? raw[src]?.theme }))),
+    }));
+    return [id, { ...level, pack: level.mix ? [] : (packs[id] ?? []), pools }];
   }),
 );
 
