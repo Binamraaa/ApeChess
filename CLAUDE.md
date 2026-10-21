@@ -70,5 +70,8 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `npm run puzzles`: rebuild `content/puzzles/LXX.json` from `data/raw/lichess_db_puzzle.csv.zst` (~5 min). The file is pzstd multi-frame, so the script decodes frame by frame. Per-level filters live in `PACKS`; they use Bapu's own move analysis (`src/bapu/facts.ts`) so every pack puzzle shows the level's idea, then every candidate goes through the same Stockfish check (~25 min in all; `--no-engine` skips it while trying filters).
 - `npx tsx scripts/show-puzzles.ts L10 pin [ids…]`: preview Bapu's template lines for a pack (with boards when ids are given). Use it before picking featured puzzles.
 - `npx tsx scripts/find-puzzles.ts castle|enPassant|promotion [maxRating] [count]`: find Stockfish-clean candidates for featured puzzles.
+- `npx tsx scripts/build-quiz.ts` (Level 3 positions), `scripts/build-openings.ts` (writes Level 7, Stockfish-checks every choice), `scripts/build-endgames.ts` (Level 18 start positions; prints them).
+- Level kinds: `puzzle` (default), `drill`, `quiz`, `choice`, `endgame` (`src/levels/types.ts`); `LevelScreen` picks the player by kind. Mixed levels (L13, L20) use `mix` to draw practice from other levels' packs.
+- `predev`/`prebuild` copy Stockfish (lite, single-threaded) into `public/stockfish/` (gitignored) for Level 18's Web Worker.
 - `?unlock=all` on the app URL opens every level on that device; `?unlock=off` resets.
 - Deploy: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build with `BASE_PATH=/<repo>/`, publish to GitHub Pages)

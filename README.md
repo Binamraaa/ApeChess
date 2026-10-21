@@ -8,22 +8,23 @@ It's built for smart adults who never really learned chess, and later for school
 
 ## Status
 
-Early days. **9 of the 20 MVP levels are playable**: What's It Worth?, Special Moves, Mate in One, Back-Rank Mate, Knight Forks, Queen & Pawn Forks, Pins, Skewers and Discovered Attacks.
+**All 20 MVP levels are playable**, from "how does the knight move?" to a timed boss exam.
 
-- every level: concept card → animated demo → 3 guided puzzles (with hints) → 7 practice puzzles → summary
-- practice is drawn from ~40 hand-picked Lichess puzzles per level, so replays feel fresh
+- five kinds of activity: puzzles, move drills (Level 1), a check/mate/stalemate quiz (Level 3), pick-the-best-opening-move (Level 7) and mating a lone king against Stockfish in the browser (Level 18)
+- every level: concept card → animated demo → guided steps with hints → practice → summary
+- practice is drawn from ~40 puzzles per level, picked from the Lichess database and checked with Stockfish, so replays feel fresh
 - Bapu explains every move: hand-written for featured puzzles, generated from the position for the rest
-- a level map with unlocking (★ opens the next level), stars, XP and a daily streak
-- progress saved on your device (IndexedDB), no account needed
+- a checkpoint (Level 13) and a boss (Level 20) that mix every earlier theme with no hints
+- an intro page with two doors: "I'm new to chess" or "I know how the pieces move"
+- a level map with unlocking, stars, XP and a daily streak; progress saved on your device, no account needed
 
-The full 20-level plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
+The full plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
 
 ## Roadmap
 
-1. **Done:** Level 8, the Lichess puzzle pipeline, the level map, and the puzzle levels of Units 1–3
-2. **Next:** the levels that need new activity types: L1 (how pieces move), L3 (check, mate or stalemate?), L7 (opening principles), L13 (checkpoint)
-3. **Then:** Units 4–5, badges, Stockfish-powered endgame levels (L18)
-4. **Later:** the school edition (simpler copy, Nepali), teacher view, cloud sync
+1. **Done:** the 20-level MVP, the Lichess puzzle pipeline, the level map and the intro page
+2. **Next:** badges (one per unit, plus "Boss Beaten"), a "deep dive" on featured puzzles, export/import of progress
+3. **Later:** the school edition (simpler copy, Nepali), teacher view, cloud sync, Phase 1 levels beyond 20
 
 ## Run it
 
@@ -36,6 +37,9 @@ npm test               # unit tests (Vitest)
 npm run build          # production build + service worker in dist/
 npm run verify-puzzles # check every hand-made puzzle with Stockfish (slow)
 npm run puzzles        # rebuild content/puzzles/ from the Lichess database (see below)
+npx tsx scripts/build-quiz.ts       # rebuild the Level 3 quiz set
+npx tsx scripts/build-openings.ts   # rebuild Level 7, checking each choice with Stockfish
+npx tsx scripts/build-endgames.ts   # find Level 18 start positions
 npm run bapu           # re-export Bapu images from abu.png into public/bapu/
 ```
 
@@ -44,6 +48,8 @@ Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. In
 ### Puzzle packs
 
 `content/puzzles/LXX.json` are built from the [Lichess puzzle database](https://database.lichess.org/#puzzles) (CC0). To rebuild them, download `lichess_db_puzzle.csv.zst` (~300 MB) into `data/raw/` (never committed) and run `npm run puzzles` (about 5 minutes). The filters in `scripts/build-puzzles.ts` keep popular puzzles in each level's rating range, and only those where Bapu's own analysis finds the level's idea, so he can always explain them. Each candidate is then checked with Stockfish: the solution must be the only good move, and the opponent's replies must be real defences, not blunders. `npx tsx scripts/show-puzzles.ts L10 pin` previews what Bapu says for every puzzle in a pack.
+
+Level 18 runs Stockfish (the single-threaded lite build, GPL-3.0) in a Web Worker. `npm run dev` and `npm run build` copy it into `public/stockfish/` first.
 
 Open the app with `?unlock=all` to open every level on that device (for testing); `?unlock=off` turns it off.
 
