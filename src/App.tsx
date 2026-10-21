@@ -1,14 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LEVELS, ORDER, isPlayable } from './levels/curriculum';
 import { nextLevel, unlockedLevels } from './levels/unlock';
-import { displayStreak, getAllLevelProgress, getProfile, type LevelProgress, type Profile } from './progress/store';
+import { displayStreak, finishIntro, getAllLevelProgress, getProfile, type LevelProgress, type Profile } from './progress/store';
 import { Home } from './ui/Home';
+import { Intro } from './ui/Intro';
 import { LevelScreen } from './ui/level/LevelScreen';
 
 /** Hash routes keep the PWA's back button working without a router: #/ and #/level/L08. */
 function levelFromHash(): string | null {
   const m = location.hash.match(/^#\/level\/(L\d+)$/);
   return m && LEVELS[m[1]] ? m[1] : null;
+}
+
+/**
+ * Goes back a page, or home if that does nothing (e.g. an installed app opened straight onto a level,
+ * or a page that reloaded itself after an update).
+ */
+function goBackHome() {
+  const from = location.hash;
+  history.back();
+  window.setTimeout(() => {
+    if (location.hash === from) location.replace('#/');
+  }, 300);
 }
 
 /**
@@ -28,6 +41,7 @@ function unlockAll(): boolean {
 
 export default function App() {
   const [levelId, setLevelId] = useState<string | null>(levelFromHash);
+  const [welcome, setWelcome] = useState(() => location.hash === '#/welcome');
   const [profile, setProfile] = useState<Profile | null>(null);
   const [progress, setProgress] = useState<Record<string, LevelProgress>>({});
   const [all] = useState(unlockAll);
@@ -39,7 +53,10 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const onHash = () => setLevelId(levelFromHash());
+    const onHash = () => {
+      setLevelId(levelFromHash());
+      setWelcome(location.hash === '#/welcome');
+    };
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
   }, []);
@@ -50,8 +67,8 @@ export default function App() {
   }, [levelId, refresh]);
 
   const open = useMemo(
-    () => unlockedLevels(ORDER, isPlayable, (id) => progress[id]?.bestStars ?? 0, all),
-    [progress, all],
+    () => unlockedLevels(ORDER, isPlayable, (id) => progress[id]?.bestStars ?? 0, all, profile?.startAt),
+    [progress, all, profile?.startAt],
   );
 
   // Leaving a level pops history if we pushed it from home, so the back stack stays tidy.
@@ -63,19 +80,10 @@ export default function App() {
   };
 
   const exit = () => {
-    const from = location.hash;
     const back = cameFromHome.current;
     cameFromHome.current = false;
-    if (!back) {
-      location.hash = '#/';
-      return;
-    }
-    history.back();
-    // Going back can silently do nothing (e.g. an installed app opened straight onto a level,
-    // or a page that reloaded itself after an update). If we're still on the level, go home directly.
-    window.setTimeout(() => {
-      if (location.hash === from) location.replace('#/');
-    }, 300);
+    if (back) goBackHome();
+    else location.hash = '#/';
   };
 
   if (levelId) {
@@ -89,9 +97,20 @@ export default function App() {
     );
   }
 
+  if (!profile) return <div className="app" />;
+
+  // First visit (or opened from the home screen): the intro page.
+  if (welcome || (!profile.introSeen && !profile.started)) {
+    const begin = async (startAt?: string) => {
+      setProfile(await finishIntro(startAt));
+      start(startAt ?? ORDER.find((l) => isPlayable(l.id))!.id);
+    };
+    return <Intro returning={profile.introSeen || profile.started} onStart={begin} onBack={goBackHome} />;
+  }
+
   return (
     <div className="app">
-      {profile && <Home profile={profile} streak={displayStreak(profile)} progress={progress} open={open} onStart={start} />}
+      <Home profile={profile} streak={displayStreak(profile)} progress={progress} open={open} onStart={start} />
     </div>
   );
 }

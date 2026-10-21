@@ -28,7 +28,7 @@ function Stars({ count, size = 18 }: { count: number; size?: number }) {
 
 export function Home({ profile, streak, progress, open, onStart }: Props) {
   const best = (id: string) => progress[id]?.bestStars ?? 0;
-  const currentId = currentLevel(ORDER, open, best)!;
+  const currentId = currentLevel(ORDER, open, best, profile.startAt)!;
   const level = LEVELS[currentId];
   const unit = UNITS.find((u) => u.number === level.unit)!;
   const allDone = ORDER.filter((l) => LEVELS[l.id]).every((l) => best(l.id) > 0);
@@ -56,9 +56,9 @@ export function Home({ profile, streak, progress, open, onStart }: Props) {
       </header>
 
       <section className="hero">
-        <div className="hero-arch">
+        <a className="hero-arch" href="#/welcome" aria-label="About ApeChess">
           <img src={BAPU.portrait} alt="Bapu the ape, your chess coach" />
-        </div>
+        </a>
         <BapuBubble label={profile.started ? null : 'Welcome to ApeChess!'}>{greeting}</BapuBubble>
       </section>
 

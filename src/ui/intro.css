@@ -1,0 +1,335 @@
+/* The intro page is wider than the lesson screens: one column on phones, two on desktops. */
+.intro {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: max(10px, env(safe-area-inset-top)) var(--gutter) max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.intro-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+}
+
+.intro-install {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+/* ---------- Hero ---------- */
+
+.intro-hero {
+  position: relative;
+  display: grid;
+  gap: 24px;
+  padding: 26px 20px 24px;
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(245, 199, 94, 0.22), transparent 55%),
+    var(--teal);
+  color: #f3efe6;
+  box-shadow: 0 8px 0 var(--teal-deep), 0 18px 40px rgba(20, 63, 59, 0.25);
+  overflow: hidden;
+}
+
+.intro-kicker {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(245, 199, 94, 0.18);
+  color: var(--amber);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.intro-hero h1 {
+  margin: 14px 0 12px;
+  font-size: clamp(32px, 8.5vw, 52px);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.intro-hero h1 em {
+  display: inline;
+  font-style: italic;
+  color: var(--amber);
+  /* A hand-drawn underline under the promise. */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 50 2, 120 12, 198 5' fill='none' stroke='%23d39b2a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E")
+    bottom / 100% 0.28em no-repeat;
+  padding-bottom: 0.08em;
+}
+
+.intro-lead {
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(243, 239, 230, 0.92);
+  max-width: 34em;
+}
+
+.intro-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+  max-width: 380px;
+}
+
+.intro-cta {
+  min-height: 58px;
+  font-size: 18px;
+}
+
+.intro-hero .btn-ghost {
+  --face: rgba(255, 255, 255, 0.1);
+  --edge: rgba(0, 0, 0, 0.25);
+  --text: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.intro-small {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+/* The living board: a knight fork on loop, with Bapu narrating. */
+.intro-show {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: center;
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+}
+
+.intro-board {
+  /* A slight tilt, with room so the corners aren't clipped by the hero card. */
+  padding: 6px 10px;
+  transform: rotate(-1.5deg);
+  pointer-events: none;
+}
+
+.intro-board .board-frame {
+  max-width: none;
+}
+
+.intro-says {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 18px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.18);
+  min-height: 72px;
+}
+
+.intro-says img {
+  flex: none;
+  border-radius: 50%;
+  background: var(--sq-light);
+}
+
+.intro-says p {
+  font-weight: 700;
+  font-size: 15px;
+  animation: rise-in 0.35s ease-out;
+}
+
+/* ---------- Selling points ---------- */
+
+.intro-points {
+  display: grid;
+  gap: 14px;
+}
+
+.intro-points article {
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+  box-shadow: 0 5px 0 var(--paper-edge);
+}
+
+.intro-points h2 {
+  margin: 10px 0 6px;
+  font-size: 21px;
+}
+
+.intro-points p {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.intro-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--amber);
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--amber-deep);
+}
+
+.intro-points article:nth-child(2) .intro-icon {
+  background: var(--teal);
+  color: var(--amber);
+  box-shadow: 0 4px 0 var(--teal-deep);
+}
+
+.intro-points article:nth-child(3) .intro-icon {
+  background: var(--rust);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--rust-deep);
+}
+
+/* ---------- The road ---------- */
+
+.intro-path h2 {
+  font-size: clamp(24px, 6vw, 32px);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.intro-path h2 em {
+  color: var(--rust);
+}
+
+.intro-path ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  counter-reset: unit;
+}
+
+.intro-path li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 12px;
+  align-items: baseline;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--paper);
+  border-left: 6px solid var(--amber);
+}
+
+.intro-path li:nth-child(even) {
+  border-left-color: var(--teal);
+}
+
+.intro-unit {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.intro-path strong {
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+
+.intro-levels {
+  grid-column: 2;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.intro-path .intro-small {
+  color: var(--ink-soft);
+}
+
+/* ---------- Final call ---------- */
+
+.intro-final {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 24px;
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+}
+
+.intro-final img {
+  width: 110px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 15%;
+  border-radius: 999px 999px 16px 16px;
+  background: var(--sq-light);
+  box-shadow: 0 0 0 4px var(--paper), 0 0 0 7px var(--wood);
+}
+
+.intro-final h2 {
+  font-size: 24px;
+}
+
+.intro-final p {
+  color: var(--ink-soft);
+}
+
+.intro-final .intro-ctas {
+  margin-top: 12px;
+}
+
+.intro-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.intro-foot a {
+  color: var(--teal);
+  font-weight: 800;
+}
+
+@media (max-width: 420px) {
+  .intro-final {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+  .intro-final .intro-ctas {
+    margin-inline: auto;
+    width: 100%;
+  }
+}
+
+@media (min-width: 820px) {
+  .intro-hero {
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    padding: 40px;
+  }
+  .intro-points {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .intro-path ol {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .intro-path li {
+    grid-template-columns: 1fr;
+  }
+  .intro-levels {
+    grid-column: 1;
+  }
+}

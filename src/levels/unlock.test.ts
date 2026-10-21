@@ -23,6 +23,12 @@ describe('unlockedLevels', () => {
     expect(unlockedLevels(order, playable, stars({ L05: 2 })).has('L05')).toBe(true);
   });
 
+  it('opens everything up to the chosen starting level', () => {
+    const open = unlockedLevels(order, playable, stars({}), false, 'L03');
+    expect([...open]).toEqual(['L01', 'L02', 'L03']);
+    expect(currentLevel(order, open, stars({}), 'L03')).toBe('L03');
+  });
+
   it('can open everything (for testing)', () => {
     expect(unlockedLevels(order, playable, stars({}), true).size).toBe(4);
   });

@@ -17,6 +17,10 @@ export interface Profile {
   streak: Streak;
   /** True once the learner has started at least one level. */
   started: boolean;
+  /** True once the intro page has been seen. */
+  introSeen?: boolean;
+  /** Where the learner chose to begin; every level up to it is open. */
+  startAt?: string;
 }
 
 interface ApeChessDB extends DBSchema {
@@ -47,6 +51,14 @@ export async function markStarted(): Promise<void> {
   const d = await db();
   const p = await getProfile();
   if (!p.started) await d.put('meta', { ...p, started: true }, 'profile');
+}
+
+/** Records the intro as seen, and where the learner wants to begin. */
+export async function finishIntro(startAt?: string): Promise<Profile> {
+  const d = await db();
+  const p = { ...(await getProfile()), introSeen: true, ...(startAt ? { startAt } : {}) };
+  await d.put('meta', p, 'profile');
+  return p;
 }
 
 export async function getLevelProgress(id: string): Promise<LevelProgress | undefined> {
@@ -83,6 +95,7 @@ export async function saveLevelResult(
 
   const old = { ...DEFAULT_PROFILE, ...((await meta.get('profile')) as Profile | undefined) };
   const profile: Profile = {
+    ...old,
     xp: old.xp + xpEarned,
     streak: recordSession(old.streak, today),
     started: true,
