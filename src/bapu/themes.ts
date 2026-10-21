@@ -10,7 +10,18 @@ export type Theme =
   | 'backRank'
   | 'pin'
   | 'skewer'
-  | 'discovered';
+  | 'discovered'
+  | 'removeDefender'
+  | 'deflection'
+  | 'trapped'
+  | 'mateIn2'
+  | 'pawnEndgame'
+  | 'defend'
+  | 'mixed'
+  | 'drill'
+  | 'quiz'
+  | 'choice'
+  | 'endgame';
 
 export interface ThemeCopy {
   /** Shown after the opponent's move: "Your move: …" */
@@ -92,5 +103,82 @@ export const THEMES: Record<Theme, ThemeCopy> = {
     followUp: 'Two threats, one reply. Now take what they couldn’t save.',
     nudge: 'Not quite. Look for a piece of yours that’s blocking your own bishop, rook or queen, and move it with a threat.',
     mastery: 'Surprise artist!',
+  },
+  removeDefender: {
+    prompt: 'remove the defender!',
+    hint: 'Find the enemy piece that guards something valuable. What happens if it disappears?',
+    followUp: 'The guard is gone. Now take what it was protecting.',
+    nudge: 'Not quite. Look for one enemy piece doing an important guarding job, then capture it or chase it away.',
+    mastery: 'Bodyguard buster!',
+  },
+  deflection: {
+    prompt: 'drag a defender away!',
+    hint: 'One enemy piece is holding everything together. Can you force it to move, or lure the king somewhere bad?',
+    followUp: 'It took the bait. Now strike where it used to guard.',
+    nudge: 'That gives them time. Look for a forcing move, a check or a capture, that pulls a defender away from its job.',
+    mastery: 'Master of distraction!',
+  },
+  trapped: {
+    prompt: 'trap a piece!',
+    hint: 'Look for an enemy piece with very few safe squares. Can you take the last ones away?',
+    followUp: 'It’s got nowhere to run. Go and collect it.',
+    nudge: 'That lets it escape. Find the enemy piece that’s short of squares, and cut off its last way out.',
+    mastery: 'Piece hunter!',
+  },
+  mateIn2: {
+    prompt: 'find checkmate in two!',
+    hint: 'Start with the most forcing move: a check, or a sacrifice they must take. Then look for mate.',
+    followUp: 'Now finish it: one more move is checkmate.',
+    nudge: 'That gives the king time to breathe. Look for a forcing first move, usually a check, that leads to mate next move.',
+    mastery: 'Two-move terminator!',
+  },
+  pawnEndgame: {
+    prompt: 'win the pawn ending!',
+    hint: 'In pawn endings, every king step counts. Think about opposition, and whether a pawn can outrun the king.',
+    followUp: 'Good. Keep marching, the queen is near.',
+    nudge: 'In a pawn ending one wasted move can throw away the win. Think about which king has to give way.',
+    mastery: 'Endgame expert!',
+  },
+  defend: {
+    prompt: 'spot the threat and stop it!',
+    hint: 'What is your opponent threatening right now? Deal with that before anything else.',
+    followUp: 'Threat stopped. Now make your own move count.',
+    nudge: 'Careful: that ignores what your opponent is threatening. Ask what they want to do next, and stop it.',
+    mastery: 'Rock-solid defender!',
+  },
+  mixed: {
+    prompt: 'find the best move!',
+    hint: 'Run the checklist: checks, captures, threats. For you AND for your opponent.',
+    followUp: 'Good start. Keep going, and finish the job.',
+    nudge: 'Not this time. Run the checklist again: checks first, then captures, then threats.',
+    mastery: 'Tactic spotter!',
+  },
+  drill: {
+    prompt: 'collect every star!',
+    hint: 'Look at where your piece can go from here, and plan a route through all the stars.',
+    followUp: 'Keep going!',
+    nudge: 'That piece can’t move like that.',
+    mastery: 'Smooth moves!',
+  },
+  quiz: {
+    prompt: 'check, checkmate, stalemate, or none?',
+    hint: 'Is the king attacked? Then ask: can it run, can anything block, can the attacker be captured?',
+    followUp: '',
+    nudge: '',
+    mastery: 'Sharp eyes!',
+  },
+  choice: {
+    prompt: 'pick the best move!',
+    hint: 'Think about the centre, getting knights and bishops out, and keeping your king safe.',
+    followUp: '',
+    nudge: '',
+    mastery: 'Opening sage!',
+  },
+  endgame: {
+    prompt: 'checkmate the lone king!',
+    hint: 'Shrink the box the king lives in, and bring your own king closer to help.',
+    followUp: '',
+    nudge: '',
+    mastery: 'Mating machine!',
   },
 };

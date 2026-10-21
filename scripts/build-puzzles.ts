@@ -12,7 +12,7 @@ import { Readable } from 'node:stream';
 import { createZstdDecompress } from 'node:zlib';
 import { Chess, type PieceSymbol, type Square } from 'chess.js';
 import type { PuzzleDef } from '../src/levels/types';
-import { PIECE_VALUE, isFork, material, moveFacts, type MoveFacts } from '../src/bapu/facts';
+import { PIECE_VALUE, isFork, lineInsights, material, moveFacts, type LineInsights, type MoveFacts } from '../src/bapu/facts';
 import { keyLine } from '../src/bapu/explain';
 import { checkPuzzle } from './puzzle-check';
 import { UciEngine } from './uci-engine';
@@ -56,6 +56,8 @@ interface PackSpec {
   groupBy?: (r: Row) => string;
   /** Reject puzzles where a different move also mates (the lesson is the move itself). */
   uniqueMate?: boolean;
+  /** Lowest final engine score (centipawns, solver's view) that counts as a success. Default: clearly winning. */
+  minEval?: number;
 }
 
 /** Piece letter (case shows colour) on `square` in a FEN, or undefined. */
@@ -112,6 +114,13 @@ function gain(r: Row): number {
 }
 /** The idea has to pay off: mate, or at least two points of material. */
 const wins = (r: Row) => last(r).mate || gain(r) >= 2;
+
+const insightCache = new WeakMap<Row, LineInsights>();
+function insights(r: Row): LineInsights {
+  let out = insightCache.get(r);
+  if (!out) insightCache.set(r, (out = lineInsights(r.fen, r.moves)));
+  return out;
+}
 
 const first = (r: Row) => solverFacts(r)[0];
 const last = (r: Row) => solverFacts(r).at(-1)!;
@@ -178,6 +187,33 @@ const PACKS: Record<string, PackSpec> = {
     where: (r) => (first(r).doubleCheck || first(r).discovered.length > 0) && wins(r),
     groupBy: (r) => (first(r).doubleCheck ? 'double' : 'discovered'),
   },
+  L14: {
+    anyTheme: ['capturingDefender'],
+    noThemes: ['mate'],
+    rating: [800, 1300],
+    // The prize must be a real piece, not a pawn.
+    where: (r) => {
+      const i = insights(r);
+      const prize = i.removedDefender?.target.type ?? (i.deflected ? last(r).captured : undefined);
+      return Boolean(prize && prize !== 'p') && wins(r);
+    },
+  },
+  L15: {
+    anyTheme: ['deflection', 'attraction'],
+    rating: [900, 1400],
+    where: (r) => Boolean(insights(r).deflected || insights(r).attracted) && wins(r),
+    groupBy: (r) => (insights(r).attracted ? 'attraction' : 'deflection'),
+  },
+  L16: { anyTheme: ['trappedPiece'], noThemes: ['mate'], rating: [800, 1400], where: (r) => Boolean(insights(r).trapped) && wins(r) },
+  L17: {
+    anyTheme: ['mateIn2'],
+    rating: [800, 1400],
+    where: (r) => last(r).mate,
+    groupBy: (r) => (insights(r).smothered ? 'smothered' : 'other'),
+  },
+  L19: { anyTheme: ['pawnEndgame'], noThemes: ['mate'], rating: [700, 1300], where: (r) => wins(r) },
+  // The boss's "defend" puzzles: the only move that holds. Holding is enough, so the bar is "not losing".
+  L20: { anyTheme: ['defensiveMove'], noThemes: ['mate'], rating: [700, 1400], minEval: -50 },
 };
 
 /**
@@ -304,7 +340,10 @@ async function main() {
     for (const r of found[id].ordered()) {
       if (puzzles.length >= PACK_SIZE) break;
       const p: PuzzleDef = { id: r.id, source: `lichess:${r.id}`, fen: r.fen, moves: r.moves, rating: r.rating, themes: r.themes };
-      const problems = engine ? await checkPuzzle(engine, p, { depth: 14, uniqueMate: PACKS[id].uniqueMate }) : [];
+      const spec = PACKS[id];
+      const problems = engine
+        ? await checkPuzzle(engine, p, { depth: 14, uniqueMate: spec.uniqueMate, winning: spec.minEval ?? 200 })
+        : [];
       if (problems.length) {
         rejected++;
         continue;

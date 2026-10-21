@@ -1,0 +1,746 @@
+{
+ "level": "L19",
+ "source": "Lichess puzzle database (CC0), https://database.lichess.org/#puzzles",
+ "puzzles": [
+  {
+   "id": "nudlf",
+   "source": "lichess:nudlf",
+   "fen": "8/2p5/3p1k2/p1pP1pp1/2P2P1p/PP1K2PP/8/8 w - - 0 33",
+   "moves": [
+    "f4g5",
+    "f6g5",
+    "g3g4",
+    "f5g4"
+   ],
+   "rating": 713,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "8bgEW",
+   "source": "lichess:8bgEW",
+   "fen": "8/1k6/1P1Kp3/4PP2/7p/3p1P1P/8/8 w - - 0 56",
+   "moves": [
+    "f5e6",
+    "d3d2",
+    "e6e7",
+    "d2d1q"
+   ],
+   "rating": 731,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "J5N3t",
+   "source": "lichess:J5N3t",
+   "fen": "8/7p/p3k1p1/4pp2/6P1/1PPK1P2/7P/8 b - - 1 31",
+   "moves": [
+    "f5g4",
+    "f3g4",
+    "h7h5",
+    "g4h5"
+   ],
+   "rating": 767,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "DbRNZ",
+   "source": "lichess:DbRNZ",
+   "fen": "8/8/2k5/1pP1Kpp1/1P5p/6P1/7P/8 b - - 1 43",
+   "moves": [
+    "h4g3",
+    "h2g3",
+    "f5f4",
+    "g3f4"
+   ],
+   "rating": 769,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "dJMV6",
+   "source": "lichess:dJMV6",
+   "fen": "8/3kP3/5P2/7p/p4KpP/P7/8/8 w - - 5 61",
+   "moves": [
+    "f6f7",
+    "d7e7",
+    "f7f8q",
+    "e7f8"
+   ],
+   "rating": 774,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "6oWKO",
+   "source": "lichess:6oWKO",
+   "fen": "8/6Kp/6p1/k4p2/8/8/6P1/8 b - - 1 66",
+   "moves": [
+    "a5b4",
+    "g7h7",
+    "f5f4",
+    "h7g6"
+   ],
+   "rating": 795,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "KQ6Q4",
+   "source": "lichess:KQ6Q4",
+   "fen": "8/8/3p3P/p2Pk3/2Pp4/3K2p1/8/8 b - - 0 43",
+   "moves": [
+    "g3g2",
+    "h6h7",
+    "e5f5",
+    "h7h8q"
+   ],
+   "rating": 799,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "mMe1U",
+   "source": "lichess:mMe1U",
+   "fen": "8/8/8/p7/8/PPk1p3/8/4K3 w - - 1 57",
+   "moves": [
+    "e1e2",
+    "c3b3",
+    "a3a4",
+    "b3a4"
+   ],
+   "rating": 800,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "g46HA",
+   "source": "lichess:g46HA",
+   "fen": "8/8/5p2/6pp/3k3P/3p1PP1/3K4/8 b - - 0 42",
+   "moves": [
+    "g5g4",
+    "f3g4",
+    "d4e5",
+    "g4h5"
+   ],
+   "rating": 802,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "M6xKk",
+   "source": "lichess:M6xKk",
+   "fen": "8/7p/1k6/5pp1/P3p1P1/4K2P/8/8 b - - 0 41",
+   "moves": [
+    "f5g4",
+    "h3g4",
+    "b6a5",
+    "e3e4"
+   ],
+   "rating": 809,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "fWUp1",
+   "source": "lichess:fWUp1",
+   "fen": "8/1p6/p2p3p/2PP2p1/P4p2/1pkP1P1P/4K3/8 w - - 0 39",
+   "moves": [
+    "c5d6",
+    "b3b2",
+    "d6d7",
+    "b2b1q"
+   ],
+   "rating": 845,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "ePwde",
+   "source": "lichess:ePwde",
+   "fen": "8/6p1/5k2/2pK1P1p/p1p4P/P1P5/5P2/8 w - - 1 40",
+   "moves": [
+    "d5c4",
+    "f6f5",
+    "f2f4",
+    "f5f4"
+   ],
+   "rating": 856,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "oNsZw",
+   "source": "lichess:oNsZw",
+   "fen": "2k5/2P5/2K5/5P2/8/6p1/7P/8 w - - 0 62",
+   "moves": [
+    "f5f6",
+    "g3h2",
+    "f6f7",
+    "h2h1q"
+   ],
+   "rating": 884,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "AaAYx",
+   "source": "lichess:AaAYx",
+   "fen": "8/8/1p1k1p2/p2p1p1p/P2KP2P/1P3PP1/8/8 b - - 0 35",
+   "moves": [
+    "f5e4",
+    "f3e4",
+    "d6e6",
+    "e4d5"
+   ],
+   "rating": 888,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "UlwgZ",
+   "source": "lichess:UlwgZ",
+   "fen": "8/2k5/8/3K2p1/5p2/6P1/7P/8 b - - 1 52",
+   "moves": [
+    "g5g4",
+    "g3f4",
+    "g4g3",
+    "h2g3"
+   ],
+   "rating": 946,
+   "themes": [
+    "crushing",
+    "endgame",
+    "master",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "E8Axj",
+   "source": "lichess:E8Axj",
+   "fen": "8/7p/6p1/1k1p1pP1/p1pP1P1P/K1P5/P7/8 w - - 0 63",
+   "moves": [
+    "h4h5",
+    "g6h5",
+    "g5g6",
+    "h7g6"
+   ],
+   "rating": 948,
+   "themes": [
+    "crushing",
+    "endgame",
+    "master",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "R9DK1",
+   "source": "lichess:R9DK1",
+   "fen": "8/8/3k1p2/1p1P2p1/p1p1K2P/P1P5/1P6/8 w - - 0 60",
+   "moves": [
+    "h4g5",
+    "f6g5",
+    "e4f5",
+    "d6d5"
+   ],
+   "rating": 961,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "BNppz",
+   "source": "lichess:BNppz",
+   "fen": "8/8/1p2k3/pK3ppp/P7/5PP1/7P/8 b - - 1 40",
+   "moves": [
+    "e6d6",
+    "b5b6",
+    "d6e5",
+    "b6a5"
+   ],
+   "rating": 972,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "gKZqV",
+   "source": "lichess:gKZqV",
+   "fen": "8/8/1p6/2p5/2P1K3/1P6/Pk6/8 w - - 3 51",
+   "moves": [
+    "e4d5",
+    "b2a2",
+    "b3b4",
+    "c5b4"
+   ],
+   "rating": 981,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "UoHxl",
+   "source": "lichess:UoHxl",
+   "fen": "8/5pp1/5k2/p4P1p/1p2KP1P/PP6/8/8 w - - 0 48",
+   "moves": [
+    "a3b4",
+    "a5b4",
+    "e4e3",
+    "f6f5"
+   ],
+   "rating": 995,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short",
+    "zugzwang"
+   ]
+  },
+  {
+   "id": "j9IKA",
+   "source": "lichess:j9IKA",
+   "fen": "8/p5p1/2p2k2/5P1p/1P4PP/P7/3K4/8 w - - 0 40",
+   "moves": [
+    "g4h5",
+    "f6f5",
+    "h5h6",
+    "g7h6"
+   ],
+   "rating": 1004,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "4K5fN",
+   "source": "lichess:4K5fN",
+   "fen": "8/8/P5pp/8/8/2K1k3/1P1p2PP/8 w - - 0 40",
+   "moves": [
+    "c3c2",
+    "e3e2",
+    "a6a7",
+    "d2d1q"
+   ],
+   "rating": 1004,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "iWNim",
+   "source": "lichess:iWNim",
+   "fen": "8/8/p4Kp1/Pk3p1p/5P1P/6P1/8/8 b - - 11 49",
+   "moves": [
+    "b5a5",
+    "f6g6",
+    "a5b5",
+    "g6f5"
+   ],
+   "rating": 1032,
+   "themes": [
+    "advantage",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "8jjIt",
+   "source": "lichess:8jjIt",
+   "fen": "8/8/1p1k4/4p1p1/1PP2pP1/5K1P/8/8 w - - 3 44",
+   "moves": [
+    "h3h4",
+    "g5h4",
+    "c4c5",
+    "b6c5"
+   ],
+   "rating": 1038,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "UycSQ",
+   "source": "lichess:UycSQ",
+   "fen": "8/1p3k2/p1p2p2/2P2P1p/PP3P1K/8/8/8 b - - 4 44",
+   "moves": [
+    "f7e7",
+    "h4h5",
+    "a6a5",
+    "b4a5"
+   ],
+   "rating": 1072,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "SWqOF",
+   "source": "lichess:SWqOF",
+   "fen": "8/8/1P5p/Kr2k1p1/P3P3/5p2/8/8 w - - 0 50",
+   "moves": [
+    "a5b5",
+    "f3f2",
+    "b6b7",
+    "f2f1q"
+   ],
+   "rating": 1081,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "zhuII",
+   "source": "lichess:zhuII",
+   "fen": "8/8/8/2k2ppp/Kp2P3/1P3PPP/8/8 b - - 0 42",
+   "moves": [
+    "f5e4",
+    "f3e4",
+    "c5d4",
+    "a4b4"
+   ],
+   "rating": 1082,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "4i9IB",
+   "source": "lichess:4i9IB",
+   "fen": "8/8/8/p7/3p4/kP1K4/2P5/8 b - - 3 66",
+   "moves": [
+    "a3b4",
+    "d3d4",
+    "a5a4",
+    "b3a4"
+   ],
+   "rating": 1121,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "CNBVg",
+   "source": "lichess:CNBVg",
+   "fen": "7k/1p5p/p7/P1p5/8/8/5pK1/8 b - - 0 51",
+   "moves": [
+    "b7b5",
+    "a5b6",
+    "f2f1q",
+    "g2f1"
+   ],
+   "rating": 1125,
+   "themes": [
+    "crushing",
+    "enPassant",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "2Qi2Y",
+   "source": "lichess:2Qi2Y",
+   "fen": "8/8/8/4Kppp/8/6PP/2k5/8 b - - 3 39",
+   "moves": [
+    "c2d3",
+    "e5f5",
+    "g5g4",
+    "h3g4"
+   ],
+   "rating": 1128,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "AqEFo",
+   "source": "lichess:AqEFo",
+   "fen": "8/5kp1/5pp1/3pP1P1/p2P1K1P/P7/8/8 b - - 0 53",
+   "moves": [
+    "f6e5",
+    "f4e5",
+    "f7e7",
+    "e5d5"
+   ],
+   "rating": 1161,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "FoCF1",
+   "source": "lichess:FoCF1",
+   "fen": "8/8/7p/p1pk2p1/1p3PP1/1P1KP3/P7/8 b - - 0 37",
+   "moves": [
+    "g5f4",
+    "e3f4",
+    "c5c4",
+    "b3c4"
+   ],
+   "rating": 1184,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "5pp5g",
+   "source": "lichess:5pp5g",
+   "fen": "8/6k1/P7/5p2/1p1p3p/3Kp2P/8/8 b - - 1 64",
+   "moves": [
+    "f5f4",
+    "a6a7",
+    "f4f3",
+    "a7a8q"
+   ],
+   "rating": 1186,
+   "themes": [
+    "advancedPawn",
+    "crushing",
+    "endgame",
+    "master",
+    "pawnEndgame",
+    "promotion",
+    "short"
+   ]
+  },
+  {
+   "id": "NX3tm",
+   "source": "lichess:NX3tm",
+   "fen": "8/8/1p2p3/p1p1Pkp1/P1P4p/1P3KPP/8/8 w - - 1 52",
+   "moves": [
+    "g3h4",
+    "g5h4",
+    "f3e3",
+    "f5e5"
+   ],
+   "rating": 1206,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "gYMPE",
+   "source": "lichess:gYMPE",
+   "fen": "8/5k2/1p2p3/p3P1p1/P1pPp3/2P1K3/6P1/8 b - - 1 54",
+   "moves": [
+    "f7e7",
+    "e3e4",
+    "b6b5",
+    "a4b5"
+   ],
+   "rating": 1250,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "T2kmo",
+   "source": "lichess:T2kmo",
+   "fen": "8/p7/4p3/1P6/5p2/P2K2k1/6P1/8 w - - 0 47",
+   "moves": [
+    "a3a4",
+    "g3g2",
+    "b5b6",
+    "a7b6"
+   ],
+   "rating": 1252,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "Nc1FQ",
+   "source": "lichess:Nc1FQ",
+   "fen": "8/6p1/8/3ppK1P/4P1P1/5k2/8/8 w - - 0 44",
+   "moves": [
+    "f5e5",
+    "d5e4",
+    "h5h6",
+    "g7h6"
+   ],
+   "rating": 1263,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "iAsqq",
+   "source": "lichess:iAsqq",
+   "fen": "8/p6p/3k2p1/1p2p3/1P2Pp2/P1PK2PP/8/8 w - - 0 31",
+   "moves": [
+    "g3f4",
+    "e5f4",
+    "c3c4",
+    "b5c4"
+   ],
+   "rating": 1268,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "iRjJV",
+   "source": "lichess:iRjJV",
+   "fen": "8/5p2/3p1P1k/2pPp1pP/2P5/1P5P/6K1/8 w - - 1 44",
+   "moves": [
+    "g2f3",
+    "h6h5",
+    "b3b4",
+    "c5b4"
+   ],
+   "rating": 1300,
+   "themes": [
+    "advantage",
+    "endgame",
+    "master",
+    "pawnEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "efMVc",
+   "source": "lichess:efMVc",
+   "fen": "8/8/3kp1Kp/6p1/6P1/5P2/8/8 b - - 2 49",
+   "moves": [
+    "e6e5",
+    "g6h6",
+    "e5e4",
+    "f3e4"
+   ],
+   "rating": 1300,
+   "themes": [
+    "crushing",
+    "endgame",
+    "pawnEndgame",
+    "short"
+   ]
+  }
+ ]
+}

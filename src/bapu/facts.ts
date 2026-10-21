@@ -50,6 +50,8 @@ export interface MoveFacts {
   defenders: Target[];
   /** Where the enemy king stands after the move. */
   king: Square;
+  /** A king move into direct opposition: the kings face off with one square between, and the other side must give way. */
+  opposition: boolean;
   /** True if the captured piece had no defender (so it was simply free). */
   capturedFree: boolean;
   /** Pins and skewers by any of our sliders after the move; ones by the moved piece come first. */
@@ -211,6 +213,7 @@ export function moveFacts(fenBefore: string, move: Pick<Move, 'from' | 'to' | 'p
       .reverse(),
     capturedFree: Boolean(played.captured) && before.attackers(played.to, them).length === 0,
     king: theirKing,
+    opposition: played.piece === 'k' && inOpposition(played.to, theirKing),
     lines,
     discovered,
     doubleCheck: checkers >= 2,
@@ -218,6 +221,13 @@ export function moveFacts(fenBefore: string, move: Pick<Move, 'from' | 'to' | 'p
     escapes,
     stoppedBy,
   };
+}
+
+/** Kings on the same file or rank with exactly one square between them. */
+function inOpposition(a: Square, b: Square): boolean {
+  const df = Math.abs(a.charCodeAt(0) - b.charCodeAt(0));
+  const dr = Math.abs(Number(a[1]) - Number(b[1]));
+  return (df === 0 && dr === 2) || (dr === 0 && df === 2);
 }
 
 /** True if two squares touch (including diagonally). */
@@ -228,4 +238,102 @@ export function adjacent(a: Square, b: Square): boolean {
 /** A fork worth celebrating: two or more real targets bigger than a pawn. */
 export function isFork(f: MoveFacts): boolean {
   return f.forkTargets.filter((t) => t.type !== 'p').length >= 2;
+}
+
+/** What a whole puzzle line shows: ideas that only appear across several moves. */
+export interface LineInsights {
+  /** An enemy piece was dragged off a square where it guarded the solver's final target. */
+  deflected?: { piece: PieceSymbol; from: Square; guarded: Square };
+  /** A sacrifice lured an enemy piece (usually the king) onto a square where it got hit. */
+  attracted?: { piece: PieceSymbol; to: Square };
+  /** The first move took a defender, and the piece it guarded fell at the end. */
+  removedDefender?: { defender: Target; target: Target };
+  /** The piece captured at the end had no safe square to run to. */
+  trapped?: Target;
+  /** Mate by a knight against a king walled in by its own pieces. */
+  smothered?: boolean;
+}
+
+const uciMove = (uci: string) => ({ from: uci.slice(0, 2) as Square, to: uci.slice(2, 4) as Square, promotion: uci[4] as PieceSymbol | undefined });
+
+/**
+ * Replays a Lichess-format line (`ucis[0]` is the opponent's move, the solver plays odd indexes)
+ * and looks for the multi-move ideas of Unit 4.
+ */
+export function lineInsights(fen: string, ucis: string[]): LineInsights {
+  const positions: Chess[] = [];
+  const moves: Move[] = [];
+  const chess = new Chess(fen);
+  for (const uci of ucis) {
+    positions.push(new Chess(chess.fen()));
+    moves.push(chess.move(uciMove(uci)));
+  }
+  const out: LineInsights = {};
+  if (moves.length < 2) return out;
+
+  const solver = moves[1].color;
+  const them: Color = solver === 'w' ? 'b' : 'w';
+  const last = moves.length - 1 - ((moves.length - 1) % 2 === 1 ? 0 : 1);
+  const final = moves[last];
+  const target = final.to;
+
+  // Deflection: an opponent reply moves a piece that was guarding the final target square.
+  for (let i = 2; i < last; i += 2) {
+    const reply = moves[i];
+    if (reply.piece === 'k') continue;
+    if (positions[i].attackers(target, them).includes(reply.from) && reply.to !== target) {
+      out.deflected = { piece: reply.piece, from: reply.from, guarded: target };
+      break;
+    }
+  }
+
+  // Attraction: a reply captures the piece the solver just put en prise, and the next solver move hits it.
+  for (let i = 2; i < last; i += 2) {
+    const [sac, reply, next] = [moves[i - 1], moves[i], moves[i + 1]];
+    if (reply.to === sac.to && reply.captured && next) {
+      const hits = next.san.includes('+') || next.san.includes('#') || positions[i + 2]?.attackers(reply.to, solver).length;
+      if (hits) {
+        out.attracted = { piece: reply.piece, to: reply.to };
+        break;
+      }
+    }
+  }
+
+  // Removing the defender: the first solver move captures a piece that guarded what falls at the end.
+  const first = moves[1];
+  if (first.captured && final.captured && final.to !== first.to) {
+    const guarded = positions[1].attackers(final.to, them).includes(first.to);
+    if (guarded) out.removedDefender = { defender: { type: first.captured, square: first.to }, target: { type: final.captured, square: final.to } };
+  }
+
+  // Trapped: before the opponent's last reply, the captured piece had no move to a safe square.
+  if (final.captured && final.captured !== 'p' && last >= 3) {
+    const before = positions[last - 1]; // opponent to move
+    const victimFrom = moves[last - 1].to === final.to ? moves[last - 1].from : final.to;
+    if (moves[last - 1].to !== final.to || moves[last - 1].piece === final.captured) {
+      const escapes = before.moves({ square: victimFrom, verbose: true }).filter((m) => {
+        const after = new Chess(before.fen());
+        after.move(m);
+        return after.attackers(m.to, solver).length === 0;
+      });
+      const attacked = before.attackers(victimFrom, solver).length > 0 || moves[last - 1].to === final.to;
+      if (escapes.length === 0 && attacked && PIECE_VALUE[final.captured] >= 3) {
+        out.trapped = { type: final.captured, square: final.to };
+      }
+    }
+  }
+
+  // Smothered mate: a knight mates a king whose neighbours are all its own pieces (or the edge).
+  const end = new Chess(chess.fen());
+  if (end.isCheckmate() && final.piece === 'n') {
+    const king = kingSquare(end, them);
+    out.smothered = [-1, 0, 1].every((df) =>
+      [-1, 0, 1].every((dr) => {
+        if (!df && !dr) return true;
+        const s = step(king, df, dr);
+        return !s || end.get(s)?.color === them;
+      }),
+    );
+  }
+  return out;
 }

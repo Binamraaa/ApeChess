@@ -1,0 +1,781 @@
+{
+ "level": "L17",
+ "source": "Lichess puzzle database (CC0), https://database.lichess.org/#puzzles",
+ "puzzles": [
+  {
+   "id": "4NwJW",
+   "source": "lichess:4NwJW",
+   "fen": "8/r7/8/3p4/PR1P1B2/3b1kPK/4pP2/4R3 w - - 1 41",
+   "moves": [
+    "b4b3",
+    "a7h7",
+    "f4h6",
+    "h7h6"
+   ],
+   "rating": 836,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "V7duF",
+   "source": "lichess:V7duF",
+   "fen": "2r5/pq3pk1/1p4p1/3r3p/4pQ2/1P2P3/PR3PPP/3R2K1 w - - 0 26",
+   "moves": [
+    "d1d5",
+    "c8c1",
+    "d5d1",
+    "c1d1"
+   ],
+   "rating": 867,
+   "themes": [
+    "backRankMate",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "CfnvY",
+   "source": "lichess:CfnvY",
+   "fen": "1n1q1rkR/rb1nbpp1/6P1/p1pQ4/1p2P3/4BP2/PPP1N3/RN2KB2 b Q - 2 17",
+   "moves": [
+    "g8h8",
+    "d5h5",
+    "h8g8",
+    "h5h7"
+   ],
+   "rating": 887,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "opening",
+    "short"
+   ]
+  },
+  {
+   "id": "9kYCg",
+   "source": "lichess:9kYCg",
+   "fen": "2k3r1/pppqb3/2np1p1p/3Qp3/4P2N/2PP1N1P/PP3Pr1/R4R1K w - - 0 18",
+   "moves": [
+    "h4g2",
+    "d7h3",
+    "h1g1",
+    "h3g2"
+   ],
+   "rating": 889,
+   "themes": [
+    "fork",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "aCRht",
+   "source": "lichess:aCRht",
+   "fen": "6k1/5p2/6r1/ppp5/4P2Q/q2r4/2RR1KB1/8 b - - 1 38",
+   "moves": [
+    "d3g3",
+    "d2d8",
+    "g8g7",
+    "h4h8"
+   ],
+   "rating": 922,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "3qUz7",
+   "source": "lichess:3qUz7",
+   "fen": "8/p1r4p/2p1k1p1/3PN1B1/R1P2K1P/8/P5b1/6r1 b - - 0 38",
+   "moves": [
+    "c6d5",
+    "a4a6",
+    "c7c6",
+    "a6c6"
+   ],
+   "rating": 929,
+   "themes": [
+    "endgame",
+    "master",
+    "mate",
+    "mateIn2",
+    "pillsburysMate",
+    "short"
+   ]
+  },
+  {
+   "id": "6XKai",
+   "source": "lichess:6XKai",
+   "fen": "5b1k/pR4Qp/8/2p2p2/8/5P2/P1qr1P1P/4R1K1 b - - 0 29",
+   "moves": [
+    "f8g7",
+    "e1e8",
+    "g7f8",
+    "e8f8"
+   ],
+   "rating": 940,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "tepX0",
+   "source": "lichess:tepX0",
+   "fen": "r5r1/ppq2pkn/3p2p1/2pPpN2/4P3/2P4R/PP3PPP/R1Q3K1 b - - 1 20",
+   "moves": [
+    "g6f5",
+    "c1h6",
+    "g7h8",
+    "h6h7"
+   ],
+   "rating": 964,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "rTdfy",
+   "source": "lichess:rTdfy",
+   "fen": "3N3k/p5pp/8/8/2Q5/4q3/P3b1PP/5R1K b - - 0 24",
+   "moves": [
+    "e2c4",
+    "f1f8",
+    "c4g8",
+    "d8f7"
+   ],
+   "rating": 971,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "JTeQY",
+   "source": "lichess:JTeQY",
+   "fen": "2rR4/1p3kp1/5p2/4pB1p/p7/B3nPP1/PP5P/K1q4R w - - 0 27",
+   "moves": [
+    "h1c1",
+    "c8c1",
+    "f5b1",
+    "e3c2"
+   ],
+   "rating": 985,
+   "themes": [
+    "endgame",
+    "master",
+    "mate",
+    "mateIn2",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "2vGMd",
+   "source": "lichess:2vGMd",
+   "fen": "r4Q1k/pp2n1pp/2pNp3/4P3/8/8/Pq4PP/5R1K b - - 1 21",
+   "moves": [
+    "a8f8",
+    "f1f8",
+    "e7g8",
+    "d6f7"
+   ],
+   "rating": 989,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "d2rYg",
+   "source": "lichess:d2rYg",
+   "fen": "1r3Q1k/pp2n1pp/3N4/4p3/4P3/3P4/PPP1q1PP/5R1K b - - 2 23",
+   "moves": [
+    "b8f8",
+    "f1f8",
+    "e7g8",
+    "d6f7"
+   ],
+   "rating": 1048,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "SX6Fx",
+   "source": "lichess:SX6Fx",
+   "fen": "3rk2r/pRp2p1p/2n3pb/8/8/B1p2NQ1/P1P2PPP/1K2q3 w k - 0 18",
+   "moves": [
+    "f3e1",
+    "d8d1",
+    "a3c1",
+    "d1c1"
+   ],
+   "rating": 1048,
+   "themes": [
+    "fork",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "operaMate",
+    "short"
+   ]
+  },
+  {
+   "id": "XwD3t",
+   "source": "lichess:XwD3t",
+   "fen": "rnb1k2r/ppp3p1/4q2p/4Qp2/7B/2P1bN2/P1P3PP/RK3B1R w kq - 1 15",
+   "moves": [
+    "e5g7",
+    "e6b6",
+    "f1b5",
+    "b6b5"
+   ],
+   "rating": 1053,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "VkQoV",
+   "source": "lichess:VkQoV",
+   "fen": "5rk1/pp4pp/8/2Np4/P2b4/8/P5PP/1R1n2BK w - - 0 30",
+   "moves": [
+    "g1d4",
+    "f8f1",
+    "d4g1",
+    "d1f2"
+   ],
+   "rating": 1087,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "yKRv6",
+   "source": "lichess:yKRv6",
+   "fen": "r3r1kb/pp2pp1p/3p1npB/q6P/1n2P3/1PN2P2/1PPQ2P1/2KR1B1R w - - 1 15",
+   "moves": [
+    "h5g6",
+    "a5a1",
+    "c3b1",
+    "b4a2"
+   ],
+   "rating": 1088,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "queensideAttack",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "cgozN",
+   "source": "lichess:cgozN",
+   "fen": "7k/2r3p1/p4p2/4pN2/P3P1K1/6P1/Q2R4/5r1q b - - 2 41",
+   "moves": [
+    "g7g6",
+    "d2d8",
+    "h8h7",
+    "a2g8"
+   ],
+   "rating": 1097,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "Gjrhw",
+   "source": "lichess:Gjrhw",
+   "fen": "r2q1rk1/p1p1npb1/1p2p1p1/6NN/3P4/4P2Q/PPP4P/R3K2R b KQ - 0 17",
+   "moves": [
+    "e7f5",
+    "h5f6",
+    "g7f6",
+    "h3h7"
+   ],
+   "rating": 1119,
+   "themes": [
+    "clearance",
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short"
+   ]
+  },
+  {
+   "id": "nTAi8",
+   "source": "lichess:nTAi8",
+   "fen": "r1b2rk1/ppp2ppp/4p3/q2n4/1n1P4/2N2N2/1PPBQPPP/2KR1B1R w - - 0 11",
+   "moves": [
+    "e2b5",
+    "a5a1",
+    "c3b1",
+    "b4a2"
+   ],
+   "rating": 1156,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "opening",
+    "queensideAttack",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "tgAAi",
+   "source": "lichess:tgAAi",
+   "fen": "1R4rk/r2p1p2/2p2p2/4p2p/4P3/2PP2Pq/P2Q1P2/1R4K1 b - - 1 24",
+   "moves": [
+    "g8b8",
+    "d2h6",
+    "h8g8",
+    "b1b8"
+   ],
+   "rating": 1190,
+   "themes": [
+    "endgame",
+    "intermezzo",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "mFZ2B",
+   "source": "lichess:mFZ2B",
+   "fen": "r1bqr2k/pppppQbp/2n2np1/6N1/8/1B1P4/PPP2PPP/R1B2RK1 b - - 2 12",
+   "moves": [
+    "c6a5",
+    "f7g8",
+    "f6g8",
+    "g5f7"
+   ],
+   "rating": 1197,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "opening",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "8eI7U",
+   "source": "lichess:8eI7U",
+   "fen": "2r1kb1r/3b1ppp/p2ppn2/q5P1/1n1NPP2/2N1B3/1PPQB2P/2KR3R w k - 1 15",
+   "moves": [
+    "g5f6",
+    "a5a1",
+    "c3b1",
+    "b4a2"
+   ],
+   "rating": 1198,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "queensideAttack",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "sm7EE",
+   "source": "lichess:sm7EE",
+   "fen": "r2qkbnr/2pb3p/p2p1pN1/1p3P1Q/4P3/1nN5/PPPP2PP/R1B1K2R b KQkq - 0 11",
+   "moves": [
+    "h7g6",
+    "h5g6",
+    "e8e7",
+    "c3d5"
+   ],
+   "rating": 1199,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "ZztCo",
+   "source": "lichess:ZztCo",
+   "fen": "1r4k1/p1p1bppp/b2p4/6P1/n2NPP1P/2B5/1N1Q3R/q1KR4 w - - 10 27",
+   "moves": [
+    "c1c2",
+    "b8b2",
+    "c3b2",
+    "a1b2"
+   ],
+   "rating": 1209,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short"
+   ]
+  },
+  {
+   "id": "Ho2Fq",
+   "source": "lichess:Ho2Fq",
+   "fen": "8/R6p/p2pPq1k/1p4p1/4P3/P1Pn4/6PP/2Q4K w - - 2 32",
+   "moves": [
+    "c1e3",
+    "f6f1",
+    "e3g1",
+    "d3f2"
+   ],
+   "rating": 1213,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "SV1kB",
+   "source": "lichess:SV1kB",
+   "fen": "8/p4Q1p/7k/2pPbB2/2P5/2K4P/PP3q2/8 w - - 14 42",
+   "moves": [
+    "c3b3",
+    "f2b2",
+    "b3a4",
+    "b2b4"
+   ],
+   "rating": 1222,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "vJ3yv",
+   "source": "lichess:vJ3yv",
+   "fen": "3q4/p7/4Q3/5ppk/3P3r/1P2N3/P3K3/8 b - - 3 43",
+   "moves": [
+    "d8h8",
+    "e6f7",
+    "h5h6",
+    "e3f5"
+   ],
+   "rating": 1231,
+   "themes": [
+    "endgame",
+    "master",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "WjsVV",
+   "source": "lichess:WjsVV",
+   "fen": "3r3k/pp1b1Qbp/6p1/4p1N1/8/1BP5/PP4PK/2B1q3 b - - 3 31",
+   "moves": [
+    "e1c1",
+    "f7g8",
+    "d8g8",
+    "g5f7"
+   ],
+   "rating": 1259,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "B4ZTM",
+   "source": "lichess:B4ZTM",
+   "fen": "5rk1/1q4b1/p2p2pp/2pPp3/N1P1n1b1/1P2B3/4Q1PP/R1N4K w - - 2 29",
+   "moves": [
+    "e2g4",
+    "f8f1",
+    "e3g1",
+    "e4f2"
+   ],
+   "rating": 1283,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "7STMD",
+   "source": "lichess:7STMD",
+   "fen": "r4k2/pR4Np/n4p2/4p3/8/5r2/P4P1P/4K1R1 b - - 3 24",
+   "moves": [
+    "a8b8",
+    "g7e6",
+    "f8e8",
+    "g1g8"
+   ],
+   "rating": 1320,
+   "themes": [
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "QtIq7",
+   "source": "lichess:QtIq7",
+   "fen": "r3r2k/pp1b1Qpp/1q6/4R1N1/8/1B6/PP3PPP/R5K1 b - - 0 22",
+   "moves": [
+    "e8e5",
+    "f7g8",
+    "a8g8",
+    "g5f7"
+   ],
+   "rating": 1352,
+   "themes": [
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "UIK2l",
+   "source": "lichess:UIK2l",
+   "fen": "r6k/pp3Qpp/2p2bnN/4p3/2P1q3/BP4P1/5P1P/3r1BK1 b - - 8 28",
+   "moves": [
+    "e4e1",
+    "f7g8",
+    "a8g8",
+    "h6f7"
+   ],
+   "rating": 1377,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "Q254h",
+   "source": "lichess:Q254h",
+   "fen": "2r1r2k/p2qbQpp/7N/1p6/4N3/1P5P/P1b1R1P1/3q1RK1 b - - 1 27",
+   "moves": [
+    "d1e2",
+    "f7g8",
+    "e8g8",
+    "h6f7"
+   ],
+   "rating": 1382,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "8g4h0",
+   "source": "lichess:8g4h0",
+   "fen": "8/1pp2pk1/p7/P2Q1Pq1/1P2r3/2P1r2P/5R1K/5R2 w - - 0 33",
+   "moves": [
+    "f1g1",
+    "e3h3",
+    "h2h3",
+    "e4h4"
+   ],
+   "rating": 1388,
+   "themes": [
+    "attraction",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "sacrifice",
+    "short"
+   ]
+  },
+  {
+   "id": "HIYZl",
+   "source": "lichess:HIYZl",
+   "fen": "1Q3bk1/5pp1/b3p2P/4P3/4B3/8/p4PK1/3r4 b - - 2 37",
+   "moves": [
+    "a2a1q",
+    "h6h7",
+    "g8h8",
+    "b8f8"
+   ],
+   "rating": 1397,
+   "themes": [
+    "advancedPawn",
+    "deflection",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "i1M35",
+   "source": "lichess:i1M35",
+   "fen": "5r2/pp5k/2p2pRp/3q3P/6Q1/P5PK/8/8 b - - 3 45",
+   "moves": [
+    "f8f7",
+    "g6h6",
+    "h7h6",
+    "g4g6"
+   ],
+   "rating": 1400,
+   "themes": [
+    "attraction",
+    "endgame",
+    "mate",
+    "mateIn2",
+    "sacrifice",
+    "short"
+   ]
+  },
+  {
+   "id": "9EXKo",
+   "source": "lichess:9EXKo",
+   "fen": "3r1rk1/1b4bp/4Q1pN/1p6/p1pP4/P1P3R1/1P1q1PPP/R5K1 b - - 4 26",
+   "moves": [
+    "g8h8",
+    "e6g8",
+    "f8g8",
+    "h6f7"
+   ],
+   "rating": 1400,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "pMVbv",
+   "source": "lichess:pMVbv",
+   "fen": "6r1/1pb1k2p/4P3/p2pR3/3P4/8/1P3Q1P/3q1B1K b - - 1 33",
+   "moves": [
+    "c7e5",
+    "f2f7",
+    "e7d6",
+    "f7d7"
+   ],
+   "rating": 1400,
+   "themes": [
+    "endgame",
+    "fork",
+    "mate",
+    "mateIn2",
+    "short"
+   ]
+  },
+  {
+   "id": "DvKLd",
+   "source": "lichess:DvKLd",
+   "fen": "r4k1r/1bpp1Bpp/p7/1pb5/4P1n1/5N2/PP3qPP/RNBQR1K1 w - - 0 14",
+   "moves": [
+    "g1h1",
+    "f2g1",
+    "f3g1",
+    "g4f2"
+   ],
+   "rating": 1400,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "sacrifice",
+    "short",
+    "smotheredMate"
+   ]
+  },
+  {
+   "id": "cn0wJ",
+   "source": "lichess:cn0wJ",
+   "fen": "r3r3/ppq1kpQP/4p3/2b3p1/2B3P1/1P6/P3nP2/3R2KR w - - 5 28",
+   "moves": [
+    "c4e2",
+    "c7g3",
+    "g1f1",
+    "g3f2"
+   ],
+   "rating": 1400,
+   "themes": [
+    "kingsideAttack",
+    "mate",
+    "mateIn2",
+    "middlegame",
+    "pin",
+    "short"
+   ]
+  }
+ ]
+}

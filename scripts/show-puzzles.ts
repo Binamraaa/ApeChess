@@ -1,7 +1,7 @@
 // Usage: npx tsx scripts/show-puzzles.ts L05 [theme] [ids...]   Prints each pack puzzle, its line and Bapu's template output.
 import { Chess } from 'chess.js';
 import { readFileSync } from 'node:fs';
-import { explainCorrect, explainSolved, moveFacts } from '../src/bapu/explain';
+import { explainCorrect, explainSolved, lineInsights, moveFacts } from '../src/bapu/explain';
 const [id, theme = 'knightFork', ...ids] = process.argv.slice(2);
 const pack = JSON.parse(readFileSync(`${import.meta.dirname}/../content/puzzles/${id}.json`, 'utf8')).puzzles;
 for (const p of pack) {
@@ -20,5 +20,5 @@ for (const p of pack) {
   console.log(`\n${p.id} r${p.rating} ${solver === 'w' ? 'White' : 'Black'} solves  ${p.themes.join(' ')}`);
   if (ids.length) console.log(new Chess(start).ascii());
   console.log('  ' + sans.join(' '));
-  console.log('  => ' + explainSolved(played, theme as any));
+  console.log('  => ' + explainSolved(played, theme as any, lineInsights(p.fen, p.moves)));
 }

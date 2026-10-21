@@ -1,9 +1,9 @@
-import type { Move } from 'chess.js';
+import type { Move, PieceSymbol } from 'chess.js';
 import type { PuzzleDef } from '../levels/types';
-import { PIECE_NAME, PIECE_VALUE, adjacent, isFork, type LineTactic, type MoveFacts, type Target } from './facts';
+import { PIECE_NAME, PIECE_VALUE, adjacent, isFork, type LineInsights, type LineTactic, type MoveFacts, type Target } from './facts';
 import { THEMES, type Theme } from './themes';
 
-export { PIECE_NAME, PIECE_VALUE, isFork, moveFacts, material, type MoveFacts } from './facts';
+export { PIECE_NAME, PIECE_VALUE, isFork, lineInsights, moveFacts, material, type LineInsights, type MoveFacts } from './facts';
 
 function targetName(t: Target): string {
   return t.type === 'k' ? 'the king' : `the ${PIECE_NAME[t.type]} on ${t.square}`;
@@ -57,6 +57,14 @@ const behindName = (l: LineTactic) => (l.behind.type === 'k' ? 'the king' : `the
 /** Bapu's line right after the solver plays a correct move that isn't the last one. */
 export function explainCorrect(f: MoveFacts, theme: Theme = 'knightFork'): string {
   const piece = pieceName(f);
+  if (theme === 'mateIn2') {
+    return f.check
+      ? 'Check! The king has very few choices now. Find the finishing blow.'
+      : 'A quiet move, with a deadly threat. Now find the finish.';
+  }
+  if (f.opposition && theme === 'pawnEndgame') {
+    return 'You take the opposition! The kings face off with one square between, and the other king has to give way.';
+  }
   for (const p of patterns(theme)) {
     if (p === 'fork' && isFork(f)) {
       if (f.check) return `Check! Your ${piece} on ${f.to} hits ${forkNames(f)}. The king must move first, so something gets left behind.`;
@@ -91,8 +99,9 @@ export function explainCorrect(f: MoveFacts, theme: Theme = 'knightFork'): strin
   return 'Good move. Keep going!';
 }
 
-function explainMate(f: MoveFacts): string {
+function explainMate(f: MoveFacts, smothered = false): string {
   const piece = pieceName(f);
+  if (smothered) return 'Smothered mate! The king is walled in by its own pieces, and your knight jumps in for the kill.';
   if (f.doubleCheck) return 'Checkmate by double check! Two attackers at once, and the king has nowhere to go.';
   if (f.promotion) return `Your pawn becomes a ${piece}, and it’s checkmate! A brand-new piece, straight into action.`;
   if (f.special === 'castle') return 'Castling with checkmate! The rook slides out next to your king, and the enemy king has nowhere to go.';
@@ -108,14 +117,56 @@ function explainMate(f: MoveFacts): string {
   return `Checkmate! The king is in check, every escape square is covered, and nothing can block or safely capture your ${piece}.`;
 }
 
+const pieceWord = (t: PieceSymbol) => (t === 'k' ? 'king' : PIECE_NAME[t]);
+
+/** Lines for the multi-move ideas of Unit 4, when the line shows them. */
+function explainInsight(theme: Theme, i: LineInsights, final: MoveFacts): string | undefined {
+  const finish = final.mate ? 'checkmate followed' : final.captured ? `the ${PIECE_NAME[final.captured]} was yours` : 'you won';
+  if ((theme === 'removeDefender' || theme === 'deflection') && i.removedDefender) {
+    const { defender: d, target: t } = i.removedDefender;
+    return `The ${PIECE_NAME[d.type]} on ${d.square} was guarding the ${PIECE_NAME[t.type]} on ${t.square}. Take the guard, and what it guarded falls.`;
+  }
+  if (theme === 'deflection' && i.attracted) {
+    const lured = i.attracted.piece === 'k' ? 'the king' : `the ${PIECE_NAME[i.attracted.piece]}`;
+    return `Your sacrifice on ${i.attracted.to} lured ${lured} onto a bad square, and ${finish}.`;
+  }
+  if ((theme === 'deflection' || theme === 'removeDefender') && i.deflected) {
+    const { piece, from, guarded } = i.deflected;
+    return `You dragged the ${pieceWord(piece)} away from ${from}, where it was guarding ${guarded}. With the guard gone, ${finish}.`;
+  }
+  if (theme === 'trapped' && i.trapped) {
+    return `The ${PIECE_NAME[i.trapped.type]} had nowhere safe to go: every square it could reach was covered. A trapped piece is a lost piece.`;
+  }
+  return undefined;
+}
+
 /**
  * Bapu's line when the puzzle is solved (used when the puzzle has no hand-written explanation).
- * `moves` are the solver's moves in order.
+ * `moves` are the solver's moves in order; `insights` describe the whole line (see lineInsights).
  */
-export function explainSolved(moves: MoveFacts[], theme: Theme = 'knightFork'): string {
+export function explainSolved(moves: MoveFacts[], theme: Theme = 'knightFork', insights: LineInsights = {}): string {
   const f = moves[0];
   const final = moves[moves.length - 1];
-  if (final.mate) return explainMate(final);
+  const insight = explainInsight(theme, insights, final);
+  // In Unit 4 the idea matters more than the finish, even when the finish is mate.
+  if (insight && final.mate) return insight;
+  if (final.mate) {
+    const mate = explainMate(final, insights.smothered);
+    if (moves.length < 2) return mate;
+    const opener = f.check ? 'First a check that forced the reply, then the finish.' : 'A quiet first move, then mate: the hardest kind to see!';
+    return `${mate} ${opener}`;
+  }
+  if (insight) return insight;
+  if (theme === 'pawnEndgame' && moves.some((m) => m.opposition)) {
+    return 'Taking the opposition made the other king give way, and that opened the road for your pawn. In pawn endings, the king that doesn’t have to move wins.';
+  }
+  if (theme === 'pawnEndgame' && !moves.some((m) => m.special === 'promotion') && moves.some((m) => m.captured === 'p')) {
+    return 'You won a pawn, and in a pawn ending one extra pawn is usually enough: it marches on and becomes a queen.';
+  }
+  if (theme === 'defend') {
+    // These puzzles stop a threat, and often win something on the way: say both.
+    return `Threat handled! ${explainSolved(moves, 'mixed', insights)}`;
+  }
 
   const prize = final.captured ? `the ${PIECE_NAME[final.captured]}` : 'the prize';
   const piece = pieceName(f);
