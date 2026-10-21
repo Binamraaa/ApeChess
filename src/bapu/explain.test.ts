@@ -32,7 +32,7 @@ describe('templates', () => {
   it('summarises a solved fork', () => {
     const fork = moveFacts(AFTER_BC5, { from: 'b5', to: 'c7' });
     const final = moveFacts('r7/ppNk1ppp/8/2b5/8/8/PPB2PPP/2R3K1 w - - 3 3', { from: 'c7', to: 'a8' });
-    expect(explainSolved(fork, final)).toBe(
+    expect(explainSolved([fork, final])).toBe(
       'Knight to c7 forked the king AND the rook on a8. Only one could escape, so you collect the rook.',
     );
   });
@@ -43,7 +43,7 @@ describe('templates', () => {
     expect(explainWrong(p, 'b5a7', a7, 0)).toBe('Custom!');
 
     const d4 = moveFacts(AFTER_BC5, { from: 'b5', to: 'd4' });
-    expect(explainWrong(p, 'b5d4', d4, 0)).toMatch(/^Right piece!/);
+    expect(explainWrong(p, 'b5d4', d4, 0)).toMatch(/^Right piece, but your knight can just be taken on d4/);
 
     const rook = moveFacts(AFTER_BC5, { from: 'c1', to: 'd1' });
     expect(explainWrong(p, 'c1d1', rook, 0)).toMatch(/all about the knight/);
