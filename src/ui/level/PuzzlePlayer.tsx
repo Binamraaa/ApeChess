@@ -83,7 +83,7 @@ export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Prop
   const [hintLevel, setHintLevel] = useState(0);
 
   // Read inside timers, so kept in a ref rather than state.
-  const track = useRef({ mistakes: 0, hinted: false, revealed: false, played: [] as MoveFacts[] });
+  const track = useRef({ mistakes: 0, hinted: false, revealed: false, offScript: false, played: [] as MoveFacts[] });
   const timers = useRef<number[]>([]);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   const later = (fn: () => void, ms: number) => {
@@ -116,7 +116,8 @@ export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Prop
   function finish() {
     const t = track.current;
     setStatus('solved');
-    const text = puzzle.explanation ?? explainSolved(t.played, theme);
+    // The hand-written explanation describes the intended line; a different mate gets its own words.
+    const text = (!t.offScript && puzzle.explanation) || explainSolved(t.played, theme);
     say('good', text, t.revealed ? 'Here’s the idea' : t.mistakes ? 'Got there!' : 'Brilliant!');
     if (!t.revealed) vibrate(30);
     onSolved({ puzzleId: puzzle.id, firstTry: t.mistakes === 0, hintUsed: t.hinted, revealed: t.revealed });
@@ -150,7 +151,9 @@ export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Prop
     if (status !== 'solving') return;
     const fenBefore = session.fen;
     const uci = boardMoveToUci(session.position(), from, to);
+    const expected = session.expected();
     const result = session.tryMove(uci);
+    if (result.kind === 'solved' && uci !== expected) track.current.offScript = true;
 
     if (result.kind === 'illegal') return show(session.fen, session.lastMove);
     if (result.kind === 'wrong') {

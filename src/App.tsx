@@ -63,9 +63,19 @@ export default function App() {
   };
 
   const exit = () => {
-    if (cameFromHome.current) history.back();
-    else location.hash = '#/';
+    const from = location.hash;
+    const back = cameFromHome.current;
     cameFromHome.current = false;
+    if (!back) {
+      location.hash = '#/';
+      return;
+    }
+    history.back();
+    // Going back can silently do nothing (e.g. an installed app opened straight onto a level,
+    // or a page that reloaded itself after an update). If we're still on the level, go home directly.
+    window.setTimeout(() => {
+      if (location.hash === from) location.replace('#/');
+    }, 300);
   };
 
   if (levelId) {

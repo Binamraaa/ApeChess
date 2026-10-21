@@ -24,25 +24,6 @@
    ]
   },
   {
-   "id": "TJDPL",
-   "source": "lichess:TJDPL",
-   "fen": "8/8/8/4k1pp/5p2/7K/6B1/8 w - - 2 51",
-   "moves": [
-    "g2f3",
-    "g5g4",
-    "h3g2",
-    "g4f3"
-   ],
-   "rating": 673,
-   "themes": [
-    "bishopEndgame",
-    "crushing",
-    "endgame",
-    "fork",
-    "short"
-   ]
-  },
-  {
    "id": "FpMsM",
    "source": "lichess:FpMsM",
    "fen": "7k/pp4p1/8/3r3B/Q7/1KP1P2P/PP1q4/8 b - - 4 35",
@@ -530,25 +511,6 @@
    ]
   },
   {
-   "id": "ZQegY",
-   "source": "lichess:ZQegY",
-   "fen": "1k4q1/1p1Pb3/p1p2p2/B1P2B2/P3P1Pp/7K/5P2/1R6 w - - 2 39",
-   "moves": [
-    "b1d1",
-    "g8b3",
-    "h3h4",
-    "b3d1"
-   ],
-   "rating": 1039,
-   "themes": [
-    "advantage",
-    "endgame",
-    "fork",
-    "master",
-    "short"
-   ]
-  },
-  {
    "id": "07CmO",
    "source": "lichess:07CmO",
    "fen": "3q1rk1/pp2bppp/2rp1n2/1N2n3/2P2B2/1P3PP1/P5BP/R2Q1RK1 w - - 1 16",
@@ -618,6 +580,24 @@
     "endgame",
     "fork",
     "rookEndgame",
+    "short"
+   ]
+  },
+  {
+   "id": "yuA1U",
+   "source": "lichess:yuA1U",
+   "fen": "5rk1/pp4p1/2p1R2p/5p2/8/3P2QP/Pq3PP1/6K1 w - - 0 26",
+   "moves": [
+    "e6h6",
+    "b2c1",
+    "g1h2",
+    "c1h6"
+   ],
+   "rating": 1159,
+   "themes": [
+    "crushing",
+    "endgame",
+    "fork",
     "short"
    ]
   },
@@ -748,6 +728,24 @@
     "crushing",
     "endgame",
     "fork",
+    "short"
+   ]
+  },
+  {
+   "id": "hb9a3",
+   "source": "lichess:hb9a3",
+   "fen": "rnbqkb1r/ppp2ppp/8/3np1N1/2B5/2N1P3/PPPP2PP/R1BQK2R w KQkq - 2 7",
+   "moves": [
+    "g5f7",
+    "d8h4",
+    "g2g3",
+    "h4c4"
+   ],
+   "rating": 1200,
+   "themes": [
+    "advantage",
+    "fork",
+    "opening",
     "short"
    ]
   }

@@ -43,7 +43,7 @@ Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. In
 
 ### Puzzle packs
 
-`content/puzzles/LXX.json` are built from the [Lichess puzzle database](https://database.lichess.org/#puzzles) (CC0). To rebuild them, download `lichess_db_puzzle.csv.zst` (~300 MB) into `data/raw/` (never committed) and run `npm run puzzles` (about 5 minutes). The filters in `scripts/build-puzzles.ts` keep popular puzzles in each level's rating range, and only those where Bapu's own analysis finds the level's idea, so he can always explain them. `npx tsx scripts/show-puzzles.ts L10 pin` previews what Bapu says for every puzzle in a pack.
+`content/puzzles/LXX.json` are built from the [Lichess puzzle database](https://database.lichess.org/#puzzles) (CC0). To rebuild them, download `lichess_db_puzzle.csv.zst` (~300 MB) into `data/raw/` (never committed) and run `npm run puzzles` (about 5 minutes). The filters in `scripts/build-puzzles.ts` keep popular puzzles in each level's rating range, and only those where Bapu's own analysis finds the level's idea, so he can always explain them. Each candidate is then checked with Stockfish: the solution must be the only good move, and the opponent's replies must be real defences, not blunders. `npx tsx scripts/show-puzzles.ts L10 pin` previews what Bapu says for every puzzle in a pack.
 
 Open the app with `?unlock=all` to open every level on that device (for testing); `?unlock=off` turns it off.
 

@@ -19,15 +19,11 @@
     "fen": "1k2r3/1p6/4p3/p3P2p/P7/5q2/1P1p2Q1/6RK b - - 3 45",
     "moves": [
       "e8g8",
-      "g2f3",
-      "g8g1",
-      "h1g1"
+      "g2f3"
     ],
     "narration": [
       "Black's rook slides to g8 and stares at your queen. Scary! But before you run, look at what Black left behind.",
-      "Your queen takes Black's queen on f3. Nothing guards it, so it's free: 9 points for nothing.",
-      "Black grabs your rook on g1, with check.",
-      "Your king takes it back. Rook for rook is a fair trade, 5 for 5, and you're still a whole queen ahead."
+      "Your queen takes Black's queen on f3. Nothing guards it, so it's free: 9 points for nothing. Always check what the other side left unguarded before you react."
     ]
   },
   "guided": [

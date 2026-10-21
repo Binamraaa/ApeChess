@@ -64,15 +64,17 @@
     },
     {
       "id": "L04-g3",
-      "source": "lichess:YYFFU",
-      "rating": 991,
-      "fen": "r3r1k1/p5Rp/1n6/3pB3/8/8/P5PP/4K2R b K - 0 29",
+      "source": "lichess:NctpX",
+      "rating": 1355,
+      "fen": "rnb1k1nr/ppp2ppp/8/4P3/1BP5/2N1P1P1/PP2Q2P/R3KBq1 b Qkq - 1 10",
       "moves": [
-        "g8f8",
-        "e1g1"
+        "c8h3",
+        "e1c1",
+        "g1f1",
+        "d1f1"
       ],
-      "hint": "Your king and the h1 rook haven't moved yet. Which special move brings that rook into the game with check?",
-      "explanation": "Castling moves two pieces at once: the king hops to g1 and the rook jumps over it to f1. Here the rook lands with check, and your rook on g7 and bishop on e5 cover every escape. Castling checkmate!"
+      "hint": "Your king is still on e1, and Black's queen is lurking on g1. Which special move gets your king out of there and brings a rook into the game?",
+      "explanation": "Castle queenside! Your king steps away to c1, and in the same move your rook lands on d1, guarding the whole back row. Black's queen grabs the bishop on f1, but your rook takes her: a bishop for a queen."
     }
   ],
   "practice": []

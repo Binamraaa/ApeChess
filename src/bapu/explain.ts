@@ -40,11 +40,15 @@ const patterns = (theme: Theme) => {
   return [...lead, ...ORDER.filter((p) => !lead.includes(p))];
 };
 
-/** The most telling pin or skewer: one made by the moved piece, else a pin on a piece the move attacks. */
+/**
+ * The most telling pin or skewer: one made by the moved piece (unless it can simply be taken for free),
+ * else an existing pin on a piece the move attacks.
+ */
 export function keyLine(f: MoveFacts): LineTactic | undefined {
+  const free = f.hanging && f.defenders.length === 0;
   return (
-    f.lines.find((l) => l.by.square === f.to) ??
-    f.lines.find((l) => l.kind === 'pin' && f.targets.some((t) => t.square === l.front.square))
+    f.lines.find((l) => l.by.square === f.to && !free) ??
+    f.lines.find((l) => l.kind === 'pin' && l.by.square !== f.to && f.targets.some((t) => t.square === l.front.square))
   );
 }
 

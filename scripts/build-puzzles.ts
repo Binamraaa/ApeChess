@@ -2,6 +2,7 @@
 //
 //   1. Download https://database.lichess.org/lichess_db_puzzle.csv.zst into data/raw/
 //   2. npm run puzzles            (all packs)   or   npm run puzzles -- L05 L06
+//      Add --no-engine to skip the Stockfish check (much faster, for trying out filters).
 //
 // Writes content/puzzles/LXX.json. The raw CSV is never committed (data/raw/ is gitignored).
 import { closeSync, createReadStream, existsSync, fstatSync, mkdirSync, openSync, readSync, writeFileSync } from 'node:fs';
@@ -10,8 +11,11 @@ import { createInterface } from 'node:readline';
 import { Readable } from 'node:stream';
 import { createZstdDecompress } from 'node:zlib';
 import { Chess, type PieceSymbol, type Square } from 'chess.js';
+import type { PuzzleDef } from '../src/levels/types';
 import { PIECE_VALUE, isFork, material, moveFacts, type MoveFacts } from '../src/bapu/facts';
 import { keyLine } from '../src/bapu/explain';
+import { checkPuzzle } from './puzzle-check';
+import { UciEngine } from './uci-engine';
 
 const RAW = join(import.meta.dirname, '..', 'data', 'raw', 'lichess_db_puzzle.csv.zst');
 const OUT = join(import.meta.dirname, '..', 'content', 'puzzles');
@@ -50,6 +54,8 @@ interface PackSpec {
   where?: (r: Row) => boolean;
   /** Spread the pack evenly across these groups (e.g. pawn forks vs queen forks). */
   groupBy?: (r: Row) => string;
+  /** Reject puzzles where a different move also mates (the lesson is the move itself). */
+  uniqueMate?: boolean;
 }
 
 /** Piece letter (case shows colour) on `square` in a FEN, or undefined. */
@@ -127,6 +133,7 @@ const PACKS: Record<string, PackSpec> = {
     // Castling and en passant puzzles are rare, so look wider than the curriculum's 400–1000.
     rating: [400, 1400],
     minPlays: 100,
+    uniqueMate: true,
     where: (r) => solverFacts(r).some((f) => f.special),
     groupBy: (r) => r.themes.find((t) => ['castling', 'enPassant', 'promotion'].includes(t))!,
   },
@@ -247,16 +254,16 @@ class Candidates {
     }
     this.buckets.set(key, b);
   }
-  /** Round-robin across buckets (best first in each) until `n` are picked. */
-  pick(n: number): Row[] {
+  /** All candidates, round-robin across buckets (best first in each), so any prefix is balanced. */
+  ordered(): Row[] {
     const lists = [...this.buckets.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([, b]) => b.sort((x, y) => score(y) - score(x)));
     const out: Row[] = [];
-    for (let i = 0; out.length < n && lists.some((l) => i < l.length); i++) {
-      for (const l of lists) if (i < l.length && out.length < n) out.push(l[i]);
+    for (let i = 0; lists.some((l) => i < l.length); i++) {
+      for (const l of lists) if (i < l.length) out.push(l[i]);
     }
-    return out.sort((a, b) => a.rating - b.rating);
+    return out;
   }
 }
 
@@ -265,7 +272,9 @@ async function main() {
     console.error(`Missing ${RAW}\nDownload https://database.lichess.org/lichess_db_puzzle.csv.zst there first.`);
     process.exit(1);
   }
-  const wanted = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  const useEngine = !args.includes('--no-engine');
+  const wanted = args.filter((a) => !a.startsWith('--'));
   const levels = Object.keys(PACKS).filter((id) => wanted.length === 0 || wanted.includes(id));
   const found = Object.fromEntries(levels.map((id) => [id, new Candidates(PACK_SIZE)]));
 
@@ -283,16 +292,26 @@ async function main() {
     }
   }
 
+  // Stockfish pass: Lichess already engine-checks its puzzles, but we also want the solution to be
+  // the only good move, the opponent's replies to be real defences, and the win to survive.
+  const engine = useEngine ? new UciEngine() : undefined;
+  await engine?.init();
+
   mkdirSync(OUT, { recursive: true });
   for (const id of levels) {
-    const puzzles = found[id].pick(PACK_SIZE).map((r) => ({
-      id: r.id,
-      source: `lichess:${r.id}`,
-      fen: r.fen,
-      moves: r.moves,
-      rating: r.rating,
-      themes: r.themes,
-    }));
+    const puzzles: PuzzleDef[] = [];
+    let rejected = 0;
+    for (const r of found[id].ordered()) {
+      if (puzzles.length >= PACK_SIZE) break;
+      const p: PuzzleDef = { id: r.id, source: `lichess:${r.id}`, fen: r.fen, moves: r.moves, rating: r.rating, themes: r.themes };
+      const problems = engine ? await checkPuzzle(engine, p, { depth: 14, uniqueMate: PACKS[id].uniqueMate }) : [];
+      if (problems.length) {
+        rejected++;
+        continue;
+      }
+      puzzles.push(p);
+    }
+    puzzles.sort((a, b) => a.rating! - b.rating!);
     const pack = {
       level: id,
       source: 'Lichess puzzle database (CC0), https://database.lichess.org/#puzzles',
@@ -300,8 +319,9 @@ async function main() {
     };
     writeFileSync(join(OUT, `${id}.json`), JSON.stringify(pack, null, 1) + '\n');
     const [lo, hi] = [puzzles[0]?.rating, puzzles.at(-1)?.rating];
-    console.log(`${id}: ${puzzles.length} puzzles, rating ${lo}–${hi}`);
+    console.log(`${id}: ${puzzles.length} puzzles, rating ${lo}–${hi}` + (engine ? `, ${rejected} rejected by Stockfish` : ''));
   }
+  engine?.quit();
 }
 
 main().catch((e) => {

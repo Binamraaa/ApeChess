@@ -77,24 +77,6 @@
    ]
   },
   {
-   "id": "GXDMP",
-   "source": "lichess:GXDMP",
-   "fen": "2R5/6p1/3Pk2p/8/5KPP/8/2br4/8 b - - 4 43",
-   "moves": [
-    "e6d6",
-    "c8d8",
-    "d6e6",
-    "d8d2"
-   ],
-   "rating": 778,
-   "themes": [
-    "advantage",
-    "endgame",
-    "short",
-    "skewer"
-   ]
-  },
-  {
    "id": "oLtO6",
    "source": "lichess:oLtO6",
    "fen": "5k2/5p2/2R1p3/1P4p1/2KP2P1/8/8/1r6 w - - 3 54",
@@ -595,6 +577,26 @@
    "themes": [
     "advantage",
     "middlegame",
+    "short",
+    "skewer"
+   ]
+  },
+  {
+   "id": "JOxG4",
+   "source": "lichess:JOxG4",
+   "fen": "6k1/8/p6p/8/1P2QPP1/P3P1KP/8/4q3 w - - 3 46",
+   "moves": [
+    "g3f3",
+    "e1h1",
+    "f3e2",
+    "h1e4"
+   ],
+   "rating": 1143,
+   "themes": [
+    "crushing",
+    "deflection",
+    "endgame",
+    "queenEndgame",
     "short",
     "skewer"
    ]

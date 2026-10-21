@@ -65,9 +65,10 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `npm run dev`: dev server on :5173, exposed on the LAN (`server.host`) for phone testing
 - `npm test`: Vitest (level logic, scoring, streak, IndexedDB store, content validation)
 - `npm run build`: type-check + production build with service worker
-- `npm run verify-puzzles`: Stockfish checks every puzzle in `content/levels/` (solution is the clear best move, solver ends up winning). Run after editing puzzles.
+- `npm run verify-puzzles [-- file…]`: Stockfish checks every puzzle in `content/levels/` (or the given level/pack files) with the rules in `scripts/puzzle-check.ts`: the solution is the clear best move (no other move wins about as well), the opponent's replies aren't blunders, and the solver ends up winning. Run after editing puzzles.
 - `npm run bapu`: re-export Bapu WebP/icons from `abu.png`
-- `npm run puzzles`: rebuild `content/puzzles/LXX.json` from `data/raw/lichess_db_puzzle.csv.zst` (~5 min). The file is pzstd multi-frame, so the script decodes frame by frame. Per-level filters live in `PACKS`; they use Bapu's own move analysis (`src/bapu/facts.ts`) so every pack puzzle shows the level's idea.
+- `npm run puzzles`: rebuild `content/puzzles/LXX.json` from `data/raw/lichess_db_puzzle.csv.zst` (~5 min). The file is pzstd multi-frame, so the script decodes frame by frame. Per-level filters live in `PACKS`; they use Bapu's own move analysis (`src/bapu/facts.ts`) so every pack puzzle shows the level's idea, then every candidate goes through the same Stockfish check (~25 min in all; `--no-engine` skips it while trying filters).
 - `npx tsx scripts/show-puzzles.ts L10 pin [ids…]`: preview Bapu's template lines for a pack (with boards when ids are given). Use it before picking featured puzzles.
+- `npx tsx scripts/find-puzzles.ts castle|enPassant|promotion [maxRating] [count]`: find Stockfish-clean candidates for featured puzzles.
 - `?unlock=all` on the app URL opens every level on that device; `?unlock=off` resets.
 - Deploy: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build with `BASE_PATH=/<repo>/`, publish to GitHub Pages)
