@@ -1,0 +1,81 @@
+{
+  "id": "L19",
+  "number": 19,
+  "unit": 5,
+  "unitTitle": "Converting the Win",
+  "title": "King & Pawn Basics",
+  "theme": "pawnEndgame",
+  "icon": "wK",
+  "concept": "The square rule and opposition: when kings face off, whoever doesn't have to move wins.",
+  "glossary": {
+    "term": "Opposition",
+    "definition": "The two kings face each other with one square between them. The side that does NOT have to move is in charge: the other king must step aside."
+  },
+  "summary": "Count the square before a pawn race, march your king up the board, and when the kings face off, make the other side move first.",
+  "demo": {
+    "id": "L19-demo",
+    "source": "custom",
+    "orientation": "white",
+    "fen": "8/8/5k2/1P6/8/8/8/7K w - - 0 1",
+    "moves": [
+      "b5b6",
+      "f6e7",
+      "b6b7",
+      "e7d7",
+      "b7b8q"
+    ],
+    "narration": [
+      "Can a lone king catch a runaway pawn? Bapu's trick is the square rule. Picture a square from the pawn to the last row: b5 to b8, then across to e8 and e5. If the enemy king can step inside it, the pawn gets caught. If not, it queens.",
+      "Black's king on f6 is outside the square. Pawn forward!",
+      "The king rushes over...",
+      "...but the pawn's square shrinks with every step, and the king is still outside it.",
+      "One step too slow.",
+      "A new queen! Count the square before you race: it saves a lot of thinking."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L19-g1",
+      "source": "lichess:BNppz",
+      "rating": 972,
+      "fen": "8/8/1p2k3/pK3ppp/P7/5PP1/7P/8 b - - 1 40",
+      "moves": [
+        "e6d6",
+        "b5b6",
+        "d6e5",
+        "b6a5"
+      ],
+      "hint": "Black's pawns on b6 and a5 are close to your king, and Black's king is far away. What can your king eat?",
+      "explanation": "Your king gobbles the b6 pawn, and then the a5 pawn too. Black's king is too far away to defend them. In pawn endings, an active king is a winning king."
+    },
+    {
+      "id": "L19-g2",
+      "source": "lichess:4i9IB",
+      "rating": 1121,
+      "fen": "8/8/8/p7/3p4/kP1K4/2P5/8 b - - 3 66",
+      "moves": [
+        "a3b4",
+        "d3d4",
+        "a5a4",
+        "b3a4"
+      ],
+      "hint": "In pawn endings the king is a fighter. Which pawn can your king grab right now?",
+      "explanation": "Your king takes the d4 pawn and faces Black's king with one square between: that's the opposition. Black's a-pawn push doesn't help, because your b-pawn takes it."
+    },
+    {
+      "id": "L19-g3",
+      "source": "lichess:KQ6Q4",
+      "rating": 799,
+      "fen": "8/8/3p3P/p2Pk3/2Pp4/3K2p1/8/8 b - - 0 43",
+      "moves": [
+        "g3g2",
+        "h6h7",
+        "e5f5",
+        "h7h8q"
+      ],
+      "hint": "It's a race! Your h-pawn and Black's g-pawn are both close to queening. Who gets there first?",
+      "explanation": "Push, push, queen! Your h-pawn reaches h8 first. In a pawn race, count the moves: whoever queens first usually wins."
+    }
+  ],
+  "practice": []
+}

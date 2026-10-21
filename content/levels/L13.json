@@ -1,0 +1,95 @@
+{
+  "id": "L13",
+  "number": 13,
+  "unit": 3,
+  "unitTitle": "The Big Five Tactics",
+  "title": "Checkpoint: Tactic Spotter",
+  "theme": "mixed",
+  "icon": "wB",
+  "concept": "No hints about which tactic it is. You find it.",
+  "glossary": {
+    "term": "Checkpoint",
+    "definition": "A test level. You need ★★ (7 of 10 right first time) to unlock the next unit."
+  },
+  "summary": "Before every move, run the checklist: checks, captures, threats. Whatever the tactic is called, the checklist finds it.",
+  "demo": {
+    "id": "L13-demo",
+    "source": "lichess:tIffC",
+    "rating": 855,
+    "fen": "4n1k1/2q2ppp/1pPbp3/pB6/P2Q1P2/4P1P1/1B5P/6K1 w - - 1 27",
+    "moves": [
+      "e3e4",
+      "d6c5",
+      "g1g2",
+      "c5d4"
+    ],
+    "narration": [
+      "Checkpoint! Nobody will tell you which trick is coming. Bapu's checklist finds it: checks, captures, threats.",
+      "White pushes a pawn. Now run the checklist. Checks? None. Captures? Nothing good. Threats: White's queen on d4 and king on g1 share a diagonal...",
+      "Bishop to c5! It attacks the queen, and she can't step off the line without exposing her king. Taking the bishop fails too: your b6 pawn guards it.",
+      "White steps the king aside, but that uses up the move.",
+      "Bishop takes the queen. White's bishop takes back, but that's a queen for a bishop. The checklist found a pin."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L13-g1",
+      "source": "lichess:vaF5Y",
+      "rating": 520,
+      "fen": "R3Q3/2pr1rpk/1pp4p/8/8/2P5/2P3PP/4Rq1K w - - 2 25",
+      "moves": [
+        "e1f1",
+        "f7f1"
+      ],
+      "theme": "backRank",
+      "hint": "Checks first! White's king is boxed in by its own pawns. Which check can't be answered?",
+      "explanation": "White's rook took your queen, but it left the back row unguarded. Rook takes f1, checkmate! The king is walled in by its own pawns on g2 and h2."
+    },
+    {
+      "id": "L13-g2",
+      "source": "lichess:s2e7V",
+      "rating": 686,
+      "fen": "8/8/3b4/3kp1p1/1p1N2P1/1P1KP3/8/8 w - - 0 53",
+      "moves": [
+        "d4f3",
+        "e5e4",
+        "d3e2",
+        "e4f3"
+      ],
+      "theme": "fork",
+      "hint": "Checks first. Which pawn move gives check, and what else does it attack?",
+      "explanation": "Pawn to e4 is check, and it also attacks the knight on f3. Your king guards the pawn, so it can't be taken. The king steps away and your 1-point pawn wins a 3-point knight."
+    },
+    {
+      "id": "L13-g3",
+      "source": "lichess:v4B1W",
+      "rating": 796,
+      "fen": "8/6pp/4kp2/3p1P2/2bP4/6KP/r2N1R2/8 b - - 0 36",
+      "moves": [
+        "e6d6",
+        "d2c4",
+        "d5c4",
+        "f2a2"
+      ],
+      "theme": "discovered",
+      "hint": "Your knight on d2 is blocking your rook's view along the 2nd row. Can it move with a check?",
+      "explanation": "Knight takes c4, with check! Moving the knight also opens the 2nd row, so your rook on f2 now attacks the rook on a2. Black has to deal with the check, and the rook falls."
+    }
+  ],
+  "practice": [],
+  "checkpoint": true,
+  "mix": [
+    {
+      "levels": [
+        "L05",
+        "L06",
+        "L08",
+        "L09",
+        "L10",
+        "L11",
+        "L12"
+      ],
+      "count": 7
+    }
+  ]
+}

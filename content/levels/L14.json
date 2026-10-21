@@ -1,0 +1,78 @@
+{
+  "id": "L14",
+  "number": 14,
+  "unit": 4,
+  "unitTitle": "Sharper Tactics",
+  "title": "Remove the Defender",
+  "theme": "removeDefender",
+  "icon": "wB",
+  "concept": "If one piece is guarding everything, capture or chase the guard.",
+  "glossary": {
+    "term": "Defender",
+    "definition": "A piece that protects another one. Remove the defender, and the piece it was protecting is there for the taking."
+  },
+  "summary": "Find the enemy piece doing the guarding. Capture it, trade it off or chase it away, and whatever it protected is loose.",
+  "demo": {
+    "id": "L14-demo",
+    "source": "lichess:UsKaN",
+    "rating": 815,
+    "fen": "5k2/1n3p2/p1br1p1p/1p3p2/1P6/8/P4PPP/2R1R1K1 b - - 0 30",
+    "moves": [
+      "d6e6",
+      "e1e6",
+      "f7e6",
+      "c1c6"
+    ],
+    "narration": [
+      "Black's rook steps to e6. It's now the only guard of the bishop on c6. Remember that.",
+      "Rook takes the rook on e6! You're not really after the rook: you're removing the bodyguard.",
+      "Black takes back with the pawn, and now nothing protects c6.",
+      "Rook takes the bishop. Trade off the bodyguard, then grab what it was guarding."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L14-g1",
+      "source": "lichess:lHcQi",
+      "rating": 875,
+      "fen": "3q2k1/2p2pp1/1n1P3p/2Q5/2p1r3/5N1P/5PP1/1R4K1 b - - 0 30",
+      "moves": [
+        "d8d6",
+        "c5d6",
+        "c7d6",
+        "b1b6"
+      ],
+      "hint": "Black's queen on d6 is the only piece guarding the knight on b6. What if you trade it off?",
+      "explanation": "Queen takes queen, and after the c-pawn takes back, nothing guards the knight on b6 anymore. Your rook was waiting on the b-file."
+    },
+    {
+      "id": "L14-g2",
+      "source": "lichess:NErSv",
+      "rating": 937,
+      "fen": "2r1k2r/pp2bppp/1q2pn2/6B1/7Q/2N3P1/PP2PPKP/R2R4 w k - 3 16",
+      "moves": [
+        "c3e4",
+        "f6e4",
+        "h4e4",
+        "e7g5"
+      ],
+      "hint": "White's bishop on g5 has two bodyguards: the knight on e4 and the queen on h4. Can you get rid of both?",
+      "explanation": "Your knight takes on e4, removing one guard of the bishop on g5, and it uncovers your bishop on e7 too. When White's queen takes back, she leaves g5 as well. No guards left, so the bishop is yours."
+    },
+    {
+      "id": "L14-g3",
+      "source": "lichess:LUPt9",
+      "rating": 942,
+      "fen": "6k1/5pr1/p7/1p1qp3/P7/2Pp1N1R/3Q1P2/5K2 w - - 0 41",
+      "moves": [
+        "h3g3",
+        "g7g3",
+        "f2g3",
+        "d5f3"
+      ],
+      "hint": "White's knight on f3 is guarded by the rook on g3. What happens if that rook disappears?",
+      "explanation": "Rook takes rook, and after the f-pawn takes back, the knight on f3 has lost its guard. Your queen grabs it, with check. Remove the bodyguard, then collect."
+    }
+  ],
+  "practice": []
+}

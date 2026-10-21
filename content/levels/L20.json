@@ -1,0 +1,66 @@
+{
+  "id": "L20",
+  "number": 20,
+  "unit": 5,
+  "unitTitle": "Converting the Win",
+  "title": "Boss: The Checklist",
+  "theme": "mixed",
+  "icon": "wK",
+  "concept": "Before every move: checks, captures, threats, for you AND your opponent.",
+  "glossary": {
+    "term": "Boss level",
+    "definition": "15 puzzles from every lesson, on the clock, with no hints. Three of them ask you to defend. You need ★★ to beat it."
+  },
+  "summary": "The checklist, every single move: what is my opponent threatening? What checks, captures and threats do I have? Answer those, and you'll play like Bapu.",
+  "demo": {
+    "id": "L20-demo",
+    "source": "lichess:ZsgRy",
+    "rating": 729,
+    "fen": "8/p2p1k1p/1p2p3/8/8/4R3/5KRq/8 b - - 1 40",
+    "moves": [
+      "h2f4",
+      "e3f3",
+      "f4f3",
+      "f2f3"
+    ],
+    "narration": [
+      "The boss level. No hints, a clock, and puzzles from every lesson. Before each move, run the checklist: checks, captures, threats, for you AND your opponent.",
+      "Black's queen gives check. Checklist step one: what is my opponent threatening? My king, right now.",
+      "Rook to f3 blocks the check. But look up the f-file: the rook also attacks the queen, and Black's own king stands right behind her. She's pinned!",
+      "The queen can only take the rook, with check.",
+      "Your king takes the queen. One move that defends AND attacks: that's what the checklist finds."
+    ]
+  },
+  "guided": [],
+  "practice": [],
+  "checkpoint": true,
+  "timed": true,
+  "mix": [
+    {
+      "levels": [
+        "L02",
+        "L04",
+        "L05",
+        "L06",
+        "L08",
+        "L09",
+        "L10",
+        "L11",
+        "L12",
+        "L14",
+        "L15",
+        "L16",
+        "L17",
+        "L19"
+      ],
+      "count": 12
+    },
+    {
+      "levels": [
+        "L20"
+      ],
+      "count": 3,
+      "theme": "defend"
+    }
+  ]
+}

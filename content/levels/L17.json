@@ -1,0 +1,78 @@
+{
+  "id": "L17",
+  "number": 17,
+  "unit": 4,
+  "unitTitle": "Sharper Tactics",
+  "title": "Mate in Two",
+  "theme": "mateIn2",
+  "icon": "wN",
+  "concept": "Check, then check again. Forcing moves leave no time to escape.",
+  "glossary": {
+    "term": "Forcing move",
+    "definition": "A check, a capture or a threat that your opponent has to answer right away."
+  },
+  "summary": "For mate in two, start with forcing moves: checks first, then captures. After each one, picture the king's escape squares, and find the move that takes the last one away.",
+  "demo": {
+    "id": "L17-demo",
+    "source": "lichess:rTdfy",
+    "rating": 971,
+    "fen": "3N3k/p5pp/8/8/2Q5/4q3/P3b1PP/5R1K b - - 0 24",
+    "moves": [
+      "e2c4",
+      "f1f8",
+      "c4g8",
+      "d8f7"
+    ],
+    "narration": [
+      "Black's bishop grabs a piece on c4. Black has more material, so you'd better find something forcing.",
+      "Rook to f8, check! The only way to stop it is to block with the bishop on g8.",
+      "Bishop to g8. Now look at Black's king: g8, g7 and h7 are all filled by Black's own pieces.",
+      "Knight to f7, smothered mate! The king is buried by its own army, and the knight jumps in for the kill."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L17-g1",
+      "source": "lichess:CfnvY",
+      "rating": 887,
+      "fen": "1n1q1rkR/rb1nbpp1/6P1/p1pQ4/1p2P3/4BP2/PPP1N3/RN2KB2 b Q - 2 17",
+      "moves": [
+        "g8h8",
+        "d5h5",
+        "h8g8",
+        "h5h7"
+      ],
+      "hint": "Black's king is out in the open on h8. Which queen check comes with a follow-up?",
+      "explanation": "Queen to h5, check along the h-file. The king's only move is g8, and then queen to h7 is checkmate: your pawn on g6 guards her, so the king can't take."
+    },
+    {
+      "id": "L17-g2",
+      "source": "lichess:V7duF",
+      "rating": 867,
+      "fen": "2r5/pq3pk1/1p4p1/3r3p/4pQ2/1P2P3/PR3PPP/3R2K1 w - - 0 26",
+      "moves": [
+        "d1d5",
+        "c8c1",
+        "d5d1",
+        "c1d1"
+      ],
+      "hint": "White's king is stuck behind its own pawns. Check it on the back row, and see what White can use to block.",
+      "explanation": "Rook to c1, check! White's only block is the rook on d1, but nothing protects it there. You take it, and it's back-rank mate."
+    },
+    {
+      "id": "L17-g3",
+      "source": "lichess:Gjrhw",
+      "rating": 1119,
+      "fen": "r2q1rk1/p1p1npb1/1p2p1p1/6NN/3P4/4P2Q/PPP4P/R3K2R b KQ - 0 17",
+      "moves": [
+        "e7f5",
+        "h5f6",
+        "g7f6",
+        "h3h7"
+      ],
+      "hint": "Your knight on h5 is in your queen's way on the h-file. Can it move out of the way with check?",
+      "explanation": "Knight to f6, check! It clears the h-file for your queen, and Black has to take it. Now queen to h7 is checkmate: the knight on g5 protects her. A sacrifice that clears the way is called a clearance."
+    }
+  ],
+  "practice": []
+}

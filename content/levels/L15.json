@@ -1,0 +1,78 @@
+{
+  "id": "L15",
+  "number": 15,
+  "unit": 4,
+  "unitTitle": "Sharper Tactics",
+  "title": "Deflection & Attraction",
+  "theme": "deflection",
+  "icon": "wQ",
+  "concept": "Drag a defender away, or lure the king onto a bad square.",
+  "glossary": {
+    "term": "Deflection",
+    "definition": "Forcing a defending piece away from its post, usually with a check or a capture it has to answer."
+  },
+  "summary": "Ask which enemy piece is holding everything together. A check or capture that forces it to move is a deflection; a sacrifice that drags the king onto a bad square is an attraction.",
+  "demo": {
+    "id": "L15-demo",
+    "source": "lichess:un0YA",
+    "rating": 980,
+    "fen": "1r4k1/5pp1/1q2p2p/3p4/1N6/1Q5P/1P3PP1/2R3K1 b - - 0 24",
+    "moves": [
+      "b6b4",
+      "c1c8",
+      "b8c8",
+      "b3b4"
+    ],
+    "narration": [
+      "Black's queen grabs the pawn on b4, right in front of your queen. She looks safe: the rook on b8 guards her.",
+      "Rook to c8, check! A sacrifice, and the piece that takes it is the rook that guards the queen.",
+      "The rook takes on c8 and leaves the b-file. The queen has lost her guard.",
+      "Queen takes queen. You dragged the defender away: that's a deflection."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L15-g1",
+      "source": "lichess:tzYWM",
+      "rating": 910,
+      "fen": "5r1k/4Rp2/4b2K/4r2P/p1p5/P7/2P5/6R1 b - - 3 41",
+      "moves": [
+        "f8g8",
+        "g1g8",
+        "h8g8",
+        "e7e8"
+      ],
+      "hint": "Your rook on g1 can take on g8 with check. Where does the king end up, and which square can your other rook reach?",
+      "explanation": "Rook takes g8, check! When the king takes back it lands on g8, exactly where your other rook can strike: rook to e8 is checkmate, and your king on h6 covers g7 and h7. You lured the king onto the back row."
+    },
+    {
+      "id": "L15-g2",
+      "source": "lichess:5i2NG",
+      "rating": 978,
+      "fen": "3r2k1/p1p5/1p4p1/3q4/1P6/P5R1/4Q2K/8 b - - 4 34",
+      "moves": [
+        "g8g7",
+        "e2e7",
+        "d5f7",
+        "e7d8"
+      ],
+      "hint": "Black's rook on d8 is guarded only by the queen on d5. Can you give a check that makes the queen move?",
+      "explanation": "Queen to e7 is check, and Black's best block is the queen on f7. But she was the rook's only guard: once she leaves the d-file, your queen takes the rook on d8."
+    },
+    {
+      "id": "L15-g3",
+      "source": "lichess:YFJYq",
+      "rating": 1077,
+      "fen": "r2q2k1/1B4pp/2Pn3r/pP1pp3/P7/4bP2/1BQ3PP/RN3RK1 w - - 0 23",
+      "moves": [
+        "g1h1",
+        "h6h2",
+        "h1h2",
+        "d8h4"
+      ],
+      "hint": "White's king on h1 is short of space. What if you could drag it onto h2, right on your queen's diagonal?",
+      "explanation": "Rook takes h2, check! The king has to take, and that pulls it onto h2. Now queen to h4 is checkmate: your bishop on e3 covers g1, and the queen covers the rest. You lured the king into the open."
+    }
+  ],
+  "practice": []
+}

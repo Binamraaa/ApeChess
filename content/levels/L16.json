@@ -1,0 +1,78 @@
+{
+  "id": "L16",
+  "number": 16,
+  "unit": 4,
+  "unitTitle": "Sharper Tactics",
+  "title": "Trapped Pieces",
+  "theme": "trapped",
+  "icon": "wB",
+  "concept": "A piece with no safe squares is already lost. Go hunting.",
+  "glossary": {
+    "term": "Trapped piece",
+    "definition": "A piece that is attacked and has no safe square to escape to."
+  },
+  "summary": "Before you attack a piece, count its escape squares. Take them away, then attack it. And keep an eye on your own pieces when they wander too far.",
+  "demo": {
+    "id": "L16-demo",
+    "source": "lichess:OLNdS",
+    "rating": 856,
+    "fen": "8/pp3p1p/2p2kb1/8/5PP1/1B2K3/PP6/8 b - - 0 39",
+    "moves": [
+      "f6e7",
+      "f4f5",
+      "g6f5",
+      "g4f5"
+    ],
+    "narration": [
+      "Black's king steps to e7. Now look at Black's bishop on g6: its own pawns on f7 and h7 block two of its exits.",
+      "Pawn to f5! It attacks the bishop, and your g4 pawn guards it. The bishop's only other way out, h5, is covered by g4 too.",
+      "Nowhere to run, so the bishop takes the pawn: its last, desperate option.",
+      "Your g-pawn takes back. A whole bishop for one pawn: a trapped piece is a lost piece."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L16-g1",
+      "source": "lichess:0y0Tm",
+      "rating": 913,
+      "fen": "3r1r1k/6pp/p3Bb2/1p6/2pP4/4B3/PP3PPP/RN4K1 w - - 1 24",
+      "moves": [
+        "d4d5",
+        "f6b2",
+        "b1d2",
+        "b2a1"
+      ],
+      "hint": "Look at White's rook on a1, behind its own knight and pawn. Which of your pieces could attack it?",
+      "explanation": "Bishop takes b2, and now it attacks the rook on a1. The rook is stuck behind its own knight and pawn, so it can't get away in time. White moves the knight, but you grab the rook first."
+    },
+    {
+      "id": "L16-g2",
+      "source": "lichess:2QUwp",
+      "rating": 933,
+      "fen": "8/4kp2/4pRp1/1p2P3/p1pP4/P1P3n1/1P2K3/8 w - - 8 49",
+      "moves": [
+        "e2f3",
+        "g3h5",
+        "f3g4",
+        "h5f6"
+      ],
+      "hint": "Your knight is attacked, so it has to move anyway. Can it go somewhere that also attacks White's rook? Where could that rook run?",
+      "explanation": "Knight to h5 escapes the king AND attacks the rook on f6. Look at the rook: every square it could go to is covered or guarded. Trapped! You take it, with check."
+    },
+    {
+      "id": "L16-g3",
+      "source": "lichess:QWH6R",
+      "rating": 841,
+      "fen": "r1b2rk1/1pp3p1/p2p3p/2b1ppq1/P1N1P3/2PP1N1P/1P3PPK/R2Q1R2 b - - 3 15",
+      "moves": [
+        "g5f4",
+        "g2g3",
+        "f4f3",
+        "d1f3"
+      ],
+      "hint": "You're in check. Is there a way to block it that also attacks the queen?",
+      "explanation": "Pawn to g3 blocks the check AND attacks the queen. Look where she can go: every square is covered. Black grabs a knight on the way out, and your queen takes her."
+    }
+  ],
+  "practice": []
+}
