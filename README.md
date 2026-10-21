@@ -36,6 +36,8 @@ npm run verify-puzzles # check every hand-made puzzle with Stockfish (slow)
 npm run bapu           # re-export Bapu images from abu.png into public/bapu/
 ```
 
+Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. In the repo settings, set **Pages → Source** to **GitHub Actions** once.
+
 ## How it's built
 
 - Vite + React + TypeScript, `vite-plugin-pwa` for install and offline use

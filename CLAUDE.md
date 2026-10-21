@@ -68,3 +68,4 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `npm run verify-puzzles`: Stockfish checks every puzzle in `content/levels/` (solution is the clear best move, solver ends up winning). Run after editing puzzles.
 - `npm run bapu`: re-export Bapu WebP/icons from `abu.png`
 - `npm run puzzles`: not built yet (Lichess pipeline)
+- Deploy: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build with `BASE_PATH=/<repo>/`, publish to GitHub Pages)
