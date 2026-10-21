@@ -1,0 +1,78 @@
+{
+  "id": "L10",
+  "number": 10,
+  "unit": 3,
+  "unitTitle": "The Big Five Tactics",
+  "title": "Pins",
+  "theme": "pin",
+  "icon": "wB",
+  "concept": "A pinned piece can't move without exposing something more valuable behind it. Attack it again!",
+  "glossary": {
+    "term": "Pin",
+    "definition": "When a piece can't move because a more valuable piece, often the king, is hiding behind it on the same line."
+  },
+  "summary": "Pinned pieces can't run. When you see one, attack it again, ideally with something cheap. And watch out when your own king and queen line up.",
+  "demo": {
+    "id": "L10-demo",
+    "source": "lichess:Kxbcj",
+    "rating": 867,
+    "fen": "r1bqkb1r/pp1n3p/4p1p1/8/3pP3/8/PPP1B1PP/RNBQ1RK1 w kq - 0 12",
+    "moves": [
+      "d1d4",
+      "f8c5",
+      "c1e3",
+      "c5d4"
+    ],
+    "narration": [
+      "White's queen grabs your pawn on d4. Greedy! Now look: the queen and White's king on g1 sit on the same diagonal.",
+      "Bishop to c5 attacks the queen. Stepping off the line would expose the king, and that's illegal. Taking the bishop doesn't help either: your knight on d7 guards it. She's pinned.",
+      "White can't move the queen, so it brings the bishop to e3 to protect her. Too late: she's still under attack.",
+      "Bishop takes the queen. White's bishop takes back, but a bishop for a queen is a terrible deal for White."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L10-g1",
+      "source": "lichess:4CAus",
+      "rating": 773,
+      "fen": "8/p5p1/4p2k/3p4/3P4/2Pb1N1p/PP4PP/7K w - - 0 36",
+      "moves": [
+        "g2g3",
+        "d3e4",
+        "h1g1",
+        "e4f3"
+      ],
+      "hint": "White's pawn just left g2, opening the long diagonal toward the king on h1. Which white piece is stuck on that diagonal?",
+      "explanation": "Bishop to e4 pins the knight on f3 to the king on h1. The knight can't move, and once the king steps away it's too late: nothing guards the knight, so you take it for free."
+    },
+    {
+      "id": "L10-g2",
+      "source": "lichess:c5lNN",
+      "rating": 799,
+      "fen": "rnbqk2r/pp2bppp/2p5/3pP3/8/2PB1Q2/PPP3PP/R1B1K1NR w KQkq - 0 8",
+      "moves": [
+        "f3g3",
+        "e7h4",
+        "g1f3",
+        "h4g3"
+      ],
+      "hint": "White's queen and king are on the same diagonal. Which of your pieces can attack the queen along it?",
+      "explanation": "Bishop to h4 attacks the queen, and White's king on e1 is right behind her. She can't step off the line, and taking the bishop doesn't help because your queen on d8 guards it. A queen lost for a bishop!"
+    },
+    {
+      "id": "L10-g3",
+      "source": "lichess:wUs5p",
+      "rating": 653,
+      "fen": "3b4/8/4kp2/p1R3pp/4P3/4K1P1/P6P/8 w - - 0 50",
+      "moves": [
+        "e3d4",
+        "d8b6",
+        "d4c4",
+        "b6c5"
+      ],
+      "hint": "White's king and rook stand on the same diagonal. Can your bishop line up with both?",
+      "explanation": "Bishop to b6 pins the rook on c5 to the king. Rooks can't move diagonally, so it can't take the bishop, and it can't leave without exposing the king. You win a rook (5) for a bishop (3)."
+    }
+  ],
+  "practice": []
+}

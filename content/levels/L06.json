@@ -1,0 +1,68 @@
+{
+  "id": "L06",
+  "number": 6,
+  "unit": 2,
+  "unitTitle": "Finishing the Game",
+  "title": "Back-Rank Mate",
+  "theme": "backRank",
+  "icon": "wR",
+  "concept": "A king hiding behind its own pawns can get locked in its own house.",
+  "glossary": {
+    "term": "Back rank",
+    "definition": "A player's first row: row 1 for White, row 8 for Black. Kings often get stuck there behind their own pawns."
+  },
+  "summary": "Look for a king stuck behind its own pawns, then check it on the back row. And give your own king some air: push one pawn so it has an escape square.",
+  "demo": {
+    "id": "L06-demo",
+    "source": "lichess:S8AV5",
+    "rating": 507,
+    "fen": "3r2k1/5ppp/6nq/1B2p3/4P2P/1bP1N3/1P1R1PP1/2K5 b - - 0 26",
+    "moves": [
+      "g6f4",
+      "d2d8"
+    ],
+    "narration": [
+      "Black's knight jumps to f4 to bother your pieces. But it was the only piece that could hop back to f8 and block a check on the back row.",
+      "Rook takes d8, checkmate! The king wants to escape, but its own pawns on f7, g7 and h7 block every door."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L06-g1",
+      "source": "lichess:79pCe",
+      "rating": 536,
+      "fen": "2rr2k1/1p3pbp/3N2p1/1p6/8/P5B1/1P3PPP/Rb4K1 w - - 0 24",
+      "moves": [
+        "d6c8",
+        "d8d1"
+      ],
+      "hint": "White's king is stuck behind its own pawns. Can one of your rooks reach row 1?",
+      "explanation": "Rook to d1, checkmate on the back row! The king's own pawns block every escape, and White's rook on a1 can't take: your bishop on b1 is in the way."
+    },
+    {
+      "id": "L06-g2",
+      "source": "lichess:kJgwh",
+      "rating": 582,
+      "fen": "6k1/2R2pp1/p5bp/3P4/3qPQ2/2N2P2/6PP/1r5K w - - 3 33",
+      "moves": [
+        "c3b1",
+        "d4d1"
+      ],
+      "hint": "White's king on h1 is boxed in by its own pawns. Which of your pieces can reach row 1?",
+      "explanation": "Queen to d1, checkmate! The pawns on g2 and h2 lock the king in, and nothing can get in the way on e1, f1 or g1."
+    },
+    {
+      "id": "L06-g3",
+      "source": "lichess:ICOU9",
+      "rating": 740,
+      "fen": "3rR1k1/pb3ppp/1qpQ1b2/8/3p4/1P6/PB3PPP/4R1K1 b - - 5 25",
+      "moves": [
+        "d8e8",
+        "e1e8"
+      ],
+      "hint": "Black's rook just took on e8. Your other rook can take back. What happens to the king then?",
+      "explanation": "Rook takes e8, checkmate! The king can't step forward because of its own pawns, and your queen on d6 guards f8. Two pieces, one trap."
+    }
+  ],
+  "practice": []
+}

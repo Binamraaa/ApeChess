@@ -1,0 +1,74 @@
+{
+  "id": "L09",
+  "number": 9,
+  "unit": 3,
+  "unitTitle": "The Big Five Tactics",
+  "title": "Queen & Pawn Forks",
+  "theme": "fork",
+  "icon": "wP",
+  "concept": "Anything can fork. A cheap pawn attacking two expensive pieces is the best kind.",
+  "summary": "Forks come from every piece. Look for pawn pushes that hit two pieces, and queen checks that also hit something loose.",
+  "demo": {
+    "id": "L09-demo",
+    "source": "lichess:CIsfW",
+    "rating": 864,
+    "fen": "2r3k1/4pr1p/2p3p1/1p2P3/1n1R1P2/4P3/P5PP/1R4K1 w - - 0 29",
+    "moves": [
+      "b1b4",
+      "c6c5",
+      "d4e4",
+      "c5b4"
+    ],
+    "narration": [
+      "White's rook takes your knight on b4. Now two white rooks stand on b4 and d4, with one empty square between them. Remember that gap.",
+      "Pawn to c5! A pawn captures diagonally forward, so from c5 it attacks b4 AND d4. Two rooks, attacked by your cheapest piece.",
+      "White can only save one of them. The rook on d4 runs away.",
+      "Pawn takes the rook on b4. You gave a knight (3) and got a rook (5). Good trade, little pawn!"
+    ]
+  },
+  "guided": [
+    {
+      "id": "L09-g1",
+      "source": "lichess:FpMsM",
+      "rating": 681,
+      "fen": "7k/pp4p1/8/3r3B/Q7/1KP1P2P/PP1q4/8 b - - 4 35",
+      "moves": [
+        "d5h5",
+        "a4e8",
+        "h8h7",
+        "e8h5"
+      ],
+      "hint": "Black's king sits on the back row, and the rook on h5 is loose. Can your queen check the king and hit the rook at the same time?",
+      "explanation": "Queen to e8 is check along the back row, and from e8 she also eyes the rook on h5 down the diagonal. The king steps aside, and the rook falls."
+    },
+    {
+      "id": "L09-g2",
+      "source": "lichess:LIGw3",
+      "rating": 669,
+      "fen": "2r2k2/6pp/5p2/3Rp3/2pp4/6PP/2R2P2/5K2 w - - 0 32",
+      "moves": [
+        "f1e2",
+        "d4d3",
+        "e2d1",
+        "d3c2"
+      ],
+      "hint": "Your pawns are close to White's king. Which pawn push gives check AND hits something?",
+      "explanation": "Pawn to d3 is check, and it also attacks the rook on c2. Your c4 pawn guards it, so taking it would cost White too. The king steps away, and your 1-point pawn wins a 5-point rook."
+    },
+    {
+      "id": "L09-g3",
+      "source": "lichess:Zn0mH",
+      "rating": 682,
+      "fen": "r1b1r3/7k/1q4pp/1ppp4/p7/4PQ2/PP3PPP/R4RK1 b - - 0 25",
+      "moves": [
+        "b6d6",
+        "f3f7",
+        "h7h8",
+        "f7e8"
+      ],
+      "hint": "Black's king and the rook on e8 are both loose. Find a queen check that also hits the rook.",
+      "explanation": "Queen to f7 is check, and from f7 she also attacks the rook on e8. The king has to step away, so the rook falls. Queens fork easily because they move in every direction."
+    }
+  ],
+  "practice": []
+}

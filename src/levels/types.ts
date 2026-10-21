@@ -1,3 +1,5 @@
+import type { Theme } from '../bapu/themes';
+
 /** A move in UCI notation, e.g. "g1f3" or "e7e8q". */
 export type Uci = string;
 
@@ -30,6 +32,10 @@ export interface LevelDef {
   unit: number;
   unitTitle: string;
   title: string;
+  /** What the level drills: picks Bapu's prompt, default hints and templates. */
+  theme: Theme;
+  /** Piece shown on the level's badge, e.g. "wN" (public/pieces/wN.svg). */
+  icon: string;
   /** Concept card, Bapu speaking (≤ 2 sentences). */
   concept: string;
   /** One-line definition of the jargon this level introduces. */
@@ -38,5 +44,8 @@ export interface LevelDef {
   summary: string;
   demo: PuzzleDef;
   guided: PuzzleDef[];
+  /** Practice puzzles for this run. In content files: hand-authored extras, merged with the pack. */
   practice: PuzzleDef[];
+  /** Imported puzzles (content/puzzles/LXX.json); each run draws its practice set from these. */
+  pack?: PuzzleDef[];
 }

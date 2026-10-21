@@ -1,0 +1,79 @@
+{
+  "id": "L04",
+  "number": 4,
+  "unit": 1,
+  "unitTitle": "Foundations",
+  "title": "Special Moves",
+  "theme": "special",
+  "icon": "wK",
+  "concept": "Castling, en passant, promotion: three secret handshakes.",
+  "glossary": {
+    "term": "Promotion",
+    "definition": "When a pawn reaches the last row, it turns into a queen, rook, bishop or knight. You'll almost always pick the queen."
+  },
+  "summary": "Push a free pawn toward promotion, take en passant the moment a pawn rushes past yours, and castle to get your king safe and your rook working.",
+  "demo": {
+    "id": "L04-demo",
+    "source": "lichess:tK6Uq",
+    "rating": 542,
+    "fen": "4k3/8/4n1KP/8/3B4/1p6/8/8 b - - 12 79",
+    "moves": [
+      "e6d4",
+      "h6h7",
+      "e8e7",
+      "h7h8q"
+    ],
+    "narration": [
+      "Black's knight grabs your bishop on d4. Greedy, and now it's far away from your h-pawn.",
+      "Pawn to h7. Your king guards it, and the knight is too far away to help.",
+      "Black's king hurries over, but it's one step too slow.",
+      "Pawn to h8 becomes a queen! That's promotion: reach the last row, and your pawn turns into any piece you like."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L04-g1",
+      "source": "lichess:6r9T4",
+      "rating": 471,
+      "fen": "8/8/5kP1/K4P2/7N/1p6/8/8 w - - 0 59",
+      "moves": [
+        "a5a4",
+        "b3b2",
+        "a4b3",
+        "b2b1q"
+      ],
+      "hint": "Your b-pawn is two steps from the last row. Can anything stop it?",
+      "explanation": "Push, push, promote! White's knight is too far away and the king arrives a move late, so your pawn becomes a queen on b1, with check."
+    },
+    {
+      "id": "L04-g2",
+      "source": "lichess:CNBVg",
+      "rating": 1125,
+      "fen": "7k/1p5p/p7/P1p5/8/8/5pK1/8 b - - 0 51",
+      "moves": [
+        "b7b5",
+        "a5b6",
+        "f2f1q",
+        "g2f1"
+      ],
+      "hint": "Black's pawn just jumped two squares and landed right beside yours. That's your cue for a secret handshake.",
+      "explanation": "En passant! Black's pawn rushed from b7 to b5, right past yours. Your a5 pawn may take it as if it had moved only one square, landing on b6. Black makes a queen on f1, but your king takes her, and nothing can stop your b-pawn now.",
+      "wrong": {
+        "g2f2": "Grabbing the f2 pawn is natural, but en passant only works on the very next move. Use it now or lose it!"
+      }
+    },
+    {
+      "id": "L04-g3",
+      "source": "lichess:YYFFU",
+      "rating": 991,
+      "fen": "r3r1k1/p5Rp/1n6/3pB3/8/8/P5PP/4K2R b K - 0 29",
+      "moves": [
+        "g8f8",
+        "e1g1"
+      ],
+      "hint": "Your king and the h1 rook haven't moved yet. Which special move brings that rook into the game with check?",
+      "explanation": "Castling moves two pieces at once: the king hops to g1 and the rook jumps over it to f1. Here the rook lands with check, and your rook on g7 and bishop on e5 cover every escape. Castling checkmate!"
+    }
+  ],
+  "practice": []
+}

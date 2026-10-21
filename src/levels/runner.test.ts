@@ -9,6 +9,8 @@ const level: LevelDef = {
   unit: 1,
   unitTitle: 'Unit',
   title: 'Test',
+  theme: 'knightFork',
+  icon: 'wN',
   concept: 'c',
   summary: 's',
   demo: pz('demo'),

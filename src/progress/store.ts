@@ -1,4 +1,5 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
+import { updateRecent } from '../levels/practice';
 import type { Stars } from '../levels/scoring';
 import { NO_STREAK, currentStreak, localDay, recordSession, type Streak } from './streak';
 
@@ -7,6 +8,8 @@ export interface LevelProgress {
   bestStars: Stars;
   timesCompleted: number;
   lastPlayed: string;
+  /** Practice puzzle ids played recently, newest first, so the next run picks fresh ones. */
+  recent?: string[];
 }
 
 export interface Profile {
@@ -60,6 +63,7 @@ export async function saveLevelResult(
   stars: Stars,
   xpEarned: number,
   now = new Date(),
+  played: string[] = [],
 ): Promise<{ profile: Profile; level: LevelProgress; improved: boolean }> {
   const d = await db();
   const tx = d.transaction(['levels', 'meta'], 'readwrite');
@@ -73,6 +77,7 @@ export async function saveLevelResult(
     bestStars: Math.max(prev?.bestStars ?? 0, stars) as Stars,
     timesCompleted: (prev?.timesCompleted ?? 0) + 1,
     lastPlayed: today,
+    recent: updateRecent(prev?.recent ?? [], played),
   };
   await levels.put(level);
 

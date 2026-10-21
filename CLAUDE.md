@@ -67,5 +67,7 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `npm run build`: type-check + production build with service worker
 - `npm run verify-puzzles`: Stockfish checks every puzzle in `content/levels/` (solution is the clear best move, solver ends up winning). Run after editing puzzles.
 - `npm run bapu`: re-export Bapu WebP/icons from `abu.png`
-- `npm run puzzles`: not built yet (Lichess pipeline)
+- `npm run puzzles`: rebuild `content/puzzles/LXX.json` from `data/raw/lichess_db_puzzle.csv.zst` (~5 min). The file is pzstd multi-frame, so the script decodes frame by frame. Per-level filters live in `PACKS`; they use Bapu's own move analysis (`src/bapu/facts.ts`) so every pack puzzle shows the level's idea.
+- `npx tsx scripts/show-puzzles.ts L10 pin [ids…]`: preview Bapu's template lines for a pack (with boards when ids are given). Use it before picking featured puzzles.
+- `?unlock=all` on the app URL opens every level on that device; `?unlock=off` resets.
 - Deploy: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build with `BASE_PATH=/<repo>/`, publish to GitHub Pages)

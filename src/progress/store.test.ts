@@ -30,4 +30,10 @@ describe('progress store', () => {
 
     expect(await getProfile()).toEqual(b.profile);
   });
+
+  it('remembers recently played practice puzzles, newest first', async () => {
+    await saveLevelResult('L05', 1, 10, new Date(), ['a', 'b']);
+    const { level } = await saveLevelResult('L05', 1, 10, new Date(), ['c', 'a']);
+    expect(level.recent).toEqual(['c', 'a', 'b']);
+  });
 });

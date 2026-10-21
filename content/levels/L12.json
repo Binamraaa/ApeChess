@@ -1,0 +1,78 @@
+{
+  "id": "L12",
+  "number": 12,
+  "unit": 3,
+  "unitTitle": "The Big Five Tactics",
+  "title": "Discovered Attacks",
+  "theme": "discovered",
+  "icon": "wQ",
+  "concept": "Move one piece to unleash another. Two attacks from one move.",
+  "glossary": {
+    "term": "Discovered attack",
+    "definition": "You move one piece out of the way, and a piece behind it suddenly attacks. If both pieces give check, it's a double check."
+  },
+  "summary": "Look for your own pieces blocking your bishops, rooks and queen. Move the blocker with a threat of its own, and you get two attacks for the price of one.",
+  "demo": {
+    "id": "L12-demo",
+    "source": "lichess:3F6dK",
+    "rating": 799,
+    "fen": "r1b2rk1/pp3pbp/2nq2p1/3B4/8/5N2/PP3PPP/R1BQ1RK1 b - - 0 14",
+    "moves": [
+      "c6b4",
+      "d5f7",
+      "f8f7",
+      "d1d6"
+    ],
+    "narration": [
+      "Black's knight jumps to b4 to chase your bishop. But look down the d-file: your queen, then your bishop, then Black's queen.",
+      "Bishop takes f7, check! Moving the bishop also opens the d-file, so your queen now attacks Black's queen. Two threats from one move.",
+      "Check comes first, so Black's rook takes your bishop. Nobody had time to save the queen.",
+      "Queen takes queen. You gave a bishop and won a queen: that's a discovered attack."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L12-g1",
+      "source": "lichess:4KysQ",
+      "rating": 838,
+      "fen": "2k5/rp5R/2p5/P7/1P6/1K6/8/8 w - - 7 59",
+      "moves": [
+        "b3c4",
+        "b7b5",
+        "c4c5",
+        "a7h7"
+      ],
+      "hint": "Your rook on a7 is blocked by your own pawn. Can that pawn move with a threat of its own?",
+      "explanation": "Pawn to b5 is check, and moving it opens the 7th row for your rook. White has to deal with the check, so the rook on h7 falls."
+    },
+    {
+      "id": "L12-g2",
+      "source": "lichess:tDWVz",
+      "rating": 858,
+      "fen": "7k/4q1p1/4n1Qb/p3p2P/1pP1Rp2/1P3P2/P1K2P2/8 w - - 2 41",
+      "moves": [
+        "e4e5",
+        "e6d4",
+        "c2d3",
+        "e7e5"
+      ],
+      "hint": "Your knight on e6 stands between your queen and White's rook. Where can it jump with check?",
+      "explanation": "Knight to d4 is check, and it gets out of your queen's way. Now the queen attacks the rook on e5, and White is busy saving the king. Two threats, one reply."
+    },
+    {
+      "id": "L12-g3",
+      "source": "lichess:xkNuo",
+      "rating": 783,
+      "fen": "6k1/pp2r1p1/2p2pp1/3pb3/6Q1/1P1P2P1/P1P2PBP/4qK2 w - - 0 24",
+      "moves": [
+        "f1e1",
+        "e5c3",
+        "e1d1",
+        "e7e1"
+      ],
+      "hint": "Your bishop on e5 is blocking your rook's view of White's king. Move it with a check of its own.",
+      "explanation": "Bishop to c3 is check, and it also unblocks your rook on e7: double check! Nothing can block two attackers, so the king must run, and your rook finishes it on e1. Your queen sacrifice paid off."
+    }
+  ],
+  "practice": []
+}

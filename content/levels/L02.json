@@ -1,0 +1,78 @@
+{
+  "id": "L02",
+  "number": 2,
+  "unit": 1,
+  "unitTitle": "Foundations",
+  "title": "What's It Worth?",
+  "theme": "hanging",
+  "icon": "wB",
+  "concept": "Pawn 1, knight 3, bishop 3, rook 5, queen 9. Don't trade a banana for a peanut.",
+  "glossary": {
+    "term": "Hanging piece",
+    "definition": "A piece that's under attack with no defender. It's free for the taking, so grab theirs and don't leave yours hanging."
+  },
+  "summary": "Count before you capture: pawn 1, knight and bishop 3, rook 5, queen 9. If nothing guards it, it's free.",
+  "demo": {
+    "id": "L02-demo",
+    "source": "lichess:40mS4",
+    "rating": 501,
+    "fen": "1k2r3/1p6/4p3/p3P2p/P7/5q2/1P1p2Q1/6RK b - - 3 45",
+    "moves": [
+      "e8g8",
+      "g2f3",
+      "g8g1",
+      "h1g1"
+    ],
+    "narration": [
+      "Black's rook slides to g8 and stares at your queen. Scary! But before you run, look at what Black left behind.",
+      "Your queen takes Black's queen on f3. Nothing guards it, so it's free: 9 points for nothing.",
+      "Black grabs your rook on g1, with check.",
+      "Your king takes it back. Rook for rook is a fair trade, 5 for 5, and you're still a whole queen ahead."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L02-g1",
+      "source": "lichess:cAhFJ",
+      "rating": 546,
+      "fen": "1k1r3r/p1p2p2/1p1b4/3Q3p/P1PP4/1P3PP1/1B2qRK1/R7 b - - 1 24",
+      "moves": [
+        "e2f2",
+        "g2f2",
+        "d6g3",
+        "f2g3"
+      ],
+      "hint": "Black's queen just gave check. Is anything guarding her?",
+      "explanation": "Black's queen had no bodyguard on f2, so your king takes her. Then the bishop tries the same trick on g3, and your king eats that too. The king can capture anything that isn't protected."
+    },
+    {
+      "id": "L02-g2",
+      "source": "lichess:moj23",
+      "rating": 592,
+      "fen": "r1bbk2r/p1pn1pp1/2p4p/4P3/2B5/2N5/PPP3PP/R1B1K2R w KQkq - 1 12",
+      "moves": [
+        "c4f7",
+        "e8f7",
+        "e5e6",
+        "f7e6"
+      ],
+      "hint": "White's bishop just took a pawn with check. Who's guarding that bishop?",
+      "explanation": "Nobody was guarding the bishop on f7, so your king takes it. White tries a pawn check on e6, but that pawn is unguarded too. A bishop is worth 3 pawns, so White's little attack cost a lot."
+    },
+    {
+      "id": "L02-g3",
+      "source": "lichess:1jhes",
+      "rating": 588,
+      "fen": "7r/q3Pp2/7k/1p4p1/p1p1Q2r/1P3N2/1PPN4/2K3R1 w - - 1 35",
+      "moves": [
+        "f3h4",
+        "a7g1",
+        "d2f1",
+        "g1f1"
+      ],
+      "hint": "White's knight grabbed your rook. Follow your queen's diagonal toward g1: is anything left unguarded?",
+      "explanation": "When White's knight took your rook, it stopped guarding g1. Now that rook is free, and your queen takes it with check. White blocks with the other knight, and you take that one too."
+    }
+  ],
+  "practice": []
+}

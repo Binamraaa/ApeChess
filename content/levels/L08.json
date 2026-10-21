@@ -4,6 +4,8 @@
   "unit": 3,
   "unitTitle": "The Big Five Tactics",
   "title": "Knight Forks",
+  "theme": "knightFork",
+  "icon": "wN",
   "concept": "One knight, two targets. The knight is the sneakiest fork in the jungle.",
   "glossary": {
     "term": "Fork",

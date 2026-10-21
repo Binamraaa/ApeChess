@@ -1,0 +1,39 @@
+export interface MapLevel {
+  id: string;
+  checkpoint?: boolean;
+}
+
+/** Stars needed on a level to unlock the one after it. Checkpoints need ★★. */
+export const starsToPass = (l: MapLevel) => (l.checkpoint ? 2 : 1);
+
+/**
+ * Which playable levels are open. The first is always open; each later one opens when the previous
+ * playable level is passed. A level stays open once it has been played, even if levels are added before it.
+ */
+export function unlockedLevels(
+  order: MapLevel[],
+  playable: (id: string) => boolean,
+  best: (id: string) => number,
+  all = false,
+): Set<string> {
+  const open = new Set<string>();
+  let prev: MapLevel | undefined;
+  for (const l of order) {
+    if (!playable(l.id)) continue;
+    if (all || !prev || best(prev.id) >= starsToPass(prev) || best(l.id) > 0) open.add(l.id);
+    prev = l;
+  }
+  return open;
+}
+
+/** The level to suggest next: the first open level not yet passed, else the last open one. */
+export function currentLevel(order: MapLevel[], open: Set<string>, best: (id: string) => number): string | undefined {
+  const opened = order.filter((l) => open.has(l.id));
+  return (opened.find((l) => best(l.id) < starsToPass(l)) ?? opened.at(-1))?.id;
+}
+
+/** The next playable level after `id`, if any. */
+export function nextLevel(order: MapLevel[], id: string, playable: (id: string) => boolean): string | undefined {
+  const i = order.findIndex((l) => l.id === id);
+  return order.slice(i + 1).find((l) => playable(l.id))?.id;
+}

@@ -1,18 +1,34 @@
-import type { LevelDef } from './types';
-import L08 from '../../content/levels/L08.json';
+import type { LevelDef, PuzzleDef } from './types';
 
-/**
- * Playable levels, keyed by id. Add each new content/levels/LXX.json here.
- * JSON shapes are checked by content/levels/levels.test.ts, hence the cast.
- */
-export const LEVELS: Record<string, LevelDef> = {
-  L08: L08 as unknown as LevelDef,
-};
+// Every content/levels/LXX.json is a playable level; content/puzzles/LXX.json is its practice pack.
+// JSON shapes are checked by content/levels/levels.test.ts, hence the casts.
+const levelFiles = import.meta.glob('../../content/levels/L*.json', { eager: true, import: 'default' });
+const packFiles = import.meta.glob('../../content/puzzles/L*.json', { eager: true, import: 'default' });
+
+const idOf = (path: string) => path.match(/(L\d+)\.json$/)![1];
+const packs = Object.fromEntries(
+  Object.entries(packFiles).map(([path, pack]) => [idOf(path), (pack as { puzzles: PuzzleDef[] }).puzzles]),
+);
+
+/** Playable levels, keyed by id. */
+export const LEVELS: Record<string, LevelDef> = Object.fromEntries(
+  Object.entries(levelFiles).map(([path, level]) => {
+    const id = idOf(path);
+    return [id, { ...(level as LevelDef), pack: packs[id] ?? [] }];
+  }),
+);
+
+export interface MapEntry {
+  id: string;
+  number: number;
+  title: string;
+  checkpoint?: boolean;
+}
 
 export interface UnitInfo {
   number: number;
   title: string;
-  levels: { id: string; number: number; title: string }[];
+  levels: MapEntry[];
 }
 
 /** The MVP map (docs/curriculum-mvp.md). Grouped by unit so it can grow to 100+ levels. */
@@ -45,7 +61,7 @@ export const UNITS: UnitInfo[] = [
       { id: 'L10', number: 10, title: 'Pins' },
       { id: 'L11', number: 11, title: 'Skewers' },
       { id: 'L12', number: 12, title: 'Discovered Attacks' },
-      { id: 'L13', number: 13, title: 'Checkpoint: Tactic Spotter' },
+      { id: 'L13', number: 13, title: 'Checkpoint: Tactic Spotter', checkpoint: true },
     ],
   },
   {
@@ -64,7 +80,12 @@ export const UNITS: UnitInfo[] = [
     levels: [
       { id: 'L18', number: 18, title: 'Mate with Queen or Rook' },
       { id: 'L19', number: 19, title: 'King & Pawn Basics' },
-      { id: 'L20', number: 20, title: 'Boss: The Checklist' },
+      { id: 'L20', number: 20, title: 'Boss: The Checklist', checkpoint: true },
     ],
   },
 ];
+
+/** All map entries in order. */
+export const ORDER: MapEntry[] = UNITS.flatMap((u) => u.levels);
+
+export const isPlayable = (id: string) => Boolean(LEVELS[id]);

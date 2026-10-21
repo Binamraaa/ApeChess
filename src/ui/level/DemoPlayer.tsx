@@ -4,10 +4,10 @@ import type { DrawShape } from 'chessground/draw';
 import type { Key } from 'chessground/types';
 import { Board } from '../../board/Board';
 import { BapuBubble } from '../../bapu/BapuBubble';
-import { isFork, moveFacts } from '../../bapu/explain';
+import { moveFacts } from '../../bapu/explain';
 import { parseUci } from '../../levels/puzzle';
 import type { PuzzleDef } from '../../levels/types';
-import { forkArrows } from './shapes';
+import { tacticArrows } from './shapes';
 
 interface Frame {
   fen: string;
@@ -19,12 +19,13 @@ interface Frame {
 function framesOf(p: PuzzleDef): Frame[] {
   const chess = new Chess(p.fen);
   const frames: Frame[] = [{ fen: p.fen, shapes: [] }];
-  for (const uci of p.moves) {
+  p.moves.forEach((uci, i) => {
     const before = chess.fen();
     const move = chess.move(parseUci(uci));
-    const facts = moveFacts(before, move);
-    frames.push({ fen: chess.fen(), move, shapes: isFork(facts) ? forkArrows(facts) : [] });
-  }
+    // Arrows on the hero's moves show the idea; none on the last move, where it's already cashed in.
+    const idea = i % 2 === 1 && i < p.moves.length - 1;
+    frames.push({ fen: chess.fen(), move, shapes: idea ? tacticArrows(moveFacts(before, move)) : [] });
+  });
   return frames;
 }
 

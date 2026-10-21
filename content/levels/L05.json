@@ -1,0 +1,68 @@
+{
+  "id": "L05",
+  "number": 5,
+  "unit": 2,
+  "unitTitle": "Finishing the Game",
+  "title": "Mate in One",
+  "theme": "mate",
+  "icon": "wQ",
+  "concept": "Look at every check first. One of them might end the game.",
+  "glossary": {
+    "term": "Checkmate",
+    "definition": "The king is attacked and can't escape: it can't step to a safe square, nothing can block, and the attacker can't be captured. Game over."
+  },
+  "summary": "Before every move, try every check. Ask: where can the king run, who can block, who can capture? Nowhere, nobody, nobody means mate.",
+  "demo": {
+    "id": "L05-demo",
+    "source": "lichess:Iz0nf",
+    "rating": 492,
+    "fen": "r2q1rk1/ppp3bp/3p2p1/4p1NN/2Pn4/3Q4/PP3PP1/R1B1K2R b KQ - 0 14",
+    "moves": [
+      "g6h5",
+      "d3h7"
+    ],
+    "narration": [
+      "Black's pawn grabs your knight on h5. A free piece? But that pawn on g6 was blocking your queen's path to h7.",
+      "Queen takes h7, checkmate! Your knight on g5 guards the queen, so the king can't take her, and its other squares are covered or blocked by Black's own pieces."
+    ]
+  },
+  "guided": [
+    {
+      "id": "L05-g1",
+      "source": "lichess:VJHBV",
+      "rating": 458,
+      "fen": "3r2rk/pp1n2q1/8/3QP3/5P2/1P6/P5PP/R4RK1 w - - 1 23",
+      "moves": [
+        "f1f3",
+        "g7g2"
+      ],
+      "hint": "Your queen and rook are both on the g-file, aiming at White's king. What can the queen take?",
+      "explanation": "Queen takes g2, checkmate! Your rook on g8 backs her up, so the king can't take her, and she covers every square around the king."
+    },
+    {
+      "id": "L05-g2",
+      "source": "lichess:uEQpt",
+      "rating": 473,
+      "fen": "1k6/5R2/1K6/2P5/5p1r/8/8/8 b - - 9 55",
+      "moves": [
+        "h4h1",
+        "f7f8"
+      ],
+      "hint": "Your king is already boxing in the black king. Which piece can check it along the back row?",
+      "explanation": "Rook to f8, checkmate! Your king on b6 takes away a7, b7 and c7, and the rook covers the whole back row. The king is a fighter too!"
+    },
+    {
+      "id": "L05-g3",
+      "source": "lichess:ahTXs",
+      "rating": 532,
+      "fen": "5rk1/2q2ppn/1n1p3p/2rPP3/1p3P2/1PbQB2P/R3N1P1/1B3RK1 b - - 0 25",
+      "moves": [
+        "c5d5",
+        "d3h7"
+      ],
+      "hint": "Your queen and your bishop on b1 are lined up on the same diagonal. Where does it point?",
+      "explanation": "Queen takes h7, checkmate! Your bishop on b1 is right behind the queen on the same diagonal, so the king can't take her. Two pieces lined up like that are called a battery."
+    }
+  ],
+  "practice": []
+}

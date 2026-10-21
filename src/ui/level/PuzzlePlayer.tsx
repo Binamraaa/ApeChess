@@ -15,11 +15,12 @@ import {
   moveFacts,
   type MoveFacts,
 } from '../../bapu/explain';
+import { THEMES, type Theme } from '../../bapu/themes';
 import { PuzzleSession, parseUci, type MoveResult } from '../../levels/puzzle';
 import type { PuzzleOutcome } from '../../levels/scoring';
 import type { PuzzleDef } from '../../levels/types';
 import { Bulb } from '../icons';
-import { forkArrows } from './shapes';
+import { tacticArrows } from './shapes';
 
 type Status = 'intro' | 'solving' | 'busy' | 'solved';
 type Played = Extract<MoveResult, { kind: 'correct' | 'solved' }>;
@@ -42,6 +43,7 @@ interface View {
 interface Props {
   puzzle: PuzzleDef;
   mode: 'guided' | 'practice';
+  theme: Theme;
   onSolved: (outcome: PuzzleOutcome) => void;
   onContinue: () => void;
 }
@@ -55,11 +57,22 @@ function capitalize(s: string) {
   return s[0].toUpperCase() + s.slice(1);
 }
 
+/** The little label on Bapu's bubble after a good move. */
+function goodLabel(f: MoveFacts): string {
+  if (isFork(f)) return 'Fork!';
+  if (f.doubleCheck) return 'Double check!';
+  if (f.discovered.length) return 'Discovered!';
+  const line = f.lines.find((l) => l.by.square === f.to);
+  if (line) return line.kind === 'pin' ? 'Pinned!' : 'Skewer!';
+  return 'Good move';
+}
+
 /**
  * One guided or practice puzzle. Rules and checking live in PuzzleSession;
  * this component only sequences animations and Bapu's lines.
  */
-export function PuzzlePlayer({ puzzle, mode, onSolved, onContinue }: Props) {
+export function PuzzlePlayer({ puzzle, mode, theme, onSolved, onContinue }: Props) {
+  const copy = THEMES[theme];
   const [session] = useState(() => new PuzzleSession(puzzle));
   const [view, setView] = useState<View>({ fen: puzzle.fen, check: false, version: 0 });
   const [status, setStatus] = useState<Status>('intro');
@@ -70,7 +83,7 @@ export function PuzzlePlayer({ puzzle, mode, onSolved, onContinue }: Props) {
   const [hintLevel, setHintLevel] = useState(0);
 
   // Read inside timers, so kept in a ref rather than state.
-  const track = useRef({ mistakes: 0, hinted: false, revealed: false, fork: undefined as MoveFacts | undefined });
+  const track = useRef({ mistakes: 0, hinted: false, revealed: false, played: [] as MoveFacts[] });
   const timers = useRef<number[]>([]);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   const later = (fn: () => void, ms: number) => {
@@ -94,16 +107,16 @@ export function PuzzlePlayer({ puzzle, mode, onSolved, onContinue }: Props) {
       const m = session.start();
       show(session.fen, m);
       setStatus('solving');
-      say('neutral', `${describeMove(m)} Your move: find the knight fork!`, null);
+      say('neutral', `${describeMove(m)} Your move: ${copy.prompt}`, null);
     }, OPPONENT_DELAY);
     return () => clearTimeout(t);
     // Runs once per puzzle; the component is keyed by puzzle id.
   }, []);
 
-  function finish(final: MoveFacts) {
+  function finish() {
     const t = track.current;
     setStatus('solved');
-    const text = puzzle.explanation ?? explainSolved(t.fork, final);
+    const text = puzzle.explanation ?? explainSolved(t.played, theme);
     say('good', text, t.revealed ? 'Here’s the idea' : t.mistakes ? 'Got there!' : 'Brilliant!');
     if (!t.revealed) vibrate(30);
     onSolved({ puzzleId: puzzle.id, firstTry: t.mistakes === 0, hintUsed: t.hinted, revealed: t.revealed });
@@ -113,19 +126,19 @@ export function PuzzlePlayer({ puzzle, mode, onSolved, onContinue }: Props) {
   function applyPlayed(fenBefore: string, result: Played) {
     const t = track.current;
     const facts = moveFacts(fenBefore, result.move);
-    if (!t.fork) t.fork = facts;
-    // No arrows on the final capture: the knight often "forks" again there, which is noise.
-    setShapes(isFork(facts) && result.kind !== 'solved' ? forkArrows(facts) : []);
+    t.played.push(facts);
+    // No arrows on the final move: the piece often "forks" again there, which is noise.
+    setShapes(result.kind !== 'solved' ? tacticArrows(facts) : []);
     setHintLevel(0);
 
     const afterMine = new Chess(fenBefore);
     afterMine.move(result.move.san);
     show(afterMine.fen(), result.move);
 
-    if (result.kind === 'solved') return finish(facts);
+    if (result.kind === 'solved') return finish();
 
     setStatus('busy');
-    if (!t.revealed) say('good', explainCorrect(facts), isFork(facts) ? 'Fork!' : 'Good move');
+    if (!t.revealed) say('good', explainCorrect(facts, theme), goodLabel(facts));
     later(() => {
       show(session.fen, result.reply);
       if (t.revealed) later(revealNext, REPLY_DELAY);
@@ -143,7 +156,7 @@ export function PuzzlePlayer({ puzzle, mode, onSolved, onContinue }: Props) {
     if (result.kind === 'wrong') {
       track.current.mistakes += 1;
       setMistakes(track.current.mistakes);
-      say('bad', explainWrong(puzzle, uci, moveFacts(fenBefore, result.move), session.solverStep));
+      say('bad', explainWrong(puzzle, uci, moveFacts(fenBefore, result.move), session.solverStep, theme));
       setShake((s) => s + 1);
       vibrate(120);
       show(session.fen, session.lastMove); // put the piece back
@@ -181,9 +194,7 @@ export function PuzzlePlayer({ puzzle, mode, onSolved, onContinue }: Props) {
       setShapes([{ orig: from as Key, brush: 'yellow' }]);
       say(
         'hint',
-        session.solverStep === 0
-          ? (puzzle.hint ?? `Look at your ${name}. Which square lets it attack two things at once?`)
-          : 'The fork did its job. Which piece couldn’t escape?',
+        session.solverStep === 0 ? (puzzle.hint ?? copy.hint) : copy.followUp,
       );
     } else {
       setShapes([{ orig: from as Key, dest: to as Key, brush: 'yellow' }]);
