@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { _resetConnection, getLevelProgress, getProfile, getReview, getRiddleState, recordReview, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
+import { _resetConnection, getLevelProgress, getProfile, getReview, getRiddleState, onSaved, recordReview, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
 
 beforeEach(async () => {
   await _resetConnection();
@@ -29,6 +29,16 @@ describe('progress store', () => {
     expect(b.profile).toEqual({ xp: 130, streak: { count: 2, lastDay: '2026-10-22' }, started: true });
 
     expect(await getProfile()).toEqual(b.profile);
+  });
+
+  it('tells listeners after progress is saved', async () => {
+    let calls = 0;
+    const off = onSaved(() => calls++);
+    await saveLevelResult('L08', 1, 10);
+    await recordReview('L08', ['p1'], [], '2026-10-22');
+    off();
+    await saveLevelResult('L08', 1, 10);
+    expect(calls).toBe(2);
   });
 
   it('remembers recently played practice puzzles, newest first', async () => {

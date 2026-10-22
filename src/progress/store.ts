@@ -34,6 +34,16 @@ const DEFAULT_PROFILE: Profile = { xp: 0, streak: NO_STREAK, started: false };
 
 let dbPromise: Promise<IDBPDatabase<ApeChessDB>> | null = null;
 
+const savedListeners = new Set<() => void>();
+
+/** Calls `fn` after every change to saved progress; returns the unsubscribe function. */
+export function onSaved(fn: () => void): () => void {
+  savedListeners.add(fn);
+  return () => savedListeners.delete(fn);
+}
+
+const saved = () => savedListeners.forEach((fn) => fn());
+
 function db() {
   dbPromise ??= openDB<ApeChessDB>('apechess', 1, {
     upgrade(d) {
@@ -52,7 +62,9 @@ export async function getProfile(): Promise<Profile> {
 export async function markStarted(): Promise<void> {
   const d = await db();
   const p = await getProfile();
-  if (!p.started) await d.put('meta', { ...p, started: true }, 'profile');
+  if (p.started) return;
+  await d.put('meta', { ...p, started: true }, 'profile');
+  saved();
 }
 
 /** Records the intro as seen, and where the learner wants to begin. */
@@ -60,6 +72,7 @@ export async function finishIntro(startAt?: string): Promise<Profile> {
   const d = await db();
   const p = { ...(await getProfile()), introSeen: true, ...(startAt ? { startAt } : {}) };
   await d.put('meta', p, 'profile');
+  saved();
   return p;
 }
 
@@ -104,6 +117,7 @@ export async function saveLevelResult(
   };
   await meta.put(profile, 'profile');
   await tx.done;
+  saved();
 
   return {
     profile,
@@ -154,6 +168,7 @@ export async function todaysRiddle(
   const current: RiddleRecord = { day, ...chosen };
   const recent = [chosen.puzzleId, ...state.recent.filter((id) => id !== chosen.puzzleId)].slice(0, RIDDLE_MEMORY);
   await d.put('meta', { ...state, current, recent }, 'riddle');
+  saved();
   return current;
 }
 
@@ -184,6 +199,7 @@ export async function saveRiddleResult(
     await meta.put(updateReview(items, riddle.levelId, clean ? [] : [riddle.puzzleId], clean ? [riddle.puzzleId] : [], day), 'review');
   }
   await tx.done;
+  saved();
   return { profile, riddle, freezeEarned: (profile.streak.freezes ?? 0) > (old.streak.freezes ?? 0) };
 }
 
@@ -199,6 +215,7 @@ export async function recordReview(levelId: string, missed: string[], solved: st
   const items = ((await tx.store.get('review')) as ReviewItem[] | undefined) ?? [];
   await tx.store.put(updateReview(items, levelId, missed, solved, day), 'review');
   await tx.done;
+  saved();
 }
 
 export function displayStreak(p: Profile, now = new Date()): number {
