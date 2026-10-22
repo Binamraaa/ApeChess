@@ -8,6 +8,7 @@ import { moveFacts } from '../bapu/explain';
 import { LEVELS, UNITS } from '../levels/curriculum';
 import { parseUci } from '../levels/puzzle';
 import { canInstall, install, onInstallChange } from '../install';
+import { cloudAvailable } from '../progress/cloud';
 import { Bolt, Bulb, Star } from './icons';
 import { tacticArrows } from './level/shapes';
 import './intro.css';
@@ -110,7 +111,12 @@ export function Intro({ onStart, returning, onBack }: Props) {
             every move, the reason it works (or why it doesn’t).
           </p>
           {doors}
-          <p className="intro-small">No account. No ads. Works offline.</p>
+          <p className="intro-small">No account needed. No ads. Works offline.</p>
+          {cloudAvailable && !returning && (
+            <p className="intro-small">
+              Learning on another device? <a href="#/account">Bring your progress here</a>.
+            </p>
+          )}
         </div>
 
         <div className="intro-show" aria-hidden="true">

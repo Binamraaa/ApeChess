@@ -78,3 +78,9 @@ export const Book = (p: P) => (
     <path d="M9 7.5h6" stroke="var(--paper, #fff)" strokeWidth="1.8" strokeLinecap="round" />
   </Svg>
 );
+
+export const Cloud = (p: P) => (
+  <Svg {...p}>
+    <path d="M7 19a4.5 4.5 0 0 1-.9-8.9 6 6 0 0 1 11.5-1.4A5.2 5.2 0 0 1 17.5 19z" fill="currentColor" />
+  </Svg>
+);

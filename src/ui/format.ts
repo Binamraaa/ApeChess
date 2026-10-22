@@ -7,3 +7,14 @@ export function formatCountdown(ms: number): string {
   const h = Math.floor(mins / 60);
   return h ? `${h}h ${mins % 60}m` : `${mins}m`;
 }
+
+/** How long ago, in words: "just now", "5 min ago", "3 h ago", "2 days ago". */
+export function formatAgo(ms: number): string {
+  const mins = Math.floor(ms / 60_000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins} min ago`;
+  const h = Math.floor(mins / 60);
+  if (h < 24) return `${h} h ago`;
+  const days = Math.floor(h / 24);
+  return `${days} day${days === 1 ? '' : 's'} ago`;
+}

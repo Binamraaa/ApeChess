@@ -1,18 +1,22 @@
+import { useSyncExternalStore } from 'react';
 import { BAPU } from '../bapu/BapuBubble';
 import { LEVELS, UNITS } from '../levels/curriculum';
 import { RANKS, notebookPages, rankFor } from '../levels/notebook';
+import { getAccount, onAccount } from '../progress/cloud';
 import type { LevelProgress } from '../progress/store';
-import { Close, Lock } from './icons';
+import { Close, Cloud, Lock } from './icons';
 import './level/level.css';
 import './notebook.css';
 
 interface Props {
   progress: Record<string, LevelProgress>;
   onExit: () => void;
+  onBackup: () => void;
 }
 
 /** Every rule Bapu has taught, one page per finished level, and the learner's rank. */
-export function Notebook({ progress, onExit }: Props) {
+export function Notebook({ progress, onExit, onBackup }: Props) {
+  const account = useSyncExternalStore(onAccount, getAccount);
   const best = (id: string) => progress[id]?.bestStars ?? 0;
   const pages = notebookPages(UNITS, LEVELS, best);
   const rank = rankFor(UNITS, LEVELS, best);
@@ -81,6 +85,15 @@ export function Notebook({ progress, onExit }: Props) {
             </section>
           );
         })}
+
+        {account.status !== 'off' && (
+          <button className="notebook-backup" onClick={onBackup}>
+            <Cloud size={20} />
+            <span>
+              {account.status === 'signed-in' ? `Backed up to ${account.email}` : 'This notebook lives on this device. Back it up?'}
+            </span>
+          </button>
+        )}
       </main>
     </div>
   );

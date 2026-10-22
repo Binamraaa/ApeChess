@@ -15,7 +15,7 @@ Owner: Binamra Bhusal. The goals are (1) learn chess himself, (2) a future curri
 - `chess.js` for rules and move validation
 - `chessground` for the board UI (Lichess's board)
 - Stockfish WASM (single-threaded "lite" build, so no COOP/COEP headers are needed) in a Web Worker, used only for engine levels and refutations
-- IndexedDB (via `idb` or Dexie) for progress: stars, XP, streak. No backend and no accounts in the MVP.
+- IndexedDB (via `idb`) for progress: stars, XP, streak. Optional cloud backup with Supabase (email code sign-in); the device copy always comes first and nobody has to sign in to play.
 - Vitest for unit tests
 
 ## License
@@ -79,4 +79,6 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `predev`/`prebuild` copy Stockfish (lite, single-threaded) into `public/stockfish/` (gitignored) for Level 18's Web Worker.
 - Sound: `public/sounds/sounds.json` maps cues/music to recorded files in `public/sounds/`; anything unlisted uses the synth in `src/sound/synth.ts`. Brief for the music and cues: `docs/sound.md`. Sound prefs are per device (localStorage). `BapuBubble` plays its tone's cue and Bapu's voice on mount; `Board` clacks on moves.
 - `?unlock=all` on the app URL opens every level on that device; `?unlock=off` resets.
+- Cloud backup: `src/progress/merge.ts` (pure, tested: snapshot merge; XP per device in `profile.xpBy` so it's never counted twice), `sync.ts` (one sync round, tested with a fake cloud), `cloud.ts` (Supabase client, lazy-loaded; account state; sync triggers). Table + RLS in `supabase/migrations/`. Route `#/account`. Keys in `.env` (publishable key only). Setup, email/SMTP limits: `docs/backend.md`. Any new saved field must go into `Snapshot` and its merge rule.
+- `navigator.storage.persist()` is requested after the first save each session (`src/progress/persist.ts`).
 - Deploy: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build with `BASE_PATH=/<repo>/`, publish to GitHub Pages)

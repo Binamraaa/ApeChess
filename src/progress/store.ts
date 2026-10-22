@@ -3,6 +3,7 @@ import { updateRecent } from '../levels/practice';
 import { updateReview, type ReviewItem } from '../levels/review';
 import { RIDDLE_MEMORY } from '../levels/riddle';
 import type { PuzzleOutcome, Stars } from '../levels/scoring';
+import { SNAPSHOT_VERSION, addXp, mergeSnapshots, sameSnapshot, xpLedger, type Snapshot } from './merge';
 import { NO_STREAK, currentStreak, localDay, recordSession, type Streak } from './streak';
 
 export interface LevelProgress {
@@ -15,7 +16,10 @@ export interface LevelProgress {
 }
 
 export interface Profile {
+  /** Total XP: the sum of `xpBy`. */
   xp: number;
+  /** XP earned on each device, by device id, so devices can merge without counting XP twice. */
+  xpBy?: Record<string, number>;
   streak: Streak;
   /** True once the learner has started at least one level. */
   started: boolean;
@@ -43,6 +47,30 @@ export function onSaved(fn: () => void): () => void {
 }
 
 const saved = () => savedListeners.forEach((fn) => fn());
+
+const mergedListeners = new Set<() => void>();
+
+/** Calls `fn` after progress from another device is merged in; returns the unsubscribe function. */
+export function onMerged(fn: () => void): () => void {
+  mergedListeners.add(fn);
+  return () => mergedListeners.delete(fn);
+}
+
+interface MetaStore {
+  get(key: string): Promise<unknown>;
+  put(value: unknown, key: string): Promise<unknown>;
+}
+
+const newId = () => Array.from(crypto.getRandomValues(new Uint8Array(8)), (b) => b.toString(16).padStart(2, '0')).join('');
+
+/** This device's id (made on first use), which its XP is filed under. */
+async function deviceIn(meta: MetaStore): Promise<string> {
+  const id = (await meta.get('device')) as string | undefined;
+  if (id) return id;
+  const made = newId();
+  await meta.put(made, 'device');
+  return made;
+}
 
 function db() {
   dbPromise ??= openDB<ApeChessDB>('apechess', 1, {
@@ -110,8 +138,7 @@ export async function saveLevelResult(
 
   const old = { ...DEFAULT_PROFILE, ...((await meta.get('profile')) as Profile | undefined) };
   const profile: Profile = {
-    ...old,
-    xp: old.xp + xpEarned,
+    ...addXp(old, await deviceIn(meta), xpEarned),
     streak: recordSession(old.streak, today),
     started: true,
   };
@@ -184,12 +211,13 @@ export async function saveRiddleResult(
   const meta = tx.objectStore('meta');
   const state = { ...NO_RIDDLES, ...((await meta.get('riddle')) as RiddleState | undefined) };
   const old = { ...DEFAULT_PROFILE, ...((await meta.get('profile')) as Profile | undefined) };
+  const device = await deviceIn(meta);
   if (state.current?.day !== day || state.current.result) {
     await tx.done;
     return null;
   }
   const riddle: RiddleRecord = { ...state.current, result: { ...outcome, xp } };
-  const profile: Profile = { ...old, xp: old.xp + xp, streak: recordSession(old.streak, localDay(now)), started: true };
+  const profile: Profile = { ...addXp(old, device, xp), streak: recordSession(old.streak, localDay(now)), started: true };
   await meta.put({ ...state, current: riddle, solved: state.solved + 1 }, 'riddle');
   await meta.put(profile, 'profile');
   // A rematch won first try is done with; otherwise it comes back again later.
@@ -216,6 +244,47 @@ export async function recordReview(levelId: string, missed: string[], solved: st
   await tx.store.put(updateReview(items, levelId, missed, solved, day), 'review');
   await tx.done;
   saved();
+}
+
+/** Everything saved on this device, as one snapshot (for cloud sync). */
+export async function exportSnapshot(): Promise<Snapshot> {
+  const tx = (await db()).transaction(['levels', 'meta'], 'readwrite');
+  const snapshot = await readSnapshot(tx.objectStore('levels'), tx.objectStore('meta'));
+  await tx.done;
+  return snapshot;
+}
+
+async function readSnapshot(levels: { getAll(): Promise<LevelProgress[]> }, meta: MetaStore): Promise<Snapshot> {
+  const profile = { ...DEFAULT_PROFILE, ...((await meta.get('profile')) as Profile | undefined) };
+  return {
+    version: SNAPSHOT_VERSION,
+    profile: { ...profile, xpBy: xpLedger(profile, await deviceIn(meta)) },
+    levels: await levels.getAll(),
+    riddle: { ...NO_RIDDLES, ...((await meta.get('riddle')) as RiddleState | undefined) },
+    review: ((await meta.get('review')) as ReviewItem[] | undefined) ?? [],
+  };
+}
+
+/**
+ * Merges another device's snapshot into this one, in one transaction so nothing saved meanwhile
+ * is lost. Returns the merged snapshot, and whether this device's copy changed.
+ */
+export async function mergeIntoLocal(other: Snapshot): Promise<{ snapshot: Snapshot; changed: boolean }> {
+  const tx = (await db()).transaction(['levels', 'meta'], 'readwrite');
+  const levels = tx.objectStore('levels');
+  const meta = tx.objectStore('meta');
+  const local = await readSnapshot(levels, meta);
+  const snapshot = mergeSnapshots(local, other, await deviceIn(meta));
+  const changed = !sameSnapshot(local, snapshot);
+  if (changed) {
+    for (const l of snapshot.levels) await levels.put(l);
+    await meta.put(snapshot.profile, 'profile');
+    await meta.put(snapshot.riddle, 'riddle');
+    await meta.put(snapshot.review, 'review');
+  }
+  await tx.done;
+  if (changed) mergedListeners.forEach((fn) => fn());
+  return { snapshot, changed };
 }
 
 export function displayStreak(p: Profile, now = new Date()): number {

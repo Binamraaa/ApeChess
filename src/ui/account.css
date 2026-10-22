@@ -1,0 +1,143 @@
+.account-main {
+  gap: 18px;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.account-label {
+  font-weight: 800;
+}
+
+.account-input {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 2px solid var(--paper-edge);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.account-input:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.account-code {
+  font-size: 24px;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+
+.account-small {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.account-error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--bad-soft);
+  color: var(--bad);
+  font-weight: 700;
+}
+
+.account-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.link-btn {
+  appearance: none;
+  border: 0;
+  padding: 8px 0;
+  min-height: 44px;
+  background: none;
+  color: var(--teal);
+  font: inherit;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.link-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.link-btn.danger {
+  align-self: flex-start;
+  color: var(--bad);
+}
+
+.account-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+  box-shadow: 0 4px 0 var(--paper-edge);
+}
+
+.account-card div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.account-card strong {
+  overflow-wrap: anywhere;
+}
+
+.account-card small {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--good);
+}
+
+.account-card small.account-warn {
+  color: var(--rust);
+}
+
+.account-cloud {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--teal);
+  color: var(--paper);
+  box-shadow: 0 3px 0 var(--teal-deep);
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.account-delete {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--bad-soft);
+}
+
+.account-delete p {
+  margin: 0;
+  font-weight: 700;
+}

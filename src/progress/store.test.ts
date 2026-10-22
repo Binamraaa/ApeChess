@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { _resetConnection, getLevelProgress, getProfile, getReview, getRiddleState, onSaved, recordReview, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
+import { _resetConnection, getLevelProgress, getProfile, getReview, exportSnapshot, getRiddleState, mergeIntoLocal, onMerged, onSaved, recordReview, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
 
 beforeEach(async () => {
   await _resetConnection();
@@ -26,7 +26,8 @@ describe('progress store', () => {
     const b = await saveLevelResult('L08', 1, 30, day2);
     expect(b.improved).toBe(false);
     expect(b.level).toMatchObject({ bestStars: 2, timesCompleted: 2, lastPlayed: '2026-10-22' });
-    expect(b.profile).toEqual({ xp: 130, streak: { count: 2, lastDay: '2026-10-22' }, started: true });
+    expect(b.profile).toMatchObject({ xp: 130, streak: { count: 2, lastDay: '2026-10-22' }, started: true });
+    expect(Object.values(b.profile.xpBy!)).toEqual([130]);
 
     expect(await getProfile()).toEqual(b.profile);
   });
@@ -87,5 +88,42 @@ describe('progress store', () => {
     const r = await saveLevelResult('L05', 2, 10, new Date(2026, 9, 21));
     expect(r).toMatchObject({ prevBest: 1, freezeEarned: true });
     expect(r.profile.streak).toEqual({ count: 7, lastDay: '2026-10-21', freezes: 1 });
+  });
+
+  it("merges another device's snapshot in, keeping the best of both", async () => {
+    await saveLevelResult('L02', 3, 100, new Date(2026, 9, 21));
+    await saveLevelResult('L03', 1, 20, new Date(2026, 9, 21));
+    const local = await exportSnapshot();
+    const other = {
+      ...local,
+      profile: { ...local.profile, xp: 50, xpBy: { phone: 50 }, streak: { count: 4, lastDay: '2026-10-22' } },
+      levels: [
+        { id: 'L03', bestStars: 3 as const, timesCompleted: 2, lastPlayed: '2026-10-22' },
+        { id: 'L04', bestStars: 2 as const, timesCompleted: 1, lastPlayed: '2026-10-22' },
+      ],
+    };
+    let merged = 0;
+    const off = onMerged(() => merged++);
+    const { snapshot, changed } = await mergeIntoLocal(other);
+    expect(changed).toBe(true);
+    expect(snapshot.profile.xp).toBe(170);
+    expect((await getProfile()).streak).toEqual({ count: 4, lastDay: '2026-10-22' });
+    expect((await getLevelProgress('L02'))!.bestStars).toBe(3);
+    expect((await getLevelProgress('L03'))!.bestStars).toBe(3);
+    expect((await getLevelProgress('L04'))!.bestStars).toBe(2);
+
+    // Merging the same copy again changes nothing, and doesn't count XP twice.
+    expect((await mergeIntoLocal(other)).changed).toBe(false);
+    expect((await getProfile()).xp).toBe(170);
+    off();
+    expect(merged).toBe(1);
+  });
+
+  it('files XP saved before sync under this device', async () => {
+    const { profile } = await saveLevelResult('L02', 1, 40);
+    const device = Object.keys(profile.xpBy!)[0];
+    const { profile: next } = await saveLevelResult('L02', 1, 10);
+    expect(next.xpBy).toEqual({ [device]: 50 });
+    expect((await exportSnapshot()).profile.xpBy).toEqual({ [device]: 50 });
   });
 });

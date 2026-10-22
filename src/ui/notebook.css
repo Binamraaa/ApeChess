@@ -137,3 +137,24 @@
   font-weight: 700;
   color: var(--ink-soft);
 }
+
+.notebook-backup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 2px dashed var(--paper-edge);
+  background: none;
+  color: var(--teal);
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.notebook-backup span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

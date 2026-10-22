@@ -520,3 +520,51 @@
   color: var(--paper);
   box-shadow: 0 3px 0 var(--rust-deep);
 }
+
+/* ---------- Backup offer ---------- */
+
+.backup-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 22px;
+  background: var(--teal-soft);
+  border: 2px dashed rgba(31, 92, 87, 0.35);
+}
+
+.backup-open {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 4px 12px 16px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.backup-open:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+  border-radius: 20px;
+}
+
+.backup-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--teal);
+  color: var(--paper);
+}
+
+.backup-close {
+  flex: none;
+  margin-right: 4px;
+}

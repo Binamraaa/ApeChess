@@ -17,6 +17,7 @@ It's built for smart adults who never really learned chess, and later for school
 - a checkpoint (Level 13) and a boss (Level 20) that mix every earlier theme with no hints
 - an intro page with two doors: "I'm new to chess" or "I know how the pieces move"
 - a level map with unlocking, stars, XP and a daily streak; progress saved on your device, no account needed
+- optional cloud backup: sign in with an emailed code and your progress follows you to any device (Supabase; the device copy stays first, so it all still works offline). See [`docs/backend.md`](docs/backend.md)
 - **Bapu's daily riddle**: one puzzle a day from the levels you've passed. It earns XP and keeps your streak alive. Puzzles you missed come back as rematches
 - **Bapu's notebook**: every level's rule becomes a page you keep, and finishing units earns ranks (Pawn Apprentice to Silverback)
 - streak freezes (one per 7-day streak, up to two) so a missed day doesn't wipe out a long streak
@@ -28,8 +29,8 @@ The full plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
 ## Roadmap
 
 1. **Done:** the 20-level MVP, the Lichess puzzle pipeline, the level map and the intro page
-2. **Next:** a recorded arrangement of Bapu's theme, a "deep dive" on featured puzzles, export/import of progress
-3. **Later:** the school edition (simpler copy, Nepali), teacher view, cloud sync, Phase 1 levels beyond 20
+2. **Next:** a recorded arrangement of Bapu's theme, Bapu's recorded voice, a "deep dive" on featured puzzles
+3. **Later:** the school edition (simpler copy, Nepali), teacher accounts with class codes, Phase 1 levels beyond 20
 
 ## Run it
 
@@ -69,12 +70,13 @@ Open the app with `?unlock=all` to open every level on that device (for testing)
 src/board/     chessground wrapper
 src/levels/    puzzle checking, level runner, star scoring (pure TS)
 src/bapu/      explanation templates + speech bubble
-src/progress/  IndexedDB store, streak
+src/progress/  IndexedDB store, streak, cloud sync (merge + Supabase)
 src/sound/     sound effects, Bapu's murmur, music (built-in synth, recorded files override)
 src/ui/        screens
 content/levels/  levels: concept, demo, guided puzzles and Bapu's hand-written lines
 content/puzzles/ practice packs built from the Lichess puzzle database
 scripts/       image export, puzzle pipeline, Stockfish verifier
+supabase/      the progress table (migration) and the sign-in email
 ```
 
 ## Contributing

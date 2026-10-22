@@ -2,8 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LEVELS, ORDER, isPlayable } from './levels/curriculum';
 import { nextLevel, unlockedLevels } from './levels/unlock';
 import { localDay } from './progress/streak';
-import { displayStreak, finishIntro, getAllLevelProgress, getProfile, type LevelProgress, type Profile } from './progress/store';
+import { displayStreak, finishIntro, getAllLevelProgress, getProfile, onMerged, type LevelProgress, type Profile } from './progress/store';
 import { setScene } from './sound/engine';
+import { Account } from './ui/Account';
 import { Home } from './ui/Home';
 import { Notebook } from './ui/Notebook';
 import { RiddleScreen } from './ui/riddle/RiddleScreen';
@@ -49,6 +50,7 @@ export default function App() {
   const [welcome, setWelcome] = useState(() => location.hash === '#/welcome');
   const [riddleRoute, setRiddleRoute] = useState(() => location.hash === '#/riddle');
   const [notebookRoute, setNotebookRoute] = useState(() => location.hash === '#/notebook');
+  const [accountRoute, setAccountRoute] = useState(() => location.hash === '#/account');
   const [riddle, setRiddle] = useState<TodaysRiddle | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [progress, setProgress] = useState<Record<string, LevelProgress>>({});
@@ -68,10 +70,14 @@ export default function App() {
       setWelcome(location.hash === '#/welcome');
       setRiddleRoute(location.hash === '#/riddle');
       setNotebookRoute(location.hash === '#/notebook');
+      setAccountRoute(location.hash === '#/account');
     };
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
   }, []);
+
+  // Progress synced from another device shows up straight away.
+  useEffect(() => onMerged(() => void refresh().catch(() => {})), [refresh]);
 
   // Music follows the screen: the theme at home, something quieter in a lesson.
   useEffect(() => setScene(levelId || riddleRoute ? 'level' : 'home'), [levelId, riddleRoute]);
@@ -120,12 +126,20 @@ export default function App() {
     );
   }
 
+  if (accountRoute) {
+    return (
+      <div className="app">
+        <Account onExit={exit} />
+      </div>
+    );
+  }
+
   if (!profile) return <div className="app" />;
 
   if (notebookRoute) {
     return (
       <div className="app">
-        <Notebook progress={progress} onExit={exit} />
+        <Notebook progress={progress} onExit={exit} onBackup={() => location.replace('#/account')} />
       </div>
     );
   }
@@ -156,6 +170,10 @@ export default function App() {
         onNotebook={() => {
           cameFromHome.current = true;
           location.hash = '#/notebook';
+        }}
+        onBackup={() => {
+          cameFromHome.current = true;
+          location.hash = '#/account';
         }}
       />
     </div>

@@ -2,7 +2,9 @@ import { BapuBubble, BAPU } from '../bapu/BapuBubble';
 import { LEVELS, ORDER, UNITS, type MapEntry, type UnitInfo } from '../levels/curriculum';
 import { currentLevel } from '../levels/unlock';
 import type { LevelProgress, Profile } from '../progress/store';
-import { Bolt, Book, Flame, Lock, Star } from './icons';
+import { useState, useSyncExternalStore } from 'react';
+import { getAccount, onAccount } from '../progress/cloud';
+import { Bolt, Book, Cloud, Close, Flame, Lock, Star } from './icons';
 import { notebookPages, rankFor } from '../levels/notebook';
 import { SoundSettings } from './SoundSettings';
 import { untilNextRiddle } from '../levels/riddle';
@@ -23,6 +25,30 @@ interface Props {
   onStart: (levelId: string) => void;
   onRiddle: () => void;
   onNotebook: () => void;
+  onBackup: () => void;
+}
+
+const NUDGE_KEY = 'apechess.backupNudge';
+
+/** Offers cloud backup once the learner has something worth keeping (two levels passed), until it's waved off. */
+function useBackupNudge(passed: number): [boolean, () => void] {
+  const account = useSyncExternalStore(onAccount, getAccount);
+  const [dismissed, setDismissed] = useState(() => {
+    try {
+      return localStorage.getItem(NUDGE_KEY) === 'no';
+    } catch {
+      return false;
+    }
+  });
+  const dismiss = () => {
+    setDismissed(true);
+    try {
+      localStorage.setItem(NUDGE_KEY, 'no');
+    } catch {
+      // Private mode: it just comes back next time.
+    }
+  };
+  return [account.status === 'signed-out' && passed >= 2 && !dismissed, dismiss];
 }
 
 const pieceIcon = (icon: string) => `${import.meta.env.BASE_URL}pieces/${icon}.svg`;
@@ -37,7 +63,7 @@ function Stars({ count, size = 18 }: { count: number; size?: number }) {
   );
 }
 
-export function Home({ profile, streak, progress, open, riddle, streakAtRisk, onStart, onRiddle, onNotebook }: Props) {
+export function Home({ profile, streak, progress, open, riddle, streakAtRisk, onStart, onRiddle, onNotebook, onBackup }: Props) {
   const best = (id: string) => progress[id]?.bestStars ?? 0;
   const currentId = currentLevel(ORDER, open, best, profile.startAt)!;
   const level = LEVELS[currentId];
@@ -48,6 +74,7 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
   const freezes = profile.streak.freezes ?? 0;
   const pages = notebookPages(UNITS, LEVELS, best);
   const rank = rankFor(UNITS, LEVELS, best);
+  const [nudge, dismissNudge] = useBackupNudge(Object.values(progress).filter((l) => l.bestStars > 0).length);
   const greeting = !profile.started
     ? 'Hello, I’m Bapu! I won’t just tell you the right move. I’ll show you why it works.'
     : streakAtRisk && riddleOpen
@@ -126,6 +153,23 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
             </small>
           </span>
         </button>
+      )}
+
+      {nudge && (
+        <div className="backup-card">
+          <button className="backup-open" onClick={onBackup}>
+            <span className="backup-icon" aria-hidden="true">
+              <Cloud size={24} />
+            </span>
+            <span className="riddle-text">
+              <strong>Keep your progress safe</strong>
+              <small>Back up your stars with your email, and play on any device.</small>
+            </span>
+          </button>
+          <button className="icon-btn backup-close" onClick={dismissNudge} aria-label="Not now">
+            <Close size={18} />
+          </button>
+        </div>
       )}
 
       <section className="map" aria-label="All levels">
