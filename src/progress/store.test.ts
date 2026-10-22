@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { _resetConnection, getLevelProgress, getProfile, getRiddleState, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
+import { _resetConnection, getLevelProgress, getProfile, getReview, getRiddleState, recordReview, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
 
 beforeEach(async () => {
   await _resetConnection();
@@ -56,5 +56,26 @@ describe('progress store', () => {
     expect(await saveRiddleResult('2026-10-22', outcome, 20, day)).toBeNull();
     expect((await getProfile()).xp).toBe(20);
     expect((await getRiddleState()).solved).toBe(1);
+  });
+
+  it('takes a rematch off the list once it is won first try', async () => {
+    await recordReview('L08', ['p1', 'p2'], [], '2026-10-20');
+    await todaysRiddle('2026-10-22', () => ({ levelId: 'L08', puzzleId: 'p1', rematch: '2026-10-20' }));
+    await saveRiddleResult('2026-10-22', { puzzleId: 'p1', firstTry: true, hintUsed: false, revealed: false }, 20, new Date(2026, 9, 22));
+    expect((await getReview()).map((i) => i.puzzleId)).toEqual(['p2']);
+  });
+
+  it('brings a lost rematch back later', async () => {
+    await recordReview('L08', ['p1'], [], '2026-10-20');
+    await todaysRiddle('2026-10-22', () => ({ levelId: 'L08', puzzleId: 'p1', rematch: '2026-10-20' }));
+    await saveRiddleResult('2026-10-22', { puzzleId: 'p1', firstTry: false, hintUsed: false, revealed: false }, 5, new Date(2026, 9, 22));
+    expect(await getReview()).toEqual([{ puzzleId: 'p1', levelId: 'L08', missedOn: '2026-10-22' }]);
+  });
+
+  it('reports the previous best and a freshly earned freeze', async () => {
+    for (let d = 15; d <= 20; d++) await saveLevelResult('L05', 1, 10, new Date(2026, 9, d));
+    const r = await saveLevelResult('L05', 2, 10, new Date(2026, 9, 21));
+    expect(r).toMatchObject({ prevBest: 1, freezeEarned: true });
+    expect(r.profile.streak).toEqual({ count: 7, lastDay: '2026-10-21', freezes: 1 });
   });
 });

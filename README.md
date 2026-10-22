@@ -17,7 +17,10 @@ It's built for smart adults who never really learned chess, and later for school
 - a checkpoint (Level 13) and a boss (Level 20) that mix every earlier theme with no hints
 - an intro page with two doors: "I'm new to chess" or "I know how the pieces move"
 - a level map with unlocking, stars, XP and a daily streak; progress saved on your device, no account needed
-- **Bapu's daily riddle**: one puzzle a day from the levels you've passed. It earns XP and keeps your streak alive
+- **Bapu's daily riddle**: one puzzle a day from the levels you've passed. It earns XP and keeps your streak alive. Puzzles you missed come back as rematches
+- **Bapu's notebook**: every level's rule becomes a page you keep, and finishing units earns ranks (Pawn Apprentice to Silverback)
+- streak freezes (one per 7-day streak, up to two) so a missed day doesn't wipe out a long streak
+- share your result: a spoiler-free square grid for levels and riddles
 - sound: Bapu's theme (hummed, then arranged in code from its MIDI notes), wooden move clacks, gentle right/wrong cues, a combo for first-try solves in a row, star chimes, and Bapu "speaking" each line in a murmur (or read aloud). Recorded music and sounds drop in through [`docs/sound.md`](docs/sound.md)
 
 The full plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
@@ -25,7 +28,7 @@ The full plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
 ## Roadmap
 
 1. **Done:** the 20-level MVP, the Lichess puzzle pipeline, the level map and the intro page
-2. **Next:** badges (one per unit, plus "Boss Beaten"), a "deep dive" on featured puzzles, export/import of progress
+2. **Next:** a recorded arrangement of Bapu's theme, a "deep dive" on featured puzzles, export/import of progress
 3. **Later:** the school edition (simpler copy, Nepali), teacher view, cloud sync, Phase 1 levels beyond 20
 
 ## Run it

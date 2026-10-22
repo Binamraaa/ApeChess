@@ -72,7 +72,8 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `npx tsx scripts/show-puzzles.ts L10 pin [ids…]`: preview Bapu's template lines for a pack (with boards when ids are given). Use it before picking featured puzzles.
 - `npx tsx scripts/find-puzzles.ts castle|enPassant|promotion [maxRating] [count]`: find Stockfish-clean candidates for featured puzzles.
 - `npm run theme [-- file.mid]`: rebuild `content/music/theme.json` (Bapu's theme) from a hummed MIDI (default: newest `.mid` in `content/music/`). It drives the home music and the level-complete tune.
-- Daily riddle: `src/levels/riddle.ts` (pure: pool, seeded daily pick, XP), stored in IndexedDB meta `riddle` (picked once per day, so it doesn't change mid-day). Route `#/riddle`.
+- Daily riddle: `src/levels/riddle.ts` (pure: pool, seeded daily pick, XP), stored in IndexedDB meta `riddle` (picked once per day, so it doesn't change mid-day). Route `#/riddle`. A due rematch (`src/levels/review.ts`, meta `review`: puzzles missed in levels, back after 2 days) takes the riddle's place.
+- Engagement logic is pure and tested: `src/levels/notebook.ts` (pages, ranks), `src/levels/share.ts` (share text), streak freezes in `src/progress/streak.ts`. Notebook route `#/notebook`.
 - `npx tsx scripts/build-quiz.ts` (Level 3 positions), `scripts/build-openings.ts` (writes Level 7, Stockfish-checks every choice), `scripts/build-endgames.ts` (Level 18 start positions; prints them).
 - Level kinds: `puzzle` (default), `drill`, `quiz`, `choice`, `endgame` (`src/levels/types.ts`); `LevelScreen` picks the player by kind. Mixed levels (L13, L20) use `mix` to draw practice from other levels' packs.
 - `predev`/`prebuild` copy Stockfish (lite, single-threaded) into `public/stockfish/` (gitignored) for Level 18's Web Worker.

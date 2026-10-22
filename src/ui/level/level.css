@@ -375,3 +375,52 @@
 .progress[data-hot] .progress-fill {
   background: linear-gradient(#f7a24b 0 55%, #d8572a 55%);
 }
+
+/* ---------- Summary news: rank, notebook page, streak freeze ---------- */
+
+.summary-news {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.summary-news li {
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--teal-soft);
+  font-weight: 700;
+  animation: rise-in 0.3s 1.2s ease-out both;
+}
+
+.summary-news a {
+  color: var(--teal);
+  font-weight: 900;
+}
+
+.summary-news .news-rank {
+  background: var(--teal);
+  color: var(--paper);
+  font-size: 17px;
+}
+
+.summary-news .news-rank strong {
+  color: var(--amber);
+}
+
+/* Summaries have three actions: the main one gets its own row, the others share one below. */
+.summary .play-actions {
+  flex-wrap: wrap;
+}
+
+.summary .play-actions .btn-block {
+  flex: 1 1 100%;
+  order: -1;
+}
+
+.summary .play-actions .btn-ghost {
+  flex: 1;
+}

@@ -70,3 +70,11 @@ export const Speaker = ({ muted = false, ...p }: P & { muted?: boolean }) => (
     )}
   </Svg>
 );
+
+export const Book = (p: P) => (
+  <Svg {...p}>
+    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z" fill="currentColor" />
+    <path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5z" fill="currentColor" opacity="0.55" />
+    <path d="M9 7.5h6" stroke="var(--paper, #fff)" strokeWidth="1.8" strokeLinecap="round" />
+  </Svg>
+);

@@ -5,6 +5,7 @@ import { localDay } from './progress/streak';
 import { displayStreak, finishIntro, getAllLevelProgress, getProfile, type LevelProgress, type Profile } from './progress/store';
 import { setScene } from './sound/engine';
 import { Home } from './ui/Home';
+import { Notebook } from './ui/Notebook';
 import { RiddleScreen } from './ui/riddle/RiddleScreen';
 import { loadTodaysRiddle, type TodaysRiddle } from './ui/riddle/today';
 import { Intro } from './ui/Intro';
@@ -47,6 +48,7 @@ export default function App() {
   const [levelId, setLevelId] = useState<string | null>(levelFromHash);
   const [welcome, setWelcome] = useState(() => location.hash === '#/welcome');
   const [riddleRoute, setRiddleRoute] = useState(() => location.hash === '#/riddle');
+  const [notebookRoute, setNotebookRoute] = useState(() => location.hash === '#/notebook');
   const [riddle, setRiddle] = useState<TodaysRiddle | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [progress, setProgress] = useState<Record<string, LevelProgress>>({});
@@ -65,6 +67,7 @@ export default function App() {
       setLevelId(levelFromHash());
       setWelcome(location.hash === '#/welcome');
       setRiddleRoute(location.hash === '#/riddle');
+      setNotebookRoute(location.hash === '#/notebook');
     };
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
@@ -119,6 +122,14 @@ export default function App() {
 
   if (!profile) return <div className="app" />;
 
+  if (notebookRoute) {
+    return (
+      <div className="app">
+        <Notebook progress={progress} onExit={exit} />
+      </div>
+    );
+  }
+
   // First visit (or opened from the home screen): the intro page.
   if (welcome || (!profile.introSeen && !profile.started)) {
     const begin = async (startAt?: string) => {
@@ -141,6 +152,10 @@ export default function App() {
         onRiddle={() => {
           cameFromHome.current = true;
           location.hash = '#/riddle';
+        }}
+        onNotebook={() => {
+          cameFromHome.current = true;
+          location.hash = '#/notebook';
         }}
       />
     </div>

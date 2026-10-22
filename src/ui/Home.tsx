@@ -2,7 +2,8 @@ import { BapuBubble, BAPU } from '../bapu/BapuBubble';
 import { LEVELS, ORDER, UNITS, type MapEntry, type UnitInfo } from '../levels/curriculum';
 import { currentLevel } from '../levels/unlock';
 import type { LevelProgress, Profile } from '../progress/store';
-import { Bolt, Flame, Lock, Star } from './icons';
+import { Bolt, Book, Flame, Lock, Star } from './icons';
+import { notebookPages, rankFor } from '../levels/notebook';
 import { SoundSettings } from './SoundSettings';
 import { untilNextRiddle } from '../levels/riddle';
 import { formatCountdown } from './format';
@@ -21,6 +22,7 @@ interface Props {
   streakAtRisk: boolean;
   onStart: (levelId: string) => void;
   onRiddle: () => void;
+  onNotebook: () => void;
 }
 
 const pieceIcon = (icon: string) => `${import.meta.env.BASE_URL}pieces/${icon}.svg`;
@@ -35,7 +37,7 @@ function Stars({ count, size = 18 }: { count: number; size?: number }) {
   );
 }
 
-export function Home({ profile, streak, progress, open, riddle, streakAtRisk, onStart, onRiddle }: Props) {
+export function Home({ profile, streak, progress, open, riddle, streakAtRisk, onStart, onRiddle, onNotebook }: Props) {
   const best = (id: string) => progress[id]?.bestStars ?? 0;
   const currentId = currentLevel(ORDER, open, best, profile.startAt)!;
   const level = LEVELS[currentId];
@@ -43,6 +45,9 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
   const allDone = ORDER.filter((l) => LEVELS[l.id]).every((l) => best(l.id) > 0);
 
   const riddleOpen = riddle && !riddle.record.result;
+  const freezes = profile.streak.freezes ?? 0;
+  const pages = notebookPages(UNITS, LEVELS, best);
+  const rank = rankFor(UNITS, LEVELS, best);
   const greeting = !profile.started
     ? 'Hello, I’m Bapu! I won’t just tell you the right move. I’ll show you why it works.'
     : streakAtRisk && riddleOpen
@@ -58,8 +63,16 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
           Ape<span>Chess</span>
         </span>
         <div className="chips">
-          <span className={`chip chip-streak ${streak > 0 ? 'lit' : ''}`} title="Day streak">
+          <span
+            className={`chip chip-streak ${streak > 0 ? 'lit' : ''}`}
+            title={freezes ? `Day streak · ${freezes} streak freeze${freezes > 1 ? 's' : ''}` : 'Day streak'}
+          >
             <Flame size={18} /> {streak}
+            {freezes > 0 && (
+              <span className="chip-freeze" aria-label={`${freezes} streak freeze${freezes > 1 ? 's' : ''}`}>
+                ❄{freezes > 1 ? freezes : ''}
+              </span>
+            )}
           </span>
           <span className="chip chip-xp" title="Total XP">
             <Bolt size={18} /> {profile.xp}
@@ -101,6 +114,20 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
         </button>
       </section>
 
+      {profile.started && (
+        <button className="notebook-card" onClick={onNotebook}>
+          <span className="notebook-icon" aria-hidden="true">
+            <Book size={26} />
+          </span>
+          <span className="riddle-text">
+            <strong>Bapu’s notebook</strong>
+            <small>
+              {pages.filter((p) => p.earned).length} of {pages.length} pages · Rank: {rank.title}
+            </small>
+          </span>
+        </button>
+      )}
+
       <section className="map" aria-label="All levels">
         <h3>Your path</h3>
         {UNITS.map((u) => (
@@ -126,7 +153,7 @@ function RiddleCard({ riddle, streak, streakAtRisk, onOpen }: { riddle: TodaysRi
       </span>
       <span className="riddle-text">
         <span className="riddle-tag">Daily riddle #{riddle.number}</span>
-        <strong>{result ? 'Riddle solved' : 'Bapu has a riddle for you'}</strong>
+        <strong>{result ? 'Riddle solved' : riddle.record.rematch ? 'A rematch with a puzzle you missed' : 'Bapu has a riddle for you'}</strong>
         <small>{note}</small>
       </span>
       {!result && <span className="riddle-go">Solve</span>}

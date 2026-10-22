@@ -123,6 +123,13 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
     dispatch({ type: 'puzzleDone', outcome });
   };
   const played = level.practice.map((p) => p.id);
+  // Only puzzles can come back as rematches (the riddle is a puzzle).
+  const review = useMemo(() => {
+    const kind = new Map([...level.guided, ...level.practice].map((p) => [p.id, p.kind ?? 'puzzle']));
+    const puzzles = state.outcomes.filter((o) => kind.get(o.puzzleId) === 'puzzle');
+    const clean = (o: PuzzleOutcome) => o.firstTry && !o.revealed;
+    return { missed: puzzles.filter((o) => !clean(o)).map((o) => o.puzzleId), solved: puzzles.filter(clean).map((o) => o.puzzleId) };
+  }, [level, state.outcomes]);
 
   return (
     <div className="level">
@@ -171,6 +178,8 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
             score={score}
             played={played}
             seconds={level.timed ? seconds : undefined}
+            outcomes={state.outcomes}
+            review={review}
             onDone={onExit}
             onNext={onNext}
             onReplay={() => onReplay(played)}

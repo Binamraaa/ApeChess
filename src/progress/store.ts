@@ -1,5 +1,6 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import { updateRecent } from '../levels/practice';
+import { updateReview, type ReviewItem } from '../levels/review';
 import { RIDDLE_MEMORY } from '../levels/riddle';
 import type { PuzzleOutcome, Stars } from '../levels/scoring';
 import { NO_STREAK, currentStreak, localDay, recordSession, type Streak } from './streak';
@@ -77,7 +78,7 @@ export async function saveLevelResult(
   xpEarned: number,
   now = new Date(),
   played: string[] = [],
-): Promise<{ profile: Profile; level: LevelProgress; improved: boolean }> {
+): Promise<{ profile: Profile; level: LevelProgress; improved: boolean; prevBest: number; freezeEarned: boolean }> {
   const d = await db();
   const tx = d.transaction(['levels', 'meta'], 'readwrite');
   const levels = tx.objectStore('levels');
@@ -104,7 +105,13 @@ export async function saveLevelResult(
   await meta.put(profile, 'profile');
   await tx.done;
 
-  return { profile, level, improved: !prev || stars > prev.bestStars };
+  return {
+    profile,
+    level,
+    improved: !prev || stars > prev.bestStars,
+    prevBest: prev?.bestStars ?? 0,
+    freezeEarned: (profile.streak.freezes ?? 0) > (old.streak.freezes ?? 0),
+  };
 }
 
 /** Today's riddle, as first picked, and how it went. */
@@ -112,6 +119,8 @@ export interface RiddleRecord {
   day: string;
   levelId: string;
   puzzleId: string;
+  /** A rematch of a puzzle missed on this day. */
+  rematch?: string;
   result?: PuzzleOutcome & { xp: number };
 }
 
@@ -135,7 +144,7 @@ export async function getRiddleState(): Promise<RiddleState> {
  */
 export async function todaysRiddle(
   day: string,
-  pick: (recent: string[]) => { levelId: string; puzzleId: string } | null,
+  pick: (recent: string[]) => { levelId: string; puzzleId: string; rematch?: string } | null,
 ): Promise<RiddleRecord | null> {
   const d = await db();
   const state = await getRiddleState();
@@ -154,7 +163,7 @@ export async function saveRiddleResult(
   outcome: PuzzleOutcome,
   xp: number,
   now = new Date(),
-): Promise<{ profile: Profile; riddle: RiddleRecord } | null> {
+): Promise<{ profile: Profile; riddle: RiddleRecord; freezeEarned: boolean } | null> {
   const d = await db();
   const tx = d.transaction('meta', 'readwrite');
   const meta = tx.objectStore('meta');
@@ -168,8 +177,28 @@ export async function saveRiddleResult(
   const profile: Profile = { ...old, xp: old.xp + xp, streak: recordSession(old.streak, localDay(now)), started: true };
   await meta.put({ ...state, current: riddle, solved: state.solved + 1 }, 'riddle');
   await meta.put(profile, 'profile');
+  // A rematch won first try is done with; otherwise it comes back again later.
+  if (riddle.rematch) {
+    const clean = outcome.firstTry && !outcome.revealed;
+    const items = ((await meta.get('review')) as ReviewItem[] | undefined) ?? [];
+    await meta.put(updateReview(items, riddle.levelId, clean ? [] : [riddle.puzzleId], clean ? [riddle.puzzleId] : [], day), 'review');
+  }
   await tx.done;
-  return { profile, riddle };
+  return { profile, riddle, freezeEarned: (profile.streak.freezes ?? 0) > (old.streak.freezes ?? 0) };
+}
+
+/** Puzzles waiting for a rematch. */
+export async function getReview(): Promise<ReviewItem[]> {
+  return ((await (await db()).get('meta', 'review')) as ReviewItem[] | undefined) ?? [];
+}
+
+/** Records a level run's misses for rematches, and drops any it solved first try. */
+export async function recordReview(levelId: string, missed: string[], solved: string[], day: string): Promise<void> {
+  const d = await db();
+  const tx = d.transaction('meta', 'readwrite');
+  const items = ((await tx.store.get('review')) as ReviewItem[] | undefined) ?? [];
+  await tx.store.put(updateReview(items, levelId, missed, solved, day), 'review');
+  await tx.done;
 }
 
 export function displayStreak(p: Profile, now = new Date()): number {

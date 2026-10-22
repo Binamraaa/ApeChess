@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { NO_STREAK, currentStreak, localDay, recordSession } from './streak';
+import { NO_STREAK, currentStreak, freezesNeeded, localDay, recordSession } from './streak';
 
 describe('streak', () => {
   it('starts at 1 on the first session', () => {
@@ -23,6 +23,30 @@ describe('streak', () => {
     const s = { count: 5, lastDay: '2026-10-20' };
     expect(currentStreak(s, '2026-10-21')).toBe(5);
     expect(currentStreak(s, '2026-10-22')).toBe(0);
+  });
+
+  it('earns a freeze every 7 days, up to 2', () => {
+    expect(recordSession({ count: 6, lastDay: '2026-10-20' }, '2026-10-21')).toEqual({ count: 7, lastDay: '2026-10-21', freezes: 1 });
+    expect(recordSession({ count: 13, lastDay: '2026-10-20', freezes: 1 }, '2026-10-21').freezes).toBe(2);
+    expect(recordSession({ count: 20, lastDay: '2026-10-20', freezes: 2 }, '2026-10-21').freezes).toBe(2);
+  });
+
+  it('spends freezes to cover missed days', () => {
+    // Missed the 21st and 22nd: two freezes keep the streak going.
+    expect(recordSession({ count: 9, lastDay: '2026-10-20', freezes: 2 }, '2026-10-23')).toEqual({ count: 10, lastDay: '2026-10-23' });
+    expect(recordSession({ count: 9, lastDay: '2026-10-20', freezes: 1 }, '2026-10-22')).toEqual({ count: 10, lastDay: '2026-10-22' });
+  });
+
+  it('resets when there are not enough freezes, keeping them for later', () => {
+    expect(recordSession({ count: 9, lastDay: '2026-10-18', freezes: 1 }, '2026-10-21')).toEqual({ count: 1, lastDay: '2026-10-21', freezes: 1 });
+  });
+
+  it('shows a frozen streak as still alive', () => {
+    const s = { count: 9, lastDay: '2026-10-20', freezes: 1 };
+    expect(currentStreak(s, '2026-10-22')).toBe(9);
+    expect(currentStreak(s, '2026-10-23')).toBe(0);
+    expect(freezesNeeded(s, '2026-10-22')).toBe(1);
+    expect(freezesNeeded(s, '2026-10-21')).toBe(0);
   });
 
   it('formats local days', () => {

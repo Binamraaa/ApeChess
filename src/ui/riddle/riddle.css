@@ -72,3 +72,17 @@
   font-weight: 800;
   color: var(--teal);
 }
+
+.riddle-rematch {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fde7d6;
+  color: var(--rust-deep);
+  font-weight: 700;
+  font-size: 14.5px;
+}
+
+.riddle-rematch strong {
+  color: #d8572a;
+}

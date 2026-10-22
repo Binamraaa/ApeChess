@@ -1,0 +1,139 @@
+.notebook-main {
+  gap: 18px;
+}
+
+.rank-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 22px;
+  background: var(--teal);
+  color: var(--paper);
+  box-shadow: 0 5px 0 var(--teal-deep);
+}
+
+.rank-card img {
+  border-radius: 50%;
+  background: var(--sq-light);
+  box-shadow: 0 0 0 3px var(--amber);
+}
+
+.rank-card div {
+  display: flex;
+  flex-direction: column;
+}
+
+.rank-tag {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.rank-card strong {
+  font-family: var(--font-display);
+  font-size: 23px;
+  line-height: 1.15;
+}
+
+.rank-card small {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.rank-ladder {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rank-ladder li {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.rank-ladder li.on {
+  background: var(--amber);
+}
+
+.notebook-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notebook-unit h2 {
+  font-size: 20px;
+}
+
+.notebook-unit h2 span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* A page of Bapu's notebook: ruled paper with a margin line. */
+.page {
+  position: relative;
+  padding: 12px 14px 12px 30px;
+  border-radius: 6px 16px 16px 6px;
+  background:
+    linear-gradient(90deg, transparent 18px, rgba(168, 70, 31, 0.35) 18px 20px, transparent 20px),
+    repeating-linear-gradient(transparent 0 25px, rgba(31, 92, 87, 0.12) 25px 26px),
+    var(--paper);
+  border: 2px solid var(--paper-edge);
+  box-shadow: 0 3px 0 var(--paper-edge);
+  line-height: 26px;
+}
+
+.page-head {
+  display: block;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--rust);
+}
+
+.page-rule {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+}
+
+.page-term {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.page-term strong {
+  color: var(--teal);
+}
+
+.page-locked {
+  opacity: 0.6;
+}
+
+.page-locked .page-rule {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}

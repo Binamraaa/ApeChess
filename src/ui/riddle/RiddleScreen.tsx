@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BapuBubble, BAPU } from '../../bapu/BapuBubble';
 import { riddleXp, untilNextRiddle } from '../../levels/riddle';
+import { riddleShareText } from '../../levels/share';
 import { cleanRun, type PuzzleOutcome } from '../../levels/scoring';
 import { displayStreak, getProfile, saveRiddleResult, type RiddleRecord } from '../../progress/store';
 import { play } from '../../sound/engine';
@@ -8,6 +9,7 @@ import { formatCountdown } from '../format';
 import { Bolt, Close, Flame } from '../icons';
 import { PuzzlePlayer } from '../level/PuzzlePlayer';
 import { useCountUp } from '../useCountUp';
+import { APP_URL, ShareButton } from '../ShareButton';
 import { loadTodaysRiddle, type TodaysRiddle } from './today';
 import '../level/level.css';
 import './riddle.css';
@@ -19,7 +21,7 @@ interface Props {
 /** Today's riddle: play it, or see how it went if it's already solved. */
 export function RiddleScreen({ onExit }: Props) {
   const [riddle, setRiddle] = useState<TodaysRiddle | null | undefined>(undefined);
-  const [done, setDone] = useState<{ record: RiddleRecord; streak: number; extended: boolean } | null>(null);
+  const [done, setDone] = useState<{ record: RiddleRecord; streak: number; extended: boolean; freeze?: boolean } | null>(null);
   const [solvedNow, setSolvedNow] = useState(false);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export function RiddleScreen({ onExit }: Props) {
         if (!r) return;
         const was = await before;
         const streak = displayStreak(r.profile);
-        setDone({ record: r.riddle, streak, extended: streak > was });
+        setDone({ record: r.riddle, streak, extended: streak > was, freeze: r.freezeEarned });
       })
       .catch((e) => console.error('Could not save the riddle', e));
   };
@@ -67,21 +69,34 @@ export function RiddleScreen({ onExit }: Props) {
           </div>
         )}
         {riddle && done && (riddle.record.result || solvedNow) ? (
-          <RiddleDone riddle={riddle} record={done.record} streak={done.streak} extended={done.extended} onExit={onExit} />
+          <RiddleDone riddle={riddle} record={done.record} streak={done.streak} extended={done.extended} freeze={done.freeze} onExit={onExit} />
         ) : (
           riddle && (
-            <PuzzlePlayer
+            <>
+              {riddle.record.rematch && (
+                <p className="riddle-rematch">
+                  <strong>Rematch!</strong> You missed this one on {missedOn(riddle.record.rematch)}. Let’s settle it.
+                </p>
+              )}
+              <PuzzlePlayer
               puzzle={riddle.puzzle}
               mode="riddle"
               theme={riddle.level.theme}
               onSolved={solved}
               onContinue={() => setSolvedNow(true)}
-            />
+              />
+            </>
           )
         )}
       </main>
     </div>
   );
+}
+
+/** "Tuesday 20 Oct" from YYYY-MM-DD. */
+function missedOn(day: string): string {
+  const [y, m, d] = day.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'short' });
 }
 
 const SIGN_OFF = [
@@ -103,10 +118,11 @@ interface DoneProps {
   record: RiddleRecord;
   streak: number;
   extended: boolean;
+  freeze?: boolean;
   onExit: () => void;
 }
 
-function RiddleDone({ riddle, record, streak, extended, onExit }: DoneProps) {
+function RiddleDone({ riddle, record, streak, extended, freeze, onExit }: DoneProps) {
   const result = record.result!;
   const xp = useCountUp(result.xp, 500);
   const [left, setLeft] = useState(() => untilNextRiddle(new Date()));
@@ -117,9 +133,14 @@ function RiddleDone({ riddle, record, streak, extended, onExit }: DoneProps) {
     return () => clearInterval(t);
   }, []);
 
+  const won = result.firstTry && !result.revealed;
   const line = result.revealed
     ? 'Now you’ve seen the idea, it’ll jump out at you next time. See you tomorrow.'
-    : SIGN_OFF[riddle.number % SIGN_OFF.length];
+    : record.rematch
+      ? won
+        ? 'Rematch won! That one won’t catch you again.'
+        : 'Closer than last time. I’ll bring it back once more, you’ll see.'
+      : SIGN_OFF[riddle.number % SIGN_OFF.length];
 
   return (
     <div className="summary riddle-done">
@@ -149,9 +170,18 @@ function RiddleDone({ riddle, record, streak, extended, onExit }: DoneProps) {
 
       <BapuBubble label={null}>{line}</BapuBubble>
 
+      {freeze && (
+        <ul className="summary-news">
+          <li>
+            <span aria-hidden="true">❄️</span> You earned a streak freeze: miss a day and your streak survives.
+          </li>
+        </ul>
+      )}
+
       <p className="riddle-next">Next riddle in {formatCountdown(left)}</p>
 
       <div className="play-actions">
+        <ShareButton text={() => riddleShareText({ number: riddle.number, outcome: result, streak, url: APP_URL })} />
         <button className="btn btn-teal btn-block" onClick={onExit}>
           Back home
         </button>
