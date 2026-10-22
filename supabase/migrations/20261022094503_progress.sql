@@ -24,6 +24,9 @@ begin
 end;
 $$;
 
+-- Only the trigger calls it.
+revoke execute on function public.touch_progress() from public, anon, authenticated;
+
 create trigger progress_touch
 before update on public.progress
 for each row execute function public.touch_progress();

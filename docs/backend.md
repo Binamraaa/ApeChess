@@ -16,6 +16,8 @@ Turning it off: with no `VITE_SUPABASE_URL` / `VITE_SUPABASE_KEY` (a fork, say),
 
 ## Setting up a project
 
+ApeChess's own project is `oaqurazkmbpcwnlkpnvw` (Mumbai, free plan). These steps are for a new one, e.g. a fork.
+
 1. **Create a project** at [supabase.com](https://supabase.com/dashboard) (the free plan is fine). Pick a region near your learners, e.g. Mumbai (`ap-south-1`) for Nepal.
 2. **Create the table:** run `supabase/migrations/*_progress.sql` in the dashboard's SQL editor, or `supabase link --project-ref <ref>` and then `supabase db push`.
 3. **Auth → URL configuration:** set the Site URL to `https://binamraaa.github.io/ApeChess/`. Add the redirect URLs `https://binamraaa.github.io/ApeChess/**` and `http://localhost:5173/**`.
