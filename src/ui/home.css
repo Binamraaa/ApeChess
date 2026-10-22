@@ -372,3 +372,105 @@
 @media (prefers-reduced-motion: reduce) {
   .node-current .node-dot { animation: none; }
 }
+
+/* ---------- Daily riddle ---------- */
+
+.riddle-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--teal);
+  box-shadow: 0 5px 0 var(--teal-deep);
+  color: var(--paper);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.riddle-card:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--teal-deep);
+}
+
+.riddle-card:focus-visible {
+  outline: 3px solid var(--amber-deep);
+  outline-offset: 3px;
+}
+
+.riddle-card.solved {
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--paper-edge);
+  box-shadow: 0 5px 0 var(--paper-edge);
+}
+
+.riddle-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--teal-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 28px;
+  box-shadow: 0 3px 0 var(--amber-deep);
+}
+
+.riddle-card:not(.solved) .riddle-icon {
+  animation: beckon 2.4s ease-in-out infinite;
+}
+
+.riddle-card.solved .riddle-icon {
+  background: var(--good-soft);
+  color: var(--good);
+  box-shadow: 0 3px 0 #b5dcbf;
+  font-size: 24px;
+}
+
+.riddle-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.riddle-tag {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.riddle-card.solved .riddle-tag {
+  color: var(--teal);
+}
+
+.riddle-text strong {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.riddle-text small {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.riddle-go {
+  flex: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ink);
+  font-weight: 900;
+  font-size: 15px;
+}

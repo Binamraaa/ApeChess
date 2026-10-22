@@ -1,7 +1,10 @@
+import theme from '../../content/music/theme.json';
 import { EMPTY_MANIFEST, parseManifest, type Cue, type SoundManifest, type Track } from './manifest';
+import { playTheme, type MusicHandle } from './music';
 import { murmurPlan, planLength, type Mood } from './murmur';
 import { loadPrefs, savePrefs, type SoundPrefs } from './prefs';
 import { synthCue, synthMurmur } from './synth';
+import type { Theme } from './theme';
 
 /**
  * The app's one audio graph: sound effects, Bapu's voice and music, each on its own bus.
@@ -36,8 +39,6 @@ export function onPrefs(l: () => void) {
   listeners.add(l);
   return () => listeners.delete(l);
 }
-
-export const musicAvailable = () => Object.keys(manifest.music).length > 0;
 
 function running(): AudioContext | null {
   return ctx && ctx.state === 'running' && bus ? ctx : null;
@@ -147,30 +148,38 @@ export function speak(text: string, mood: Mood = 'neutral', delay = 0): number {
 /* ---------- Music ---------- */
 
 let scene: Track | null = null;
-let playing: { track: Track; src: AudioBufferSourceNode; gain: GainNode } | null = null;
+let playing: { track: Track; file: string | null; handle: MusicHandle } | null = null;
+let manifestLoaded = false;
 
-/** Sets which music fits the screen; it plays if the learner wants music and the track exists. */
+/** Sets which music fits the screen; it plays if the learner wants music and there's a track for it. */
 export function setScene(track: Track | null) {
   scene = track;
   syncMusic();
 }
 
-function stopMusic(fade = 0.8) {
-  if (!playing || !ctx) return;
-  const { src, gain } = playing;
-  gain.gain.setTargetAtTime(0, ctx.currentTime, fade / 3);
-  src.stop(ctx.currentTime + fade + 0.1);
+/** A recorded track wins; with none, the home screen plays Bapu's theme from its hummed notes. */
+function musicFor(track: Track): string | null | undefined {
+  return manifest.music[track] ?? (track === 'home' ? null : undefined);
+}
+
+function stopMusic() {
+  playing?.handle.stop();
   playing = null;
 }
 
 function syncMusic() {
   const c = running();
-  if (!c) return;
-  const file = scene && prefs.music ? manifest.music[scene] : undefined;
-  if (!file || !scene) return stopMusic();
-  if (playing?.track === scene) return;
-  const track = scene;
+  if (!c || !manifestLoaded) return;
+  const track = scene && prefs.music ? scene : null;
+  const file = track ? musicFor(track) : undefined;
+  if (!track || file === undefined) return stopMusic();
+  if (playing?.track === track && playing.file === file) return;
   stopMusic();
+
+  if (file === null) {
+    playing = { track, file, handle: playTheme(c, bus!.music, theme as Theme, TRACK_VOLUME[track]) };
+    return;
+  }
   load(file).then((buf) => {
     // The screen may have changed while the file loaded.
     if (!buf || scene !== track || playing || !prefs.music) return;
@@ -182,7 +191,16 @@ function syncMusic() {
     gain.gain.setTargetAtTime(TRACK_VOLUME[track], c.currentTime, 0.4);
     src.connect(gain).connect(bus!.music);
     src.start();
-    playing = { track, src, gain };
+    playing = {
+      track,
+      file,
+      handle: {
+        stop(fade = 0.8) {
+          gain.gain.setTargetAtTime(0, c.currentTime, fade / 3);
+          src.stop(c.currentTime + fade + 0.1);
+        },
+      },
+    };
   });
 }
 
@@ -200,11 +218,12 @@ function unlock() {
     bus = { sfx: make(LEVELS.sfx), voice: make(LEVELS.voice), music: make(LEVELS.music) };
     fetch(SOUNDS + 'sounds.json')
       .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null)
       .then((j) => {
         manifest = parseManifest(j);
+        manifestLoaded = true;
         Object.values(manifest.cues).forEach(load);
         syncMusic();
-        listeners.forEach((l) => l());
       })
       .catch(() => {});
   }

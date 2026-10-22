@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { canReadAloud, getPrefs, musicAvailable, onPrefs, setPrefs, speak } from '../sound/engine';
+import { canReadAloud, getPrefs, onPrefs, setPrefs, speak } from '../sound/engine';
 import type { SoundPrefs, VoiceMode } from '../sound/prefs';
 import { Speaker } from './icons';
 import './sound.css';
@@ -59,12 +59,7 @@ export function SoundSettings() {
       {open && (
         <div className="sound-panel" role="dialog" aria-label="Sound settings">
           <Switch label="Sound effects" on={prefs.sfx} onChange={(sfx) => update({ sfx })} />
-          <Switch
-            label="Music"
-            note={musicAvailable() ? undefined : 'Bapu’s theme tune is on its way'}
-            on={prefs.music}
-            onChange={(music) => update({ music })}
-          />
+          <Switch label="Music" note="Bapu’s theme, on the home screen" on={prefs.music} onChange={(music) => update({ music })} />
           <div className="sound-row sound-voice">
             <span>Bapu’s voice</span>
             <div className="segmented" role="radiogroup" aria-label="Bapu’s voice">

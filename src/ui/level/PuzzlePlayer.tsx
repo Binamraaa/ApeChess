@@ -45,12 +45,15 @@ interface View {
 
 interface Props {
   puzzle: PuzzleDef;
-  mode: 'guided' | 'practice';
+  /** A riddle plays like a guided step (hints allowed), with its own badge. */
+  mode: 'guided' | 'practice' | 'riddle';
   /** The level's theme: picks the prompt and hints. Bapu's explanations use the puzzle's own theme if it has one. */
   theme: Theme;
   onSolved: (outcome: PuzzleOutcome) => void;
   onContinue: () => void;
 }
+
+const MODE_LABEL = { guided: 'Guided', practice: 'Practice', riddle: 'Daily riddle' };
 
 const OPPONENT_DELAY = 700;
 const REPLY_DELAY = 850;
@@ -235,7 +238,7 @@ export function PuzzlePlayer({ puzzle, mode, theme: levelTheme, onSolved, onCont
         <span>
           You play <strong>{session.solver === 'white' ? 'White' : 'Black'}</strong>
         </span>
-        <span className={`play-mode play-mode-${mode}`}>{mode === 'guided' ? 'Guided' : 'Practice'}</span>
+        <span className={`play-mode play-mode-${mode}`}>{MODE_LABEL[mode]}</span>
       </div>
 
       <Board
@@ -264,7 +267,7 @@ export function PuzzlePlayer({ puzzle, mode, theme: levelTheme, onSolved, onCont
           </button>
         ) : (
           <>
-            {mode === 'guided' && (
+            {mode !== 'practice' && (
               <button className="btn btn-ghost" onClick={hint} disabled={status !== 'solving' || hintLevel >= 2}>
                 <Bulb size={18} /> Hint
               </button>

@@ -2,6 +2,16 @@
 
 ApeChess ships with built-in sounds made in code (`src/sound/synth.ts`): wooden clacks for the board, a soft marimba for good moves, and Bapu's murmur. Recorded audio replaces any of them without code changes.
 
+## Bapu's theme (from a hum)
+
+The theme is a hummed tune turned into notes: `content/music/hum-B-major.mid`, a Surilo hum-to-notes export (B major, 100 BPM, melody over B · F#7 · E · B · E). `npm run theme` reads the newest `.mid` in `content/music/` (or the file you pass) and writes `content/music/theme.json`. From that data the app:
+
+- plays the theme as looping home music, built in code. Each pass changes the arrangement (mallets, then reed and brushes, then mallets an octave up, then chords and bass alone) so the 12-second loop doesn't wear thin;
+- plays the theme's first bar as the level-complete tune;
+- keeps every cue in B major, the theme's key.
+
+To change the theme, hum a new one, drop the `.mid` into `content/music/` and run `npm run theme`. Surilo's track names "Melody" and "Chords" are used when present. A recorded `music.home` in `sounds.json` (below) replaces the built-in arrangement.
+
 ## Dropping in recorded audio
 
 1. Put the files in `public/sounds/` (plain names like `home-theme.mp3`, no folders).
@@ -24,7 +34,7 @@ The mood is Bapu: a well-read old gentleman in a tweed suit. Warm, witty, a litt
 
 | Track | Key | Length | Notes |
 |---|---|---|---|
-| Home theme | `music.home` | 60–90 s, seamless loop | The tune people hum. Medium tempo (~95 BPM), gentle and curious. Plays on the home screen and the path. |
+| Home theme | `music.home` | 60–90 s, seamless loop | An arrangement of the hummed theme above (B major, 100 BPM). Gentle and curious. Plays on the home screen and the path. |
 | Lesson bed | `music.level` | 2–3 min, seamless loop | Optional. Very sparse and calm, no melody that competes with thinking. Played quietly under puzzles. |
 
 **Seamless loop:** the last bar must lead straight back into the first, with no fade-out and no reverb tail cut off. Export at about -16 LUFS.
@@ -40,11 +50,11 @@ Optional: the built-in ones work. Replace any you want to sound richer. Keep cue
 | `capture` | a piece is taken | < 150 ms | heavier double clack |
 | `check` | a move gives check | < 300 ms | two-note alert, plays with the clack |
 | `correct` | a good move mid-puzzle, or solved after a mistake | < 400 ms | two rising marimba notes |
-| `solved` | puzzle solved on the first try | < 800 ms | rising arpeggio; the app pitches it up for each one in a row, so record it in C |
+| `solved` | puzzle solved on the first try | < 800 ms | rising arpeggio; the app pitches it up for each one in a row, so record it starting on B (the theme key) |
 | `wrong` | a mistake | < 400 ms | gentle "hmm, no", never a buzzer |
 | `hint` | Bapu gives a hint | < 700 ms | a small bell: a lightbulb going on |
 | `star` | each star on the summary | < 800 ms | a chime; the app raises it for star 2 and 3 |
-| `complete` | level finished | 1–3 s | short fanfare / stinger in the home theme's style |
+| `complete` | level finished | 1–3 s | the theme's first bar as a short stinger (built in already) |
 
 ## Bapu's voice
 

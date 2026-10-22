@@ -1,6 +1,7 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import { updateRecent } from '../levels/practice';
-import type { Stars } from '../levels/scoring';
+import { RIDDLE_MEMORY } from '../levels/riddle';
+import type { PuzzleOutcome, Stars } from '../levels/scoring';
 import { NO_STREAK, currentStreak, localDay, recordSession, type Streak } from './streak';
 
 export interface LevelProgress {
@@ -104,6 +105,71 @@ export async function saveLevelResult(
   await tx.done;
 
   return { profile, level, improved: !prev || stars > prev.bestStars };
+}
+
+/** Today's riddle, as first picked, and how it went. */
+export interface RiddleRecord {
+  day: string;
+  levelId: string;
+  puzzleId: string;
+  result?: PuzzleOutcome & { xp: number };
+}
+
+export interface RiddleState {
+  current?: RiddleRecord;
+  /** Puzzle ids of past riddles, newest first, so they aren't repeated soon. */
+  recent: string[];
+  /** Riddles solved, ever. */
+  solved: number;
+}
+
+const NO_RIDDLES: RiddleState = { recent: [], solved: 0 };
+
+export async function getRiddleState(): Promise<RiddleState> {
+  return { ...NO_RIDDLES, ...((await (await db()).get('meta', 'riddle')) as RiddleState | undefined) };
+}
+
+/**
+ * Today's riddle: the one already picked today, or a new pick (saved, so it stays the same all day
+ * even if the learner passes a level in the meantime). `pick` gets the recent riddle ids.
+ */
+export async function todaysRiddle(
+  day: string,
+  pick: (recent: string[]) => { levelId: string; puzzleId: string } | null,
+): Promise<RiddleRecord | null> {
+  const d = await db();
+  const state = await getRiddleState();
+  if (state.current?.day === day) return state.current;
+  const chosen = pick(state.recent);
+  if (!chosen) return null;
+  const current: RiddleRecord = { day, ...chosen };
+  const recent = [chosen.puzzleId, ...state.recent.filter((id) => id !== chosen.puzzleId)].slice(0, RIDDLE_MEMORY);
+  await d.put('meta', { ...state, current, recent }, 'riddle');
+  return current;
+}
+
+/** Saves a solved riddle: XP and streak, once per day. */
+export async function saveRiddleResult(
+  day: string,
+  outcome: PuzzleOutcome,
+  xp: number,
+  now = new Date(),
+): Promise<{ profile: Profile; riddle: RiddleRecord } | null> {
+  const d = await db();
+  const tx = d.transaction('meta', 'readwrite');
+  const meta = tx.objectStore('meta');
+  const state = { ...NO_RIDDLES, ...((await meta.get('riddle')) as RiddleState | undefined) };
+  const old = { ...DEFAULT_PROFILE, ...((await meta.get('profile')) as Profile | undefined) };
+  if (state.current?.day !== day || state.current.result) {
+    await tx.done;
+    return null;
+  }
+  const riddle: RiddleRecord = { ...state.current, result: { ...outcome, xp } };
+  const profile: Profile = { ...old, xp: old.xp + xp, streak: recordSession(old.streak, localDay(now)), started: true };
+  await meta.put({ ...state, current: riddle, solved: state.solved + 1 }, 'riddle');
+  await meta.put(profile, 'profile');
+  await tx.done;
+  return { profile, riddle };
 }
 
 export function displayStreak(p: Profile, now = new Date()): number {

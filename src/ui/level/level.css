@@ -91,6 +91,7 @@
   color: var(--teal);
 }
 .play-mode-practice { background: #f3e1c7; color: var(--rust); }
+.play-mode-riddle { background: var(--teal); color: var(--amber); }
 .play-mode-demo { margin-left: 0; background: var(--amber); color: var(--ink); }
 
 .play-steps {

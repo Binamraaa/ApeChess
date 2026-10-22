@@ -4,6 +4,9 @@ import { currentLevel } from '../levels/unlock';
 import type { LevelProgress, Profile } from '../progress/store';
 import { Bolt, Flame, Lock, Star } from './icons';
 import { SoundSettings } from './SoundSettings';
+import { untilNextRiddle } from '../levels/riddle';
+import { formatCountdown } from './format';
+import type { TodaysRiddle } from './riddle/today';
 import './home.css';
 
 interface Props {
@@ -12,7 +15,12 @@ interface Props {
   progress: Record<string, LevelProgress>;
   /** Levels the learner may play. */
   open: Set<string>;
+  /** Today's riddle, if there is one. */
+  riddle: TodaysRiddle | null;
+  /** True if the streak is alive but nothing's been played today. */
+  streakAtRisk: boolean;
   onStart: (levelId: string) => void;
+  onRiddle: () => void;
 }
 
 const pieceIcon = (icon: string) => `${import.meta.env.BASE_URL}pieces/${icon}.svg`;
@@ -27,16 +35,19 @@ function Stars({ count, size = 18 }: { count: number; size?: number }) {
   );
 }
 
-export function Home({ profile, streak, progress, open, onStart }: Props) {
+export function Home({ profile, streak, progress, open, riddle, streakAtRisk, onStart, onRiddle }: Props) {
   const best = (id: string) => progress[id]?.bestStars ?? 0;
   const currentId = currentLevel(ORDER, open, best, profile.startAt)!;
   const level = LEVELS[currentId];
   const unit = UNITS.find((u) => u.number === level.unit)!;
   const allDone = ORDER.filter((l) => LEVELS[l.id]).every((l) => best(l.id) > 0);
 
+  const riddleOpen = riddle && !riddle.record.result;
   const greeting = !profile.started
     ? 'Hello, I’m Bapu! I won’t just tell you the right move. I’ll show you why it works.'
-    : allDone
+    : streakAtRisk && riddleOpen
+      ? `Your ${streak}-day streak needs one puzzle today. My riddle will do nicely!`
+      : allDone
       ? `You’ve played every level so far, and earned ${profile.xp} XP. Go for three stars while I carve new ones!`
       : `Welcome back! You’ve earned ${profile.xp} XP. Ready for the next one?`;
 
@@ -63,6 +74,8 @@ export function Home({ profile, streak, progress, open, onStart }: Props) {
         </a>
         <BapuBubble label={profile.started ? null : 'Welcome to ApeChess!'}>{greeting}</BapuBubble>
       </section>
+
+      {riddle && profile.started && <RiddleCard riddle={riddle} streak={streak} streakAtRisk={streakAtRisk} onOpen={onRiddle} />}
 
       <section className="lesson" aria-label="Up next">
         <span className="lesson-unit">
@@ -96,6 +109,28 @@ export function Home({ profile, streak, progress, open, onStart }: Props) {
         <p className="path-note">More levels are being carved by hand. Bapu is very picky.</p>
       </section>
     </div>
+  );
+}
+
+function RiddleCard({ riddle, streak, streakAtRisk, onOpen }: { riddle: TodaysRiddle; streak: number; streakAtRisk: boolean; onOpen: () => void }) {
+  const result = riddle.record.result;
+  const note = result
+    ? `${result.revealed ? 'Seen' : result.firstTry ? 'Solved first try' : 'Solved'} · +${result.xp} XP · next in ${formatCountdown(untilNextRiddle(new Date()))}`
+    : streakAtRisk
+      ? `Solve it to keep your ${streak}-day streak.`
+      : 'One puzzle a day. It only takes a minute.';
+  return (
+    <button className={`riddle-card ${result ? 'solved' : ''}`} onClick={onOpen}>
+      <span className="riddle-icon" aria-hidden="true">
+        {result ? '✓' : '?'}
+      </span>
+      <span className="riddle-text">
+        <span className="riddle-tag">Daily riddle #{riddle.number}</span>
+        <strong>{result ? 'Riddle solved' : 'Bapu has a riddle for you'}</strong>
+        <small>{note}</small>
+      </span>
+      {!result && <span className="riddle-go">Solve</span>}
+    </button>
   );
 }
 

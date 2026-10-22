@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LEVELS, ORDER, isPlayable } from './levels/curriculum';
 import { nextLevel, unlockedLevels } from './levels/unlock';
+import { localDay } from './progress/streak';
 import { displayStreak, finishIntro, getAllLevelProgress, getProfile, type LevelProgress, type Profile } from './progress/store';
 import { setScene } from './sound/engine';
 import { Home } from './ui/Home';
+import { RiddleScreen } from './ui/riddle/RiddleScreen';
+import { loadTodaysRiddle, type TodaysRiddle } from './ui/riddle/today';
 import { Intro } from './ui/Intro';
 import { LevelScreen } from './ui/level/LevelScreen';
 
@@ -43,6 +46,8 @@ function unlockAll(): boolean {
 export default function App() {
   const [levelId, setLevelId] = useState<string | null>(levelFromHash);
   const [welcome, setWelcome] = useState(() => location.hash === '#/welcome');
+  const [riddleRoute, setRiddleRoute] = useState(() => location.hash === '#/riddle');
+  const [riddle, setRiddle] = useState<TodaysRiddle | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [progress, setProgress] = useState<Record<string, LevelProgress>>({});
   const [all] = useState(unlockAll);
@@ -51,24 +56,27 @@ export default function App() {
     const [p, levels] = await Promise.all([getProfile(), getAllLevelProgress()]);
     setProfile(p);
     setProgress(Object.fromEntries(levels.map((l) => [l.id, l])));
+    // After progress, so a level passed just now can feed tomorrow's pick.
+    setRiddle(await loadTodaysRiddle().catch(() => null));
   }, []);
 
   useEffect(() => {
     const onHash = () => {
       setLevelId(levelFromHash());
       setWelcome(location.hash === '#/welcome');
+      setRiddleRoute(location.hash === '#/riddle');
     };
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
   }, []);
 
   // Music follows the screen: the theme at home, something quieter in a lesson.
-  useEffect(() => setScene(levelId ? 'level' : 'home'), [levelId]);
+  useEffect(() => setScene(levelId || riddleRoute ? 'level' : 'home'), [levelId, riddleRoute]);
 
   // Reload progress whenever we come back to the home screen.
   useEffect(() => {
-    if (!levelId) refresh().catch((e) => console.error('Could not load progress', e));
-  }, [levelId, refresh]);
+    if (!levelId && !riddleRoute) refresh().catch((e) => console.error('Could not load progress', e));
+  }, [levelId, riddleRoute, refresh]);
 
   const open = useMemo(
     () => unlockedLevels(ORDER, isPlayable, (id) => progress[id]?.bestStars ?? 0, all, profile?.startAt),
@@ -101,6 +109,14 @@ export default function App() {
     );
   }
 
+  if (riddleRoute) {
+    return (
+      <div className="app">
+        <RiddleScreen onExit={exit} />
+      </div>
+    );
+  }
+
   if (!profile) return <div className="app" />;
 
   // First visit (or opened from the home screen): the intro page.
@@ -114,7 +130,19 @@ export default function App() {
 
   return (
     <div className="app">
-      <Home profile={profile} streak={displayStreak(profile)} progress={progress} open={open} onStart={start} />
+      <Home
+        profile={profile}
+        streak={displayStreak(profile)}
+        progress={progress}
+        open={open}
+        riddle={riddle}
+        streakAtRisk={displayStreak(profile) > 0 && profile.streak.lastDay !== localDay(new Date())}
+        onStart={start}
+        onRiddle={() => {
+          cameFromHome.current = true;
+          location.hash = '#/riddle';
+        }}
+      />
     </div>
   );
 }

@@ -1,0 +1,74 @@
+.riddle-title {
+  flex: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--teal);
+}
+
+.riddle-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.riddle-medal {
+  position: relative;
+  align-self: center;
+  margin-top: 16px;
+  animation: pop-in 0.5s ease-out both;
+}
+
+.riddle-medal img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--sq-light);
+  box-shadow: 0 0 0 5px var(--paper), 0 0 0 9px var(--amber), 0 10px 24px rgba(59, 47, 39, 0.2);
+}
+
+.riddle-medal-no {
+  position: absolute;
+  right: -10px;
+  bottom: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: var(--amber);
+  font-weight: 900;
+  font-size: 15px;
+  box-shadow: 0 3px 0 var(--teal-deep);
+}
+
+.riddle-from {
+  margin: -8px 0 0;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.stat-streak .stat-value {
+  color: #d8572a;
+}
+
+/* The streak grew today: the flame flares up. */
+.stat-streak.grew .stat-value svg {
+  animation: flare 0.7s 0.9s ease-out both;
+}
+
+@keyframes flare {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.6) rotate(-8deg); }
+  100% { transform: scale(1); }
+}
+
+.riddle-done .bapu {
+  text-align: left;
+}
+
+.riddle-next {
+  margin: 0;
+  font-weight: 800;
+  color: var(--teal);
+}

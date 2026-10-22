@@ -1,12 +1,16 @@
+import theme from '../../content/music/theme.json';
 import type { Cue } from './manifest';
 import { FORMANTS, type Syllable } from './murmur';
+import { octaveShift, openingPhrase, type Theme } from './theme';
 
 /**
  * Built-in sounds, made with Web Audio so the app needs no audio files: wooden clacks for
  * the board, a soft marimba for good moves. Recorded files listed in sounds.json replace them.
  */
 
-const note = (semis: number) => 523.25 * 2 ** (semis / 12); // semitones above C5
+export const midiFreq = (n: number) => 440 * 2 ** ((n - 69) / 12);
+// Cues are in B major, the key of Bapu's theme: semitones above B4.
+const note = (semis: number) => midiFreq(71 + semis);
 
 let noiseBuf: AudioBuffer | null = null;
 function noiseBuffer(c: BaseAudioContext): AudioBuffer {
@@ -54,9 +58,86 @@ function knock(c: BaseAudioContext, out: AudioNode, { t0, freq, dur, gain }: { t
 }
 
 /** A wooden mallet note: a sine plus a fast-fading overtone. */
-function marimba(c: BaseAudioContext, out: AudioNode, t0: number, freq: number, gain = 0.3, dur = 0.55) {
+export function marimba(c: BaseAudioContext, out: AudioNode, t0: number, freq: number, gain = 0.3, dur = 0.55) {
   tone(c, out, { freq, t0, dur, gain });
   tone(c, out, { freq: freq * 4, t0, dur: 0.09, gain: gain * 0.22 });
+}
+
+/** A soft reed (clarinet-ish): a filtered triangle with a little vibrato. */
+export function reed(c: BaseAudioContext, out: AudioNode, t0: number, freq: number, dur: number, gain: number) {
+  const o = c.createOscillator();
+  o.type = 'triangle';
+  o.frequency.value = freq;
+  const vib = c.createOscillator();
+  vib.frequency.value = 5;
+  const depth = c.createGain();
+  depth.gain.value = freq * 0.006;
+  vib.connect(depth).connect(o.frequency);
+  const lp = c.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.value = 1600;
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(gain, t0 + 0.05);
+  g.gain.setValueAtTime(gain, t0 + Math.max(dur - 0.08, 0.06));
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur + 0.12);
+  o.connect(lp).connect(g).connect(out);
+  for (const x of [o, vib]) {
+    x.start(t0);
+    x.stop(t0 + dur + 0.15);
+  }
+}
+
+/** A warm sustained chord tone: slow in, slow out. */
+export function pad(c: BaseAudioContext, out: AudioNode, t0: number, freq: number, dur: number, gain: number) {
+  const o = c.createOscillator();
+  o.type = 'triangle';
+  o.frequency.value = freq;
+  const lp = c.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.value = 900;
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(gain, t0 + 0.25);
+  g.gain.setValueAtTime(gain, t0 + Math.max(dur - 0.1, 0.3));
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur + 0.6);
+  o.connect(lp).connect(g).connect(out);
+  o.start(t0);
+  o.stop(t0 + dur + 0.7);
+}
+
+/** A plucked upright-bass note. */
+export function pluck(c: BaseAudioContext, out: AudioNode, t0: number, freq: number, gain: number) {
+  tone(c, out, { freq, t0, dur: 0.7, gain });
+  tone(c, out, { freq: freq * 2, t0, dur: 0.15, gain: gain * 0.3, type: 'triangle' });
+}
+
+/** A brush on a snare, very soft. */
+export function brush(c: BaseAudioContext, out: AudioNode, t0: number, gain: number) {
+  const src = c.createBufferSource();
+  src.buffer = noiseBuffer(c);
+  const f = c.createBiquadFilter();
+  f.type = 'bandpass';
+  f.frequency.value = 5000;
+  f.Q.value = 0.7;
+  src.connect(f).connect(envelope(c, out, t0, gain, 0.14, 0.02));
+  src.start(t0);
+  src.stop(t0 + 0.16);
+}
+
+/** The opening of Bapu's theme, played quickly on mallets over its first chord: the level-complete tune. */
+function themeFanfare(c: BaseAudioContext, out: AudioNode, t: number) {
+  const th = theme as Theme;
+  const phrase = openingPhrase(th);
+  const lead = octaveShift(phrase.map(([, n]) => n), 66);
+  const beat = 0.3;
+  phrase.forEach(([b, n, len], i) => {
+    const last = i === phrase.length - 1;
+    marimba(c, out, t + b * beat, midiFreq(n + lead), 0.22, last ? 1.2 : Math.max(len * beat + 0.25, 0.4));
+  });
+  const [, chord] = th.chords[0];
+  const comp = octaveShift(chord, 52);
+  chord.forEach((n) => pad(c, out, t, midiFreq(n + comp), phrase.at(-1)![0] * beat + 0.6, 0.05));
 }
 
 /** A piece set down on a wooden board. */
@@ -108,9 +189,7 @@ export function synthCue(c: BaseAudioContext, out: AudioNode, cue: Cue, step = 0
       tone(c, out, { freq: note(24 + [0, 4, 7][Math.min(step, 2)]), t0: t + 0.02, dur: 0.5, gain: 0.03 });
       return;
     case 'complete':
-      [-5, 0, 4, 7].forEach((s, i) => marimba(c, out, t + i * 0.11, note(s), 0.22));
-      [0, 4, 7, 12].forEach((s) => tone(c, out, { freq: note(s), t0: t + 0.44, dur: 1.4, gain: 0.07, type: 'triangle' }));
-      return;
+      return themeFanfare(c, out, t);
   }
 }
 

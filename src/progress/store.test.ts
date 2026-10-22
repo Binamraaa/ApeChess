@@ -1,6 +1,6 @@
 import 'fake-indexeddb/auto';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { _resetConnection, getLevelProgress, getProfile, saveLevelResult } from './store';
+import { _resetConnection, getLevelProgress, getProfile, getRiddleState, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';
 
 beforeEach(async () => {
   await _resetConnection();
@@ -35,5 +35,26 @@ describe('progress store', () => {
     await saveLevelResult('L05', 1, 10, new Date(), ['a', 'b']);
     const { level } = await saveLevelResult('L05', 1, 10, new Date(), ['c', 'a']);
     expect(level.recent).toEqual(['c', 'a', 'b']);
+  });
+
+  it('keeps one riddle per day, even if the pick would change', async () => {
+    const a = await todaysRiddle('2026-10-22', () => ({ levelId: 'L08', puzzleId: 'p1' }));
+    const b = await todaysRiddle('2026-10-22', () => ({ levelId: 'L09', puzzleId: 'p2' }));
+    expect(b).toEqual(a);
+    const c = await todaysRiddle('2026-10-23', (recent) => ({ levelId: 'L09', puzzleId: recent.includes('p1') ? 'p2' : 'p1' }));
+    expect(c).toEqual({ day: '2026-10-23', levelId: 'L09', puzzleId: 'p2' });
+    expect((await getRiddleState()).recent).toEqual(['p2', 'p1']);
+  });
+
+  it('pays a riddle once and counts it for the streak', async () => {
+    const day = new Date(2026, 9, 22, 9);
+    await todaysRiddle('2026-10-22', () => ({ levelId: 'L08', puzzleId: 'p1' }));
+    const outcome = { puzzleId: 'p1', firstTry: true, hintUsed: false, revealed: false };
+    const saved = await saveRiddleResult('2026-10-22', outcome, 20, day);
+    expect(saved!.profile).toMatchObject({ xp: 20, streak: { count: 1, lastDay: '2026-10-22' } });
+    expect(saved!.riddle.result).toMatchObject({ firstTry: true, xp: 20 });
+    expect(await saveRiddleResult('2026-10-22', outcome, 20, day)).toBeNull();
+    expect((await getProfile()).xp).toBe(20);
+    expect((await getRiddleState()).solved).toBe(1);
   });
 });

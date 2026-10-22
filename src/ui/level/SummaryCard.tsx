@@ -9,6 +9,7 @@ import { saveLevelResult } from '../../progress/store';
 import { play } from '../../sound/engine';
 import { Bolt, Star } from '../icons';
 import { formatTime } from '../format';
+import { useCountUp } from '../useCountUp';
 
 interface Props {
   level: LevelDef;
@@ -24,23 +25,6 @@ interface Props {
 
 /** Star n pops in at this delay (seconds); keep in step with the CSS animation below. */
 const starDelay = (n: number) => n * 0.18;
-
-/** Counts up to `target` once `delay` ms have passed. */
-function useCountUp(target: number, delay: number, duration = 700) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const start = performance.now() + delay;
-    const tick = (now: number) => {
-      const k = Math.min(Math.max((now - start) / duration, 0), 1);
-      setValue(Math.round(target * (1 - (1 - k) ** 3)));
-      if (k < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [target, delay, duration]);
-  return value;
-}
 
 export function SummaryCard({ level, score, played, seconds, onDone, onNext, onReplay }: Props) {
   const headline = { 1: 'Level complete!', 2: 'Sharp moves!', 3: THEMES[level.theme].mastery }[score.stars];

@@ -32,7 +32,7 @@ function phaseLabel(level: LevelDef, s: RunState): string {
   }
 }
 
-type StepProps = Parameters<typeof PuzzlePlayer>[0];
+type StepProps = Parameters<typeof PuzzlePlayer>[0] & { mode: 'guided' | 'practice' };
 
 /** One guided or practice step, played by the component for its kind. */
 function Step(props: StepProps) {
