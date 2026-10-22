@@ -6,6 +6,7 @@ import type { LevelScore } from '../../levels/scoring';
 import { starsToPass } from '../../levels/unlock';
 import type { LevelDef } from '../../levels/types';
 import { saveLevelResult } from '../../progress/store';
+import { play } from '../../sound/engine';
 import { Bolt, Star } from '../icons';
 import { formatTime } from '../format';
 
@@ -21,12 +22,43 @@ interface Props {
   onReplay: () => void;
 }
 
+/** Star n pops in at this delay (seconds); keep in step with the CSS animation below. */
+const starDelay = (n: number) => n * 0.18;
+
+/** Counts up to `target` once `delay` ms have passed. */
+function useCountUp(target: number, delay: number, duration = 700) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const start = performance.now() + delay;
+    const tick = (now: number) => {
+      const k = Math.min(Math.max((now - start) / duration, 0), 1);
+      setValue(Math.round(target * (1 - (1 - k) ** 3)));
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, delay, duration]);
+  return value;
+}
+
 export function SummaryCard({ level, score, played, seconds, onDone, onNext, onReplay }: Props) {
   const headline = { 1: 'Level complete!', 2: 'Sharp moves!', 3: THEMES[level.theme].mastery }[score.stars];
   const entry = ORDER.find((l) => l.id === level.id);
   const passed = score.stars >= (entry ? starsToPass(entry) : 1);
   const saved = useRef(false);
   const [improved, setImproved] = useState(false);
+  // Chime each star as it lands, then the fanfare, then count the XP in.
+  const fanfareAt = (starDelay(score.stars) + 0.45) * 1000;
+  const xp = useCountUp(score.totalXp, fanfareAt);
+
+  useEffect(() => {
+    const timers = [1, 2, 3]
+      .filter((n) => n <= score.stars)
+      .map((n) => window.setTimeout(() => play('star', { step: n - 1 }), (starDelay(n) + 0.3) * 1000));
+    timers.push(window.setTimeout(() => play('complete'), fanfareAt));
+    return () => timers.forEach(clearTimeout);
+  }, [score.stars, fanfareAt]);
 
   useEffect(() => {
     if (saved.current) return;
@@ -40,7 +72,7 @@ export function SummaryCard({ level, score, played, seconds, onDone, onNext, onR
     <div className="summary">
       <div className="summary-stars" aria-label={`${score.stars} of 3 stars`}>
         {[1, 2, 3].map((n) => (
-          <span key={n} className={`summary-star ${n <= score.stars ? 'on' : ''}`} style={{ animationDelay: `${n * 0.18}s` }}>
+          <span key={n} className={`summary-star ${n <= score.stars ? 'on' : ''}`} style={{ animationDelay: `${starDelay(n)}s` }}>
             <Star size={n === 2 ? 72 : 56} filled={n <= score.stars} />
           </span>
         ))}
@@ -64,7 +96,7 @@ export function SummaryCard({ level, score, played, seconds, onDone, onNext, onR
         )}
         <div className="stat stat-xp">
           <span className="stat-value">
-            <Bolt size={20} /> +{score.totalXp}
+            <Bolt size={20} /> +{xp}
           </span>
           <span className="stat-label">XP earned</span>
         </div>

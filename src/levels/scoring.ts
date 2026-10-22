@@ -60,3 +60,10 @@ export function scoreLevel(outcomes: PuzzleOutcome[]): LevelScore {
     totalXp: pXp + bonusXp,
   };
 }
+
+/** How many puzzles in a row, counting back from the latest, were solved first try. */
+export function cleanRun(outcomes: PuzzleOutcome[]): number {
+  let n = 0;
+  for (let i = outcomes.length - 1; i >= 0 && isFirstTry(outcomes[i]); i--) n++;
+  return n;
+}

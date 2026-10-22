@@ -71,3 +71,14 @@
 }
 .bapu-hint .bapu-bubble::before { border-color: #f0d68f; }
 .bapu-hint .bapu-label { color: var(--amber-deep); }
+
+/* Bapu nods along while he talks. */
+.bapu-avatar.talking {
+  animation: talk 0.22s ease-in-out infinite alternate;
+  transform-origin: 50% 90%;
+}
+
+@keyframes talk {
+  from { transform: rotate(-2deg) translateY(0); }
+  to { transform: rotate(2deg) translateY(-2px); }
+}

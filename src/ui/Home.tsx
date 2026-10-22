@@ -3,6 +3,7 @@ import { LEVELS, ORDER, UNITS, type MapEntry, type UnitInfo } from '../levels/cu
 import { currentLevel } from '../levels/unlock';
 import type { LevelProgress, Profile } from '../progress/store';
 import { Bolt, Flame, Lock, Star } from './icons';
+import { SoundSettings } from './SoundSettings';
 import './home.css';
 
 interface Props {
@@ -52,6 +53,7 @@ export function Home({ profile, streak, progress, open, onStart }: Props) {
           <span className="chip chip-xp" title="Total XP">
             <Bolt size={18} /> {profile.xp}
           </span>
+          <SoundSettings />
         </div>
       </header>
 

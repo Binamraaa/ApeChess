@@ -17,6 +17,7 @@ It's built for smart adults who never really learned chess, and later for school
 - a checkpoint (Level 13) and a boss (Level 20) that mix every earlier theme with no hints
 - an intro page with two doors: "I'm new to chess" or "I know how the pieces move"
 - a level map with unlocking, stars, XP and a daily streak; progress saved on your device, no account needed
+- sound: wooden move clacks, gentle right/wrong cues, a combo for first-try solves in a row, star chimes, and Bapu "speaking" each line in a murmur (or read aloud). Recorded music and sounds drop in through [`docs/sound.md`](docs/sound.md)
 
 The full plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
 
@@ -65,6 +66,7 @@ src/board/     chessground wrapper
 src/levels/    puzzle checking, level runner, star scoring (pure TS)
 src/bapu/      explanation templates + speech bubble
 src/progress/  IndexedDB store, streak
+src/sound/     sound effects, Bapu's murmur, music (built-in synth, recorded files override)
 src/ui/        screens
 content/levels/  levels: concept, demo, guided puzzles and Bapu's hand-written lines
 content/puzzles/ practice packs built from the Lichess puzzle database

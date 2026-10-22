@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useReducer, useState } from 'react';
 import { levelRun } from '../../levels/practice';
 import { currentPuzzle, initialRun, progress, runReducer, type RunAction, type RunState } from '../../levels/runner';
-import { scoreLevel } from '../../levels/scoring';
+import { cleanRun, scoreLevel, type PuzzleOutcome } from '../../levels/scoring';
 import type { LevelDef } from '../../levels/types';
 import { getLevelProgress, markStarted } from '../../progress/store';
 import { formatTime } from '../format';
-import { Close } from '../icons';
+import { play } from '../../sound/engine';
+import { Close, Flame } from '../icons';
 import { ConceptCard } from './ConceptCard';
 import { DemoPlayer } from './DemoPlayer';
 import { ChoicePlayer } from './ChoicePlayer';
@@ -112,6 +113,15 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
   const puzzle = currentPuzzle(level, state);
   const score = useMemo(() => scoreLevel(state.outcomes), [state.outcomes]);
   const next = () => dispatch({ type: 'next' });
+  const combo = cleanRun(state.outcomes);
+
+  // A first-try solve gets the big sound, a step higher for each one in a row.
+  // Anything else gets the small cue of Bapu's reply.
+  const solved = (outcome: PuzzleOutcome) => {
+    const run = cleanRun([...state.outcomes, outcome]);
+    if (run > 0) play('solved', { step: run - 1 });
+    dispatch({ type: 'puzzleDone', outcome });
+  };
   const played = level.practice.map((p) => p.id);
 
   return (
@@ -126,6 +136,7 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(progress(level, state) * 100)}
+          data-hot={playing && combo >= 3 ? '' : undefined}
         >
           <div className="progress-fill" style={{ width: `${Math.max(progress(level, state) * 100, 4)}%` }} />
         </div>
@@ -133,6 +144,12 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
           {phaseLabel(level, state)}
           {level.timed && playing && <span className="level-clock">{formatTime(seconds)}</span>}
         </span>
+        {playing && combo >= 2 && (
+          <span key={combo} className={`combo ${combo >= 5 ? 'combo-hot' : ''}`} aria-label={`${combo} in a row`}>
+            <Flame size={16} />
+            {combo}
+          </span>
+        )}
       </header>
 
       <main className="level-main">
@@ -144,7 +161,7 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
             puzzle={puzzle}
             mode={state.phase}
             theme={level.theme}
-            onSolved={(outcome) => dispatch({ type: 'puzzleDone', outcome })}
+            onSolved={solved}
             onContinue={next}
           />
         )}

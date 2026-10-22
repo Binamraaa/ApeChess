@@ -59,3 +59,14 @@ export const Bulb = (p: P) => (
     <path d="M9.5 19.5h5M10.5 22h3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </Svg>
 );
+
+export const Speaker = ({ muted = false, ...p }: P & { muted?: boolean }) => (
+  <Svg {...p}>
+    <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" strokeLinejoin="round" />
+    {muted ? (
+      <path d="m16 9.5 5 5m0-5-5 5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+    ) : (
+      <path d="M15.5 9a4 4 0 0 1 0 6m2.5-8.5a7.5 7.5 0 0 1 0 11" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+    )}
+  </Svg>
+);

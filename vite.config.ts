@@ -26,7 +26,9 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2,json,wasm}'],
+        globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2,json,wasm,mp3,m4a}'],
+        // Music loops can be a few MB; they still need to work offline.
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
       },
     }),
   ],

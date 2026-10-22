@@ -31,6 +31,8 @@ interface Message {
   tone: Tone;
   text: string;
   label?: string | null;
+  /** Overrides the tone's sound; null for none. */
+  cue?: null;
 }
 
 interface View {
@@ -101,8 +103,8 @@ export function PuzzlePlayer({ puzzle, mode, theme: levelTheme, onSolved, onCont
     timers.current.push(window.setTimeout(fn, ms));
   };
 
-  const say = (tone: Tone, text: string, label?: string | null) =>
-    setMsg((m) => ({ id: m.id + 1, tone, text, label }));
+  const say = (tone: Tone, text: string, label?: string | null, cue?: null) =>
+    setMsg((m) => ({ id: m.id + 1, tone, text, label, cue }));
 
   const show = (fen: string, move?: Pick<Move, 'from' | 'to'>) =>
     setView((v) => ({
@@ -129,7 +131,8 @@ export function PuzzlePlayer({ puzzle, mode, theme: levelTheme, onSolved, onCont
     setStatus('solved');
     // The hand-written explanation describes the intended line; a different mate gets its own words.
     const text = (!t.offScript && puzzle.explanation) || explainSolved(t.played, theme, lineInsights(puzzle.fen, t.line));
-    say('good', text, t.revealed ? 'Here’s the idea' : t.mistakes ? 'Got there!' : 'Brilliant!');
+    // A shown solution gets no cheer.
+    say('good', text, t.revealed ? 'Here’s the idea' : t.mistakes ? 'Got there!' : 'Brilliant!', t.revealed ? null : undefined);
     if (!t.revealed) vibrate(30);
     onSolved({ puzzleId: puzzle.id, firstTry: t.mistakes === 0, hintUsed: t.hinted, revealed: t.revealed });
   }
@@ -249,7 +252,7 @@ export function PuzzlePlayer({ puzzle, mode, theme: levelTheme, onSolved, onCont
       />
 
       <div className="play-talk">
-        <BapuBubble key={msg.id} tone={msg.tone} label={msg.label}>
+        <BapuBubble key={msg.id} tone={msg.tone} label={msg.label} cue={msg.cue}>
           {msg.text}
         </BapuBubble>
       </div>

@@ -37,6 +37,7 @@ src/
   levels/     level runner (concept → demo → guided → practice → summary)
   bapu/       explanation templates + speech bubble UI
   progress/   IndexedDB store, stars, XP, streak
+  sound/      Web Audio engine: synth cues, Bapu's murmur, music scenes
 content/levels/ content/puzzles/ scripts/ docs/
 ```
 
@@ -73,5 +74,6 @@ content/levels/ content/puzzles/ scripts/ docs/
 - `npx tsx scripts/build-quiz.ts` (Level 3 positions), `scripts/build-openings.ts` (writes Level 7, Stockfish-checks every choice), `scripts/build-endgames.ts` (Level 18 start positions; prints them).
 - Level kinds: `puzzle` (default), `drill`, `quiz`, `choice`, `endgame` (`src/levels/types.ts`); `LevelScreen` picks the player by kind. Mixed levels (L13, L20) use `mix` to draw practice from other levels' packs.
 - `predev`/`prebuild` copy Stockfish (lite, single-threaded) into `public/stockfish/` (gitignored) for Level 18's Web Worker.
+- Sound: `public/sounds/sounds.json` maps cues/music to recorded files in `public/sounds/`; anything unlisted uses the synth in `src/sound/synth.ts`. Brief for the music and cues: `docs/sound.md`. Sound prefs are per device (localStorage). `BapuBubble` plays its tone's cue and Bapu's voice on mount; `Board` clacks on moves.
 - `?unlock=all` on the app URL opens every level on that device; `?unlock=off` resets.
 - Deploy: pushing to `main` runs `.github/workflows/deploy.yml` (tests, build with `BASE_PATH=/<repo>/`, publish to GitHub Pages)

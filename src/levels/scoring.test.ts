@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { levelStars, puzzleXp, scoreLevel, type PuzzleOutcome } from './scoring';
+import { cleanRun, levelStars, puzzleXp, scoreLevel, type PuzzleOutcome } from './scoring';
 
 function outcomes(firstTry: number, total = 10, opts: { hints?: number; revealed?: number } = {}): PuzzleOutcome[] {
   return Array.from({ length: total }, (_, i) => ({
@@ -61,5 +61,19 @@ describe('scoreLevel', () => {
     const s = scoreLevel(outcomes(7, 10, { hints: 2 }));
     // 5 first try clean (50) + 2 first try with hints (10) = 60, ★★ bonus 40.
     expect(s).toMatchObject({ stars: 2, firstTry: 7, puzzleXp: 60, bonusXp: 40, totalXp: 100 });
+  });
+});
+
+describe('cleanRun', () => {
+  const o = (firstTry: boolean, revealed = false): PuzzleOutcome => ({ puzzleId: 'x', firstTry, hintUsed: false, revealed });
+
+  it('counts first-try solves in a row, back from the latest', () => {
+    expect(cleanRun([])).toBe(0);
+    expect(cleanRun([o(true), o(false), o(true), o(true)])).toBe(2);
+    expect(cleanRun([o(true), o(true), o(false)])).toBe(0);
+  });
+
+  it('breaks the run on a shown solution', () => {
+    expect(cleanRun([o(true), o(true, true)])).toBe(0);
   });
 });

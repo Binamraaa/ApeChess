@@ -3,6 +3,7 @@ import { Chessground } from 'chessground';
 import type { Api } from 'chessground/api';
 import type { DrawShape } from 'chessground/draw';
 import type { Color, Key } from 'chessground/types';
+import { play } from '../sound/engine';
 import 'chessground/assets/chessground.base.css';
 import 'chessground/assets/chessground.cburnett.css';
 import './board.css';
@@ -30,6 +31,8 @@ const brushes = {
   yellow: { key: 'y', color: '#f0a500', opacity: 1, lineWidth: 12 },
 };
 
+const pieceCount = (fen: string) => fen.split(' ')[0].replace(/[^a-z]/gi, '').length;
+
 /** Thin React wrapper around Lichess's chessground. Chess rules live outside (chess.js). */
 export function Board({ fen, orientation, turnColor, dests, lastMove, check, shapes, onMove, shake, version }: BoardProps) {
   const el = useRef<HTMLDivElement>(null);
@@ -37,6 +40,9 @@ export function Board({ fen, orientation, turnColor, dests, lastMove, check, sha
   const api = useRef<Api | null>(null);
   const onMoveRef = useRef(onMove);
   onMoveRef.current = onMove;
+  // For move sounds: what the board last showed, and a move the learner just played by hand.
+  const shown = useRef({ fen, move: lastMove?.join() });
+  const dropped = useRef<string | null>(null);
 
   useEffect(() => {
     if (!el.current) return;
@@ -50,11 +56,30 @@ export function Board({ fen, orientation, turnColor, dests, lastMove, check, sha
       movable: {
         free: false,
         showDests: true,
-        events: { after: (from, to) => onMoveRef.current?.(from, to) },
+        events: {
+          after: (from, to, meta) => {
+            // Sound on the drop itself, not after the position round-trips through the parent.
+            dropped.current = `${from},${to}`;
+            play(meta.captured ? 'capture' : 'move');
+            onMoveRef.current?.(from, to);
+          },
+        },
       },
     });
     return () => api.current?.destroy();
   }, []);
+
+  // A new last move means a move was played (opponent, demo or engine): clack, and warn of check.
+  useEffect(() => {
+    const move = lastMove?.join();
+    const prev = shown.current;
+    const mine = dropped.current;
+    shown.current = { fen, move };
+    dropped.current = null;
+    if (!move || move === prev.move || fen === prev.fen) return;
+    if (move !== mine) play(pieceCount(fen) < pieceCount(prev.fen) ? 'capture' : 'move');
+    if (check) play('check');
+  }, [fen, lastMove, check]);
 
   useEffect(() => {
     api.current?.set({

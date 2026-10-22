@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LEVELS, ORDER, isPlayable } from './levels/curriculum';
 import { nextLevel, unlockedLevels } from './levels/unlock';
 import { displayStreak, finishIntro, getAllLevelProgress, getProfile, type LevelProgress, type Profile } from './progress/store';
+import { setScene } from './sound/engine';
 import { Home } from './ui/Home';
 import { Intro } from './ui/Intro';
 import { LevelScreen } from './ui/level/LevelScreen';
@@ -60,6 +61,9 @@ export default function App() {
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
   }, []);
+
+  // Music follows the screen: the theme at home, something quieter in a lesson.
+  useEffect(() => setScene(levelId ? 'level' : 'home'), [levelId]);
 
   // Reload progress whenever we come back to the home screen.
   useEffect(() => {
