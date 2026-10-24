@@ -60,8 +60,60 @@ Optional: the built-in ones work. Replace any you want to sound richer. Keep cue
 
 Settings offer three voices:
 
-- **Murmur** (default): one sung syllable per word, shaped by the word's vowel (`src/sound/murmur.ts`). It follows every line Bapu's templates write, works offline, and will work for Nepali too.
-- **Read aloud:** the device's own text-to-speech, for young readers.
+- **Voice** (default): the device reads each line aloud in the most natural English voice it has (`src/sound/voices.ts` ranks them). Neural voices come first (Edge's "Natural" voices, Apple's "Enhanced" ones), then Chrome's Google voices, then the older built-in ones; a man's voice and a British or Indian accent are preferred, and joke voices are never used. Online-only voices are skipped offline, and a voice that fails is passed over. A device with no usable voice gets the murmur instead.
+- **Murmur:** one sung syllable per word, shaped by the word's vowel (`src/sound/murmur.ts`). Works offline, and in any language.
 - **Off.**
 
-To give the murmur a real voice later, record a person saying "ah, eh, ee, oh, oo" in a low, warm, amused voice. The murmur can then play those clips instead of synth syllables.
+The synth murmur is a stand-in. The plan for a real voice is below: a recorded person, not a cloned or generated one.
+
+## Recording checklist
+
+What to record, most important first. Name the files as shown and send them over; wiring the voice clips in needs a small code change (the cues and music drop in through `sounds.json` already).
+
+**Whose voice:** one person for all of Bapu: low, warm, a little amused, an older gentleman who enjoys his tea. Get their clear OK, in writing, that the recordings ship in an open-source (GPL-3.0) app.
+
+**How:** a quiet, soft-furnished room (a wardrobe full of clothes is perfect), the phone about 20 cm from the mouth, no music or fan. Record each take three times; the best one gets used. WAV or high-quality MP3, mono is fine. Leave half a second of silence around each take; the trimming happens later.
+
+### 1. Bapu's voice (replaces the murmur) — 20 clips
+
+**Vowel syllables (5).** The murmur sings one syllable per word; with these it uses his real voice instead of the synth. Say each one short and relaxed, like a syllable in the middle of a sentence, all at the same pitch and volume:
+
+| File | Say |
+|---|---|
+| `voice-a.mp3` | "ah" (as in *father*) |
+| `voice-e.mp3` | "eh" (as in *bed*) |
+| `voice-i.mp3` | "ee" (as in *see*) |
+| `voice-o.mp3` | "oh" (as in *go*) |
+| `voice-u.mp3` | "oo" (as in *food*) |
+
+**Reactions (15).** Short sounds and words that play at the start of Bapu's lines, with the murmur carrying the rest. They give him a personality without recording every sentence (his lines are generated from the position, so there are thousands).
+
+| File | When | Say (or similar) |
+|---|---|---|
+| `voice-brilliant.mp3` | puzzle solved first try | "Brilliant!" |
+| `voice-aha.mp3` | a good move | "Aha!" |
+| `voice-very-good.mp3` | solved after a mistake | "Very good." |
+| `voice-hmm-no.mp3` | a wrong move | a gentle "Hmm, no…" |
+| `voice-careful.mp3` | a blunder against him | "Ooh. Careful." |
+| `voice-hint.mp3` | a hint | "Here's a thought…" |
+| `voice-thinking.mp3` | Bapu thinking in the final | a thoughtful "Hmmm…" |
+| `voice-check.mp3` | Bapu gives check | "Check." |
+| `voice-checkmate.mp3` | Bapu mates | "Checkmate." (kind, not gloating) |
+| `voice-good-game.mp3` | end of the final | "Good game." |
+| `voice-well-played.mp3` | the learner wins or draws | "Well played. Very well played." |
+| `voice-chuckle.mp3` | jokes, the free-piece line | a warm chuckle |
+| `voice-welcome.mp3` | home screen | "Welcome back!" |
+| `voice-hello.mp3` | the very first visit | "Hello! I'm Bapu." |
+| `voice-eyebrow.mp3` | Bapu raises an eyebrow | a curious "Hm?" |
+
+### 2. Music — 1 track (2 optional)
+
+See the music brief above: the home theme (`home-theme.mp3`, needed for a richer sound than the built-in one), and optionally a lesson bed (`lesson-bed.mp3`) and a slower, more focused version for the final game against Bapu (`game-bed.mp3`).
+
+### 3. Sound effects — optional
+
+The ten cues in the table above already have built-in sounds. Record any that sound thin to you; `move`, `capture` (wood on wood) and `solved` make the most difference. One addition for the final:
+
+| File | When | Length | Feel |
+|---|---|---|---|
+| `game-over.mp3` | the final game ends | 1–2 s | a short, warm cadence on B: respectful, not a "you lose" sound |

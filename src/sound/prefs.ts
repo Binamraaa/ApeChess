@@ -1,4 +1,4 @@
-/** How Bapu's lines sound: his murmur, the device reading them aloud, or nothing. */
+/** How Bapu's lines sound: read aloud in the device's most natural voice, his murmur, or nothing. */
 export type VoiceMode = 'murmur' | 'read' | 'off';
 
 export interface SoundPrefs {
@@ -7,7 +7,7 @@ export interface SoundPrefs {
   voice: VoiceMode;
 }
 
-export const DEFAULT_PREFS: SoundPrefs = { sfx: true, music: true, voice: 'murmur' };
+export const DEFAULT_PREFS: SoundPrefs = { sfx: true, music: true, voice: 'read' };
 
 const KEY = 'apechess.sound';
 const VOICES: VoiceMode[] = ['murmur', 'read', 'off'];

@@ -4,6 +4,7 @@ import { playTheme, type MusicHandle } from './music';
 import { murmurPlan, planLength, type Mood } from './murmur';
 import { loadPrefs, savePrefs, type SoundPrefs } from './prefs';
 import { synthCue, synthMurmur } from './synth';
+import { bestVoice, voiceTuning } from './voices';
 import type { Theme } from './theme';
 
 /**
@@ -11,7 +12,7 @@ import type { Theme } from './theme';
  * Browsers only allow audio after a tap, so nothing plays until the first one.
  */
 
-const LEVELS = { sfx: 0.8, voice: 0.8, music: 0.35 };
+const LEVELS = { sfx: 0.8, voice: 0.8, music: 0.6 };
 const TRACK_VOLUME: Record<Track, number> = { home: 1, level: 0.4 };
 const SOUNDS = `${import.meta.env.BASE_URL}sounds/`;
 
@@ -101,21 +102,30 @@ function hush() {
   line = null;
 }
 
+export const canReadAloud = () => typeof speechSynthesis !== 'undefined';
+
+/** The voice Bapu reads with: the most natural one the device has (see voices.ts). */
 let readVoice: SpeechSynthesisVoice | null | undefined;
+/** Voices that failed (an online voice with no connection, say), so they're passed over. */
+const failedVoices = new Set<string>();
+/** A line waiting for its cue to land, cancelled if another line comes first. */
+let nextLine = 0;
+
 function pickVoice(): SpeechSynthesisVoice | null {
   if (readVoice !== undefined) return readVoice;
   const voices = speechSynthesis.getVoices();
   if (!voices.length) return null; // not loaded yet; try again next line
-  const english = voices.filter((v) => v.lang.startsWith('en'));
-  readVoice =
-    english.find((v) => v.localService && /en-(GB|IN)/.test(v.lang)) ??
-    english.find((v) => v.localService) ??
-    english[0] ??
-    null;
+  readVoice = bestVoice(voices, navigator.onLine, failedVoices) ?? null;
   return readVoice;
 }
 
-export const canReadAloud = () => typeof speechSynthesis !== 'undefined';
+// Voices load late on some browsers, and online ones come and go with the connection: choose again.
+if (canReadAloud()) {
+  const rethink = () => (readVoice = undefined);
+  speechSynthesis.addEventListener?.('voiceschanged', rethink);
+  addEventListener('online', rethink);
+  addEventListener('offline', rethink);
+}
 
 /**
  * Bapu says a line in the chosen voice. `delay` (seconds) lets a cue land first.
@@ -124,15 +134,26 @@ export const canReadAloud = () => typeof speechSynthesis !== 'undefined';
 export function speak(text: string, mood: Mood = 'neutral', delay = 0): number {
   if (!text || prefs.voice === 'off') return 0;
 
-  if (prefs.voice === 'read') {
-    if (!canReadAloud() || !ctx) return 0; // still needs the first tap
+  // Read aloud, unless the device has no usable voice: then the murmur stands in.
+  const reading = prefs.voice === 'read' && canReadAloud();
+  if (reading && !speechSynthesis.getVoices().length) return 0; // voices still loading: skip this line
+  const voice = reading ? pickVoice() : null;
+  if (voice) {
+    if (!ctx) return 0; // still needs the first tap
+    hush();
+    clearTimeout(nextLine);
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.voice = pickVoice();
-    u.rate = 0.95;
-    u.pitch = 0.8;
-    speechSynthesis.speak(u);
-    return text.split(/\s+/).length * 330;
+    u.voice = voice;
+    u.lang = voice.lang;
+    Object.assign(u, voiceTuning(voice));
+    u.onerror = (e) => {
+      if (e.error === 'interrupted' || e.error === 'canceled') return;
+      failedVoices.add(voice.name);
+      readVoice = undefined;
+    };
+    nextLine = window.setTimeout(() => speechSynthesis.speak(u), delay * 1000);
+    return text.split(/\s+/).length * 330 + delay * 1000;
   }
 
   const c = running();

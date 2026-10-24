@@ -5,8 +5,8 @@ import { Speaker } from './icons';
 import './sound.css';
 
 const VOICES: { mode: VoiceMode; label: string }[] = [
+  { mode: 'read', label: 'Voice' },
   { mode: 'murmur', label: 'Murmur' },
-  { mode: 'read', label: 'Read aloud' },
   { mode: 'off', label: 'Off' },
 ];
 
@@ -71,7 +71,7 @@ export function SoundSettings() {
                   className={prefs.voice === v.mode ? 'on' : ''}
                   onClick={() => {
                     setPrefs({ ...prefs, voice: v.mode });
-                    speak(v.mode === 'read' ? 'Like this. Shall we play?' : 'Hello there! Shall we play?');
+                    speak('Hello there! Shall we play?');
                   }}
                 >
                   {v.label}
