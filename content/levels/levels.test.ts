@@ -24,9 +24,24 @@ const readPack = (file: string): PuzzleDef[] => JSON.parse(readFileSync(join(pac
 
 describe.each(files)('%s', (file) => {
   const level = JSON.parse(readFileSync(join(dir, file), 'utf8')) as LevelDef;
+
+  // The final round is one game against Bapu: no puzzles to check.
+  if (level.game) {
+    it('is a game against Bapu, with sane settings', () => {
+      expect(level.id).toBe(file.replace('.json', ''));
+      expect(level.game!.elo).toBeGreaterThanOrEqual(1320);
+      expect(level.game!.elo).toBeLessThanOrEqual(3190);
+      expect(level.game!.minMoves).toBeGreaterThan(0);
+      expect(level.demo).toBeUndefined();
+      expect(THEMES[level.theme], `unknown theme ${level.theme}`).toBeDefined();
+      expect(existsSync(join(__dirname, '..', '..', 'public', 'pieces', `${level.icon}.svg`)), level.icon).toBe(true);
+    });
+    return;
+  }
+  const demo = level.demo!;
   const packFile = join(packDir, file);
   level.pack = existsSync(packFile) ? readPack(file) : [];
-  const featured: PuzzleDef[] = [level.demo, ...level.guided];
+  const featured: PuzzleDef[] = [demo, ...level.guided];
   const all: PuzzleDef[] = [...featured, ...level.practice, ...(level.pack ?? [])];
   const kindOf = (p: PuzzleDef) => p.kind ?? 'puzzle';
   const puzzles = all.filter((p) => kindOf(p) === 'puzzle');
@@ -98,8 +113,8 @@ describe.each(files)('%s', (file) => {
   });
 
   it('demo has one narration line per move (plus an optional intro)', () => {
-    const n = level.demo.narration?.length;
-    expect([level.demo.moves.length, level.demo.moves.length + 1]).toContain(n);
+    const n = demo.narration?.length;
+    expect([demo.moves.length, demo.moves.length + 1]).toContain(n);
   });
 
   it('guided steps have hints, and guided puzzles have explanations', () => {

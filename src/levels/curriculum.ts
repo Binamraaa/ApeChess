@@ -36,7 +36,7 @@ export interface UnitInfo {
   levels: MapEntry[];
 }
 
-/** The MVP map (docs/curriculum-mvp.md). Grouped by unit so it can grow to 100+ levels. */
+/** The MVP map (docs/curriculum-mvp.md), ending with a game against Bapu. Grouped by unit so it can grow to 100+ levels. */
 export const UNITS: UnitInfo[] = [
   {
     number: 1,
@@ -87,6 +87,11 @@ export const UNITS: UnitInfo[] = [
       { id: 'L19', number: 19, title: 'King & Pawn Basics' },
       { id: 'L20', number: 20, title: 'Boss: The Checklist', checkpoint: true },
     ],
+  },
+  {
+    number: 6,
+    title: 'The Final',
+    levels: [{ id: 'L21', number: 21, title: 'Final: Play Bapu' }],
   },
 ];
 

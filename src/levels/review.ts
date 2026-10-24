@@ -1,6 +1,8 @@
+import type { PuzzleDef } from './types';
+
 /**
  * Rematches: puzzles the learner missed come back as the daily riddle a couple of days later,
- * until they're solved first try.
+ * until they're solved first try. Positions from games against Bapu come back the same way.
  */
 
 export interface ReviewItem {
@@ -9,6 +11,8 @@ export interface ReviewItem {
   levelId: string;
   /** Local day of the last miss, YYYY-MM-DD. */
   missedOn: string;
+  /** The puzzle itself, for one that isn't in any level (made from a game against Bapu). */
+  puzzle?: PuzzleDef;
 }
 
 /** Days to wait after a miss before the rematch. */
@@ -26,6 +30,13 @@ export function updateReview(items: ReviewItem[], levelId: string, missed: strin
   const fresh = missed.map((puzzleId) => ({ puzzleId, levelId, missedOn: day }));
   const gone = new Set([...missed, ...solved]);
   return [...fresh, ...items.filter((i) => !gone.has(i.puzzleId))].slice(0, REVIEW_LIMIT);
+}
+
+/** Adds puzzles made from a game's blunders. */
+export function addGameRematches(items: ReviewItem[], levelId: string, puzzles: PuzzleDef[], day: string): ReviewItem[] {
+  const fresh = puzzles.map((puzzle) => ({ puzzleId: puzzle.id, levelId, missedOn: day, puzzle }));
+  const ids = new Set(puzzles.map((p) => p.id));
+  return [...fresh, ...items.filter((i) => !ids.has(i.puzzleId))].slice(0, REVIEW_LIMIT);
 }
 
 /** The rematch that's been waiting longest, if any is due. */

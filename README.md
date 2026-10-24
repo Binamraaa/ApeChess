@@ -8,29 +8,30 @@ It's built for smart adults who never really learned chess, and later for school
 
 ## Status
 
-**All 20 MVP levels are playable**, from "how does the knight move?" to a timed boss exam.
+**All 20 MVP levels are playable**, from "how does the knight move?" to a timed boss exam, followed by a final round: a real game against Bapu.
 
 - five kinds of activity: puzzles, move drills (Level 1), a check/mate/stalemate quiz (Level 3), pick-the-best-opening-move (Level 7) and mating a lone king against Stockfish in the browser (Level 18)
 - every level: concept card → animated demo → guided steps with hints → practice → summary
 - practice is drawn from ~40 puzzles per level, picked from the Lichess database and checked with Stockfish, so replays feel fresh
 - Bapu explains every move: hand-written for featured puzzles, generated from the position for the rest
 - a checkpoint (Level 13) and a boss (Level 20) that mix every earlier theme with no hints
+- **the final (Level 21): a whole game against Bapu**, who plays at about 2100 (Stockfish with its strength limit). Stars reward careful play, not winning: last 25 moves, then avoid blunders. Bapu talks through his own ideas as he plays, and afterwards walks through your worst moments: what you played, what punished it, and what was better. The positions where you blundered come back as rematch riddles
 - an intro page with two doors: "I'm new to chess" or "I know how the pieces move"
 - a level map with unlocking, stars, XP and a daily streak; progress saved on your device, no account needed
 - optional cloud backup: sign in with an emailed code and your progress follows you to any device (Supabase; the device copy stays first, so it all still works offline). See [`docs/backend.md`](docs/backend.md)
 - **Bapu's daily riddle**: one puzzle a day from the levels you've passed. It earns XP and keeps your streak alive. Puzzles you missed come back as rematches
-- **Bapu's notebook**: every level's rule becomes a page you keep, and finishing units earns ranks (Pawn Apprentice to Silverback)
+- **Bapu's notebook**: every level's rule becomes a page you keep, and finishing units earns ranks (Pawn Apprentice to Bapu's Rival)
 - streak freezes (one per 7-day streak, up to two) so a missed day doesn't wipe out a long streak
 - share your result: a spoiler-free square grid for levels and riddles
-- sound: Bapu's theme (hummed, then arranged in code from its MIDI notes), wooden move clacks, gentle right/wrong cues, a combo for first-try solves in a row, star chimes, and Bapu "speaking" each line in a murmur (or read aloud). Recorded music and sounds drop in through [`docs/sound.md`](docs/sound.md)
+- sound: Bapu's theme (hummed, then arranged in code from its MIDI notes), wooden move clacks, gentle right/wrong cues, a combo for first-try solves in a row, star chimes, and Bapu reading each line aloud in the most natural voice the device has (or a murmur). Recorded music and sounds drop in through [`docs/sound.md`](docs/sound.md)
 
 The full plan lives in [`docs/curriculum-mvp.md`](docs/curriculum-mvp.md).
 
 ## Roadmap
 
-1. **Done:** the 20-level MVP, the Lichess puzzle pipeline, the level map and the intro page
+1. **Done:** the 20-level MVP, the final game against Bapu, the Lichess puzzle pipeline, the level map and the intro page
 2. **Next:** a recorded arrangement of Bapu's theme, Bapu's recorded voice, a "deep dive" on featured puzzles
-3. **Later:** the school edition (simpler copy, Nepali), teacher accounts with class codes, Phase 1 levels beyond 20
+3. **Later:** the school edition (simpler copy, Nepali; a "Bapu gives odds" game for kids), teacher accounts with class codes, Phase 1 levels beyond 20
 
 ## Run it
 
@@ -55,7 +56,7 @@ Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. In
 
 `content/puzzles/LXX.json` are built from the [Lichess puzzle database](https://database.lichess.org/#puzzles) (CC0). To rebuild them, download `lichess_db_puzzle.csv.zst` (~300 MB) into `data/raw/` (never committed) and run `npm run puzzles` (about 5 minutes). The filters in `scripts/build-puzzles.ts` keep popular puzzles in each level's rating range, and only those where Bapu's own analysis finds the level's idea, so he can always explain them. Each candidate is then checked with Stockfish: the solution must be the only good move, and the opponent's replies must be real defences, not blunders. `npx tsx scripts/show-puzzles.ts L10 pin` previews what Bapu says for every puzzle in a pack.
 
-Level 18 runs Stockfish (the single-threaded lite build, GPL-3.0) in a Web Worker. `npm run dev` and `npm run build` copy it into `public/stockfish/` first.
+Levels 18 and 21 run Stockfish (the single-threaded lite build, GPL-3.0) in a Web Worker. `npm run dev` and `npm run build` copy it into `public/stockfish/` first.
 
 Open the app with `?unlock=all` to open every level on that device (for testing); `?unlock=off` turns it off.
 

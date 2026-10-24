@@ -1,4 +1,5 @@
 import type { Theme } from '../bapu/themes';
+import type { GameConfig } from './game';
 
 /** A move in UCI notation, e.g. "g1f3" or "e7e8q". */
 export type Uci = string;
@@ -84,7 +85,8 @@ export interface LevelDef {
   glossary?: { term: string; definition: string };
   /** The one-line rule to remember, shown on the summary card. */
   summary: string;
-  demo: PuzzleDef;
+  /** Every level has a demo except the final round, which is one whole game (`game`). */
+  demo?: PuzzleDef;
   guided: PuzzleDef[];
   /** Practice for this run. In content files: hand-authored steps, merged with the pack. */
   practice: PuzzleDef[];
@@ -96,6 +98,8 @@ export interface LevelDef {
   timed?: boolean;
   /** Draw practice from other levels' packs instead of (or as well as) this level's own. */
   mix?: PracticeMix[];
+  /** The final round: a whole game against Bapu instead of puzzles. */
+  game?: GameConfig;
   /** Imported puzzles (content/puzzles/LXX.json); each run draws its practice set from these. */
   pack?: PuzzleDef[];
   /** Resolved `mix`: the puzzles each group draws from. Filled in by the curriculum. */

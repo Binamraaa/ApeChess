@@ -1,0 +1,18 @@
+{
+  "id": "L21",
+  "number": 21,
+  "unit": 6,
+  "unitTitle": "The Final",
+  "title": "Final: Play Bapu",
+  "theme": "mixed",
+  "icon": "wK",
+  "concept": "Now a real game, against me. I play like a strong club player, so don't worry about winning: play carefully, and run the checklist before every move.",
+  "glossary": {
+    "term": "Blunder",
+    "definition": "a move that throws away a big part of your position, usually by losing a piece or walking into mate."
+  },
+  "summary": "Games are lost by blunders, not won by brilliance. Run the checklist every move, and make your opponent find the good ideas.",
+  "game": { "elo": 2100, "minMoves": 25 },
+  "guided": [],
+  "practice": []
+}

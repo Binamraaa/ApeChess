@@ -77,6 +77,24 @@ The next level unlocks at ★. Checkpoints (L13, L20) need ★★.
 | 19 | **King & Pawn Basics** | "The square rule and opposition: when kings face off, whoever *doesn't* have to move wins." | custom (square rule, opposition) + `lichess:pawnEndgame` | 700–1300 |
 | 20 | **Boss: The Checklist** | "Before every move: checks, captures, threats, for you AND your opponent." | mixed timed exam: 15 puzzles across all themes, includes 3 "defend" puzzles (`lichess:defensiveMove`) where the right move is to stop a threat | 700–1400 |
 
+## Unit 6: The Final (L21)
+
+| # | Level | Concept | Source | Rating |
+|---|-------|---------|--------|--------|
+| 21 | **Final: Play Bapu** | "Now a real game, against me. Play carefully, and run the checklist before every move." | `engine`: a whole game against Stockfish at `UCI_Elo` 2100, about a second a move | — |
+
+The final breaks the level anatomy on purpose: a concept card, one game, then Bapu's review. Nobody at this level is expected to beat a 2100 player, so stars measure careful play, not results:
+
+- ★ last 25 moves without resigning (a win or a draw counts sooner)
+- ★★ two blunders or fewer
+- ★★★ no blunders at all, or a draw or a win
+
+A full-strength search judges every learner move. A **blunder** loses at least 0.3 of the winning chances on a −1…1 scale (a mistake: 0.2), the same yardstick Lichess uses, so slipping further in a position that was already lost doesn't count. Bapu accepts a draw offer only after 25 moves, in a position he isn't better in.
+
+During the game Bapu names the idea behind his own moves (forks, pins, free pieces). After a blunder he raises an eyebrow, with no take-backs. Afterwards he shows the three worst moments: what the learner played, the reply that punished it, and the better move. Blunders with one clear punishing reply come back as rematch riddles, where the learner plays Bapu's side. Colours alternate between games, and an unfinished game is saved after every move.
+
+XP: the level bonus for the stars (20/40/60), 2 per move that wasn't a blunder (up to 40 moves), +100 for a win, +50 for a draw.
+
 ---
 
 ## Writing Bapu's explanations

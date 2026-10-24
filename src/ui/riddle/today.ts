@@ -32,13 +32,14 @@ export async function loadTodaysRiddle(now = new Date()): Promise<TodaysRiddle |
 
   const record = await todaysRiddle(day, (recent) => {
     const due = dueReview(review, day);
+    if (due?.puzzle && LEVELS[due.levelId]) return { levelId: due.levelId, puzzleId: due.puzzleId, rematch: due.missedOn, puzzle: due.puzzle };
     if (due && LEVELS[due.levelId] && findPuzzle(LEVELS[due.levelId], due.puzzleId))
       return { levelId: due.levelId, puzzleId: due.puzzleId, rematch: due.missedOn };
     const pick = pickRiddle(pool, day, recent);
     return pick && { levelId: pick.levelId, puzzleId: pick.puzzle.id };
   });
   const level = record && LEVELS[record.levelId];
-  const puzzle = level && findPuzzle(level, record!.puzzleId);
+  const puzzle = level && (record!.puzzle ?? findPuzzle(level, record!.puzzleId));
   if (!record || !level || !puzzle) return null;
   return { record, number: riddleNumber(day), level, puzzle: { ...puzzle, theme: puzzle.theme ?? level.theme } };
 }

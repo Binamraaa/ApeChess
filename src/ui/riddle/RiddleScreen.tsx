@@ -75,7 +75,16 @@ export function RiddleScreen({ onExit }: Props) {
             <>
               {riddle.record.rematch && (
                 <p className="riddle-rematch">
-                  <strong>Rematch!</strong> You missed this one on {missedOn(riddle.record.rematch)}. Let’s settle it.
+                  {riddle.puzzle.source === 'game' ? (
+                    <>
+                      <strong>Rematch!</strong> From your game with Bapu on {missedOn(riddle.record.rematch)}. You play his side: find
+                      the move that punished yours.
+                    </>
+                  ) : (
+                    <>
+                      <strong>Rematch!</strong> You missed this one on {missedOn(riddle.record.rematch)}. Let’s settle it.
+                    </>
+                  )}
                 </p>
               )}
               <PuzzlePlayer

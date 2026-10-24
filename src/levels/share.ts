@@ -1,3 +1,4 @@
+import type { Outcome } from './game';
 import type { PuzzleOutcome, Stars } from './scoring';
 
 /**
@@ -37,6 +38,20 @@ export function levelShareText({ number, title, stars, outcomes, seconds, url }:
     grid(outcomes),
     url,
   ].join('\n');
+}
+
+interface GameShare {
+  outcome: Outcome;
+  stars: Stars;
+  moves: number;
+  blunders: number;
+  url: string;
+}
+
+export function gameShareText({ outcome, stars, moves, blunders, url }: GameShare): string {
+  const result = { won: 'I beat Bapu!', drawn: 'I held Bapu to a draw!', lost: 'Bapu won, but I made him work', resigned: 'Bapu won, but I made him work' }[outcome];
+  const slips = blunders === 0 ? 'no blunders' : `${blunders} blunder${blunders > 1 ? 's' : ''}`;
+  return [`ApeChess · The final: a game against Bapu`, `${'★'.repeat(stars)}${'☆'.repeat(3 - stars)} ${result}`, `${moves} moves · ${slips}`, url].join('\n');
 }
 
 interface RiddleShare {

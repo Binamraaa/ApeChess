@@ -1,3 +1,4 @@
+import { NO_GAMES, mergeGames, type GameState } from '../levels/game';
 import { REVIEW_LIMIT, type ReviewItem } from '../levels/review';
 import { RIDDLE_MEMORY } from '../levels/riddle';
 import type { LevelProgress, Profile, RiddleRecord, RiddleState } from './store';
@@ -13,6 +14,11 @@ export interface Snapshot {
   levels: LevelProgress[];
   riddle: RiddleState;
   review: ReviewItem[];
+  /**
+   * Games against Bapu. Optional so snapshots from before the final round still read; an older
+   * app drops it, which only loses the cloud's copy of an unfinished game.
+   */
+  games?: GameState;
 }
 
 export const SNAPSHOT_VERSION = 1;
@@ -113,6 +119,8 @@ export function mergeSnapshots(local: Snapshot, other: Snapshot, device: string)
     levels: [...levels.values()].sort((x, y) => (x.id < y.id ? -1 : 1)),
     riddle: mergeRiddle(local.riddle, other.riddle),
     review: mergeReview(local.review, other.review),
+    // Only once someone has played Bapu, so older snapshots aren't rewritten for nothing.
+    ...(local.games || other.games ? { games: mergeGames(local.games ?? NO_GAMES, other.games ?? NO_GAMES) } : {}),
   };
 }
 
@@ -134,6 +142,17 @@ export function parseSnapshot(x: unknown): Snapshot | 'newer' | null {
     levels: Array.isArray(x.levels) ? x.levels.filter((l): l is LevelProgress => isObject(l) && typeof l.id === 'string') : [],
     riddle: { ...riddle, recent: Array.isArray(riddle.recent) ? riddle.recent : [], solved: Number(riddle.solved) || 0 },
     review: Array.isArray(x.review) ? x.review.filter((i): i is ReviewItem => isObject(i) && typeof i.puzzleId === 'string') : [],
+    ...(isObject(x.games) ? { games: parseGames(x.games) } : {}),
+  };
+}
+
+function parseGames(g: Record<string, unknown>): GameState {
+  const c = g.current;
+  const current = isObject(c) && typeof c.id === 'string' && Array.isArray(c.moves) && Array.isArray(c.judged) ? c : undefined;
+  return {
+    ...(current ? { current: current as unknown as GameState['current'] } : {}),
+    finished: Array.isArray(g.finished) ? g.finished.filter((id): id is string => typeof id === 'string') : [],
+    played: Number(g.played) || 0,
   };
 }
 

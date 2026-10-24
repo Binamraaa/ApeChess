@@ -1,0 +1,199 @@
+/* ---------- Final round: a game against Bapu ---------- */
+
+.game-rules {
+  list-style: none;
+  margin: 0;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.game-rules li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-stars {
+  flex: none;
+  display: inline-flex;
+  gap: 1px;
+  width: 48px;
+}
+
+.game-stars .star-on {
+  color: var(--amber-deep);
+}
+
+.game-stars .star-off {
+  color: var(--paper-edge);
+}
+
+.game-note {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.game-colour {
+  margin: -4px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.game-target {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.game-blunders,
+.game-thinking {
+  margin-left: auto;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.game-blunders.on strong {
+  color: var(--bad);
+}
+
+.game-thinking {
+  font-weight: 800;
+  color: var(--teal);
+  animation: game-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes game-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-thinking {
+    animation: none;
+  }
+}
+
+.btn.btn-bad {
+  --face: var(--bad);
+  --edge: #8f3220;
+  --text: #fff;
+}
+
+/* ---------- Bapu's review ---------- */
+
+.game-review {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--paper);
+  border: 2px solid var(--paper-edge);
+}
+
+.game-review-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.game-review-head .rule-tag {
+  margin: 0;
+}
+
+.game-review-count {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink-soft);
+}
+
+.game-moment {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.game-moment p {
+  margin: 0;
+}
+
+.game-tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 2px;
+  color: #fff;
+  background: var(--bad);
+}
+
+.game-tag-mistake {
+  background: var(--amber-deep);
+}
+
+.game-better {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--good);
+  font-weight: 700;
+}
+
+/* A little green arrow, like the one on the board. */
+.game-arrow {
+  flex: none;
+  width: 18px;
+  height: 4px;
+  margin-top: 9px;
+  border-radius: 2px;
+  background: var(--good);
+  position: relative;
+}
+
+.game-arrow::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  border: 6px solid transparent;
+  border-left: 7px solid var(--good);
+  border-right: 0;
+}
+
+.game-review-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.game-review-nav .btn {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.game-rematch {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.summary .bapu {
+  text-align: left;
+}

@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
-import { Chess, type Move } from 'chess.js';
+import { Chess } from 'chess.js';
 import type { DrawShape } from 'chessground/draw';
 import type { Key } from 'chessground/types';
 import { Board } from '../../board/Board';
 import { BapuBubble, type Tone } from '../../bapu/BapuBubble';
-import { PIECE_NAME } from '../../bapu/explain';
+import { moveInWords } from '../../bapu/explain';
 import { THEMES } from '../../bapu/themes';
 import { parseUci } from '../../levels/puzzle';
 import type { PuzzleOutcome } from '../../levels/scoring';
@@ -20,14 +20,6 @@ interface Props {
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 const BRUSHES = ['blue', 'green', 'yellow', 'red'];
-
-/** A move in plain words, e.g. "Knight to f3" or "Castle kingside". */
-export function moveInWords(m: Move): string {
-  if (m.isKingsideCastle()) return 'Castle kingside';
-  if (m.isQueensideCastle()) return 'Castle queenside';
-  const piece = PIECE_NAME[m.piece];
-  return `${piece[0].toUpperCase() + piece.slice(1)} ${m.captured ? 'takes on' : 'to'} ${m.to}`;
-}
 
 /** Level 7: three candidate moves on the board; pick the best and hear why the others are worse. */
 export function ChoicePlayer({ puzzle, mode, onSolved, onContinue }: Props) {

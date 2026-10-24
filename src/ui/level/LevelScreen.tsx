@@ -161,7 +161,7 @@ function LevelRun({ level, onExit, onNext, onReplay }: Props & { onReplay: (play
 
       <main className="level-main">
         {state.phase === 'concept' && <ConceptCard level={level} onContinue={next} />}
-        {state.phase === 'demo' && <DemoPlayer puzzle={level.demo} onContinue={next} />}
+        {state.phase === 'demo' && level.demo && <DemoPlayer puzzle={level.demo} onContinue={next} />}
         {(state.phase === 'guided' || state.phase === 'practice') && puzzle && (
           <Step
             key={puzzle.id}

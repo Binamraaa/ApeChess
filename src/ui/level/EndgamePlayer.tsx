@@ -5,13 +5,13 @@ import type { Key } from 'chessground/types';
 import { Board } from '../../board/Board';
 import { boardMoveToUci, legalDests } from '../../board/dests';
 import { BapuBubble, type Tone } from '../../bapu/BapuBubble';
+import { moveInWords } from '../../bapu/explain';
 import { THEMES } from '../../bapu/themes';
 import { engine } from '../../engine/stockfish';
 import { parseUci } from '../../levels/puzzle';
 import type { PuzzleOutcome } from '../../levels/scoring';
 import type { PuzzleDef } from '../../levels/types';
 import { Bulb } from '../icons';
-import { moveInWords } from './ChoicePlayer';
 
 interface Props {
   puzzle: PuzzleDef;

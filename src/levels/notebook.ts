@@ -41,7 +41,7 @@ export function notebookPages(units: NotebookUnit[], levels: Record<string, Leve
 }
 
 /** Rank titles: the first is where everyone starts, then one per finished unit. */
-export const RANKS = ['Curious Newcomer', 'Pawn Apprentice', 'Mate Hunter', 'Tactic Spotter', 'Sharp Tactician', 'Silverback'];
+export const RANKS = ['Curious Newcomer', 'Pawn Apprentice', 'Mate Hunter', 'Tactic Spotter', 'Sharp Tactician', 'Silverback', 'Bapu’s Rival'];
 
 export interface Rank {
   /** Units finished (passed every built level). */

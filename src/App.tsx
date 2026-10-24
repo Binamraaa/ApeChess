@@ -10,6 +10,7 @@ import { Notebook } from './ui/Notebook';
 import { RiddleScreen } from './ui/riddle/RiddleScreen';
 import { loadTodaysRiddle, type TodaysRiddle } from './ui/riddle/today';
 import { Intro } from './ui/Intro';
+import { GameScreen } from './ui/level/GameScreen';
 import { LevelScreen } from './ui/level/LevelScreen';
 
 /** Hash routes keep the PWA's back button working without a router: #/ and #/level/L08. */
@@ -113,7 +114,11 @@ export default function App() {
     const goNext = next ? () => location.replace(`#/level/${next}`) : undefined;
     return (
       <div className="app">
-        <LevelScreen key={levelId} level={LEVELS[levelId]} onExit={exit} onNext={goNext} />
+        {LEVELS[levelId].game ? (
+          <GameScreen key={levelId} level={LEVELS[levelId]} onExit={exit} />
+        ) : (
+          <LevelScreen key={levelId} level={LEVELS[levelId]} onExit={exit} onNext={goNext} />
+        )}
       </div>
     );
   }

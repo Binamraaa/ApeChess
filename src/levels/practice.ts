@@ -8,7 +8,7 @@ export const RECENT_LIMIT = 60;
 function withoutFeatured(level: LevelDef, puzzles: PuzzleDef[]): PuzzleDef[] {
   // Lichess sources name one puzzle; "custom" is shared by every hand-made one, so it doesn't count.
   const named = (p: PuzzleDef) => [p.id, p.source?.startsWith('lichess:') ? p.source : undefined];
-  const featured = new Set([level.demo, ...level.guided].flatMap(named).filter(Boolean));
+  const featured = new Set([level.demo, ...level.guided].flatMap((p) => (p ? named(p) : [])).filter(Boolean));
   const seen = new Set<string>();
   return puzzles.filter((p) => {
     if (featured.has(p.id) || (p.source && featured.has(p.source)) || seen.has(p.id)) return false;

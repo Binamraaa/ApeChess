@@ -1,8 +1,10 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import { updateRecent } from '../levels/practice';
-import { updateReview, type ReviewItem } from '../levels/review';
+import { FINISHED_MEMORY, NO_GAMES, type GameState, type SavedGame } from '../levels/game';
+import { addGameRematches, updateReview, type ReviewItem } from '../levels/review';
 import { RIDDLE_MEMORY } from '../levels/riddle';
 import type { PuzzleOutcome, Stars } from '../levels/scoring';
+import type { PuzzleDef } from '../levels/types';
 import { SNAPSHOT_VERSION, addXp, mergeSnapshots, sameSnapshot, xpLedger, type Snapshot } from './merge';
 import { NO_STREAK, currentStreak, localDay, recordSession, type Streak } from './streak';
 
@@ -162,6 +164,8 @@ export interface RiddleRecord {
   puzzleId: string;
   /** A rematch of a puzzle missed on this day. */
   rematch?: string;
+  /** The puzzle itself, for a rematch from a game against Bapu (it isn't in any level). */
+  puzzle?: PuzzleDef;
   result?: PuzzleOutcome & { xp: number };
 }
 
@@ -185,7 +189,7 @@ export async function getRiddleState(): Promise<RiddleState> {
  */
 export async function todaysRiddle(
   day: string,
-  pick: (recent: string[]) => { levelId: string; puzzleId: string; rematch?: string } | null,
+  pick: (recent: string[]) => { levelId: string; puzzleId: string; rematch?: string; puzzle?: PuzzleDef } | null,
 ): Promise<RiddleRecord | null> {
   const d = await db();
   const state = await getRiddleState();
@@ -246,6 +250,45 @@ export async function recordReview(levelId: string, missed: string[], solved: st
   saved();
 }
 
+/** Games against Bapu: the unfinished one, if any, and how many have been played. */
+export async function getGames(): Promise<GameState> {
+  return { ...NO_GAMES, ...((await (await db()).get('meta', 'games')) as GameState | undefined) };
+}
+
+/**
+ * Saves the unfinished game after a move. It doesn't count as new progress, so it doesn't start
+ * a cloud sync of its own; the next one takes it along.
+ */
+export async function saveGame(game: SavedGame): Promise<void> {
+  const tx = (await db()).transaction('meta', 'readwrite');
+  const state = { ...NO_GAMES, ...((await tx.store.get('games')) as GameState | undefined) };
+  // Finished on another device meanwhile: leave it finished.
+  if (!state.finished.includes(game.id)) await tx.store.put({ ...state, current: game }, 'games');
+  await tx.done;
+}
+
+/** Ends a game: it's no longer the unfinished one, and its blunders come back as rematches. */
+export async function finishGame(id: string, levelId: string, rematches: PuzzleDef[], day: string): Promise<void> {
+  const tx = (await db()).transaction('meta', 'readwrite');
+  const state = { ...NO_GAMES, ...((await tx.store.get('games')) as GameState | undefined) };
+  if (!state.finished.includes(id)) {
+    const { current, ...rest } = state;
+    const games: GameState = {
+      ...rest,
+      ...(current && current.id !== id ? { current } : {}),
+      finished: [id, ...state.finished].slice(0, FINISHED_MEMORY),
+      played: state.played + 1,
+    };
+    await tx.store.put(games, 'games');
+    if (rematches.length) {
+      const items = ((await tx.store.get('review')) as ReviewItem[] | undefined) ?? [];
+      await tx.store.put(addGameRematches(items, levelId, rematches, day), 'review');
+    }
+  }
+  await tx.done;
+  saved();
+}
+
 /** Everything saved on this device, as one snapshot (for cloud sync). */
 export async function exportSnapshot(): Promise<Snapshot> {
   const tx = (await db()).transaction(['levels', 'meta'], 'readwrite');
@@ -256,12 +299,14 @@ export async function exportSnapshot(): Promise<Snapshot> {
 
 async function readSnapshot(levels: { getAll(): Promise<LevelProgress[]> }, meta: MetaStore): Promise<Snapshot> {
   const profile = { ...DEFAULT_PROFILE, ...((await meta.get('profile')) as Profile | undefined) };
+  const games = (await meta.get('games')) as GameState | undefined;
   return {
     version: SNAPSHOT_VERSION,
     profile: { ...profile, xpBy: xpLedger(profile, await deviceIn(meta)) },
     levels: await levels.getAll(),
     riddle: { ...NO_RIDDLES, ...((await meta.get('riddle')) as RiddleState | undefined) },
     review: ((await meta.get('review')) as ReviewItem[] | undefined) ?? [],
+    ...(games ? { games: { ...NO_GAMES, ...games } } : {}),
   };
 }
 
@@ -281,6 +326,7 @@ export async function mergeIntoLocal(other: Snapshot): Promise<{ snapshot: Snaps
     await meta.put(snapshot.profile, 'profile');
     await meta.put(snapshot.riddle, 'riddle');
     await meta.put(snapshot.review, 'review');
+    if (snapshot.games) await meta.put(snapshot.games, 'games');
   }
   await tx.done;
   if (changed) mergedListeners.forEach((fn) => fn());

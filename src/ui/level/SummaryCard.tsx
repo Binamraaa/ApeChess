@@ -4,7 +4,7 @@ import { THEMES } from '../../bapu/themes';
 import { LEVELS, ORDER, UNITS } from '../../levels/curriculum';
 import { rankFor } from '../../levels/notebook';
 import { levelShareText } from '../../levels/share';
-import type { LevelScore, PuzzleOutcome } from '../../levels/scoring';
+import type { LevelScore, PuzzleOutcome, Stars } from '../../levels/scoring';
 import { starsToPass } from '../../levels/unlock';
 import type { LevelDef } from '../../levels/types';
 import { getAllLevelProgress, recordReview, saveLevelResult } from '../../progress/store';
@@ -31,49 +31,98 @@ interface Props {
 }
 
 /** Star n pops in at this delay (seconds); keep in step with the CSS animation below. */
-const starDelay = (n: number) => n * 0.18;
+export const starDelay = (n: number) => n * 0.18;
 
-export function SummaryCard({ level, score, played, seconds, outcomes, review, onDone, onNext, onReplay }: Props) {
-  const headline = { 1: 'Level complete!', 2: 'Sharp moves!', 3: THEMES[level.theme].mastery }[score.stars];
-  const entry = ORDER.find((l) => l.id === level.id);
-  const passed = score.stars >= (entry ? starsToPass(entry) : 1);
+export interface ResultNews {
+  rank?: string;
+  page: boolean;
+  freeze: boolean;
+}
+
+/**
+ * Saves a finished level once (best stars, XP, streak) and works out what's new: a better best,
+ * a new rank, a new notebook page, a streak freeze. `stars` 0 saves nothing.
+ */
+export function useLevelSave(levelId: string, stars: number, xp: number, played: string[] = []) {
   const saved = useRef(false);
   const [improved, setImproved] = useState(false);
-  const [news, setNews] = useState<{ rank?: string; page: boolean; freeze: boolean }>({ page: false, freeze: false });
-  // Chime each star as it lands, then the fanfare, then count the XP in.
-  const fanfareAt = (starDelay(score.stars) + 0.45) * 1000;
-  const xp = useCountUp(score.totalXp, fanfareAt);
+  const [news, setNews] = useState<ResultNews>({ page: false, freeze: false });
 
   useEffect(() => {
-    const timers = [1, 2, 3]
-      .filter((n) => n <= score.stars)
-      .map((n) => window.setTimeout(() => play('star', { step: n - 1 }), (starDelay(n) + 0.3) * 1000));
-    timers.push(window.setTimeout(() => play('complete'), fanfareAt));
-    return () => timers.forEach(clearTimeout);
-  }, [score.stars, fanfareAt]);
-
-  useEffect(() => {
-    if (saved.current) return;
+    if (saved.current || stars < 1) return;
     saved.current = true;
-    const now = new Date();
-    saveLevelResult(level.id, score.stars, score.totalXp, now, played)
+    saveLevelResult(levelId, stars as Stars, xp, new Date(), played)
       .then(async (r) => {
-        setImproved(r.improved && score.stars > 1);
+        setImproved(r.improved && stars > 1);
         const best = Object.fromEntries((await getAllLevelProgress()).map((l) => [l.id, l.bestStars as number]));
         const after = rankFor(UNITS, LEVELS, (id) => best[id] ?? 0);
-        const before = rankFor(UNITS, LEVELS, (id) => (id === level.id ? r.prevBest : (best[id] ?? 0)));
+        const before = rankFor(UNITS, LEVELS, (id) => (id === levelId ? r.prevBest : (best[id] ?? 0)));
         setNews({ rank: after.units > before.units ? after.title : undefined, page: r.prevBest === 0, freeze: r.freezeEarned });
       })
       .catch((e) => console.error('Could not save progress', e));
-    recordReview(level.id, review.missed, review.solved, localDay(now)).catch(() => {});
-  }, [level.id, score, played, review]);
+  }, [levelId, stars, xp, played]);
 
-  // A new rank gets its own chime once the fanfare is done.
+  return { improved, news };
+}
+
+/** Chimes each star as it lands, then the fanfare; returns when the fanfare plays (ms). */
+export function useStarSounds(stars: number): number {
+  const fanfareAt = (starDelay(stars) + 0.45) * 1000;
+  useEffect(() => {
+    const timers = [1, 2, 3]
+      .filter((n) => n <= stars)
+      .map((n) => window.setTimeout(() => play('star', { step: n - 1 }), (starDelay(n) + 0.3) * 1000));
+    if (stars > 0) timers.push(window.setTimeout(() => play('complete'), fanfareAt));
+    return () => timers.forEach(clearTimeout);
+  }, [stars, fanfareAt]);
+  return fanfareAt;
+}
+
+/** A new rank, notebook page or streak freeze, with the rank's own chime once the fanfare is done. */
+export function NewsList({ news, fanfareAt }: { news: ResultNews; fanfareAt: number }) {
   useEffect(() => {
     if (!news.rank) return;
     const t = window.setTimeout(() => play('solved', { step: 4 }), fanfareAt + 1600);
     return () => clearTimeout(t);
   }, [news.rank, fanfareAt]);
+
+  if (!news.rank && !news.page && !news.freeze) return null;
+  return (
+    <ul className="summary-news">
+      {news.rank && (
+        <li className="news-rank">
+          <span aria-hidden="true">🎖️</span> New rank: <strong>{news.rank}</strong>
+        </li>
+      )}
+      {news.page && (
+        <li>
+          <span aria-hidden="true">📖</span> This rule is now a page in <a href="#/notebook">Bapu’s notebook</a>.
+        </li>
+      )}
+      {news.freeze && (
+        <li>
+          <span aria-hidden="true">❄️</span> You earned a streak freeze: miss a day and your streak survives.
+        </li>
+      )}
+    </ul>
+  );
+}
+
+export function SummaryCard({ level, score, played, seconds, outcomes, review, onDone, onNext, onReplay }: Props) {
+  const headline = { 1: 'Level complete!', 2: 'Sharp moves!', 3: THEMES[level.theme].mastery }[score.stars];
+  const entry = ORDER.find((l) => l.id === level.id);
+  const passed = score.stars >= (entry ? starsToPass(entry) : 1);
+  // Chime each star as it lands, then the fanfare, then count the XP in.
+  const fanfareAt = useStarSounds(score.stars);
+  const xp = useCountUp(score.totalXp, fanfareAt);
+  const { improved, news } = useLevelSave(level.id, score.stars, score.totalXp, played);
+  const reviewed = useRef(false);
+
+  useEffect(() => {
+    if (reviewed.current) return;
+    reviewed.current = true;
+    recordReview(level.id, review.missed, review.solved, localDay(new Date())).catch(() => {});
+  }, [level.id, review]);
 
   return (
     <div className="summary">
@@ -117,25 +166,7 @@ export function SummaryCard({ level, score, played, seconds, outcomes, review, o
         </div>
       </div>
 
-      {(news.rank || news.page || news.freeze) && (
-        <ul className="summary-news">
-          {news.rank && (
-            <li className="news-rank">
-              <span aria-hidden="true">🎖️</span> New rank: <strong>{news.rank}</strong>
-            </li>
-          )}
-          {news.page && (
-            <li>
-              <span aria-hidden="true">📖</span> This rule is now a page in <a href="#/notebook">Bapu’s notebook</a>.
-            </li>
-          )}
-          {news.freeze && (
-            <li>
-              <span aria-hidden="true">❄️</span> You earned a streak freeze: miss a day and your streak survives.
-            </li>
-          )}
-        </ul>
-      )}
+      <NewsList news={news} fanfareAt={fanfareAt} />
 
       {score.stars < 3 && (
         <p className="summary-tip">

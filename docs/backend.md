@@ -5,7 +5,7 @@ ApeChess works fully without a backend: progress lives in the browser's IndexedD
 ## How it works
 
 - **The device copy comes first.** The app always plays from IndexedDB. The cloud holds one row per learner (`public.progress`), and sync merges it with the device copy in both directions (`src/progress/sync.ts`).
-- **Merging never loses progress** (`src/progress/merge.ts`): best stars per level, the streak that reached the later day, rematches from both devices, and today's riddle as solved if either device solved it. XP is kept per device (`profile.xpBy`), so adding two devices together never counts the same XP twice.
+- **Merging never loses progress** (`src/progress/merge.ts`): best stars per level, the streak that reached the later day, rematches from both devices, today's riddle as solved if either device solved it, and the newer unfinished game against Bapu (unless either device has finished it). XP is kept per device (`profile.xpBy`), so adding two devices together never counts the same XP twice.
 - **When it syncs:** after signing in, when the app opens, about 2 seconds after any save, when the connection comes back, and when the app comes back to the screen (at most once a minute). Offline, nothing happens and the next sync catches up.
 - **Two devices saving at once:** every write bumps `rev`, and an update only applies to the `rev` it read. The loser of the race reads again, merges again and retries.
 - **Security:** row-level security limits each signed-in learner to their own row. The `anon` role has no access to the table. The publishable key in `.env` is meant to be public.

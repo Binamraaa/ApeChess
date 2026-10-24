@@ -245,6 +245,14 @@ export function explainWrong(p: PuzzleDef, uci: string, f: MoveFacts, step: numb
   return copy.nudge;
 }
 
+/** A move in plain words, e.g. "Knight to f3" or "Castle kingside". */
+export function moveInWords(m: Move): string {
+  if (m.isKingsideCastle()) return 'Castle kingside';
+  if (m.isQueensideCastle()) return 'Castle queenside';
+  const piece = PIECE_NAME[m.piece];
+  return `${piece[0].toUpperCase() + piece.slice(1)} ${m.captured ? 'takes on' : 'to'} ${m.to}`;
+}
+
 /** Plain-English description of the opponent's move, e.g. "Black moved the bishop to c5." */
 export function describeMove(m: Pick<Move, 'color' | 'piece' | 'to' | 'captured' | 'san'>): string {
   const who = m.color === 'w' ? 'White' : 'Black';

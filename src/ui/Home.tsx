@@ -134,7 +134,7 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
         </div>
         <div className="lesson-foot">
           <Stars count={best(currentId)} />
-          <span className="lesson-meta">10 puzzles · ~8 min</span>
+          <span className="lesson-meta">{level.game ? 'One full game · ~25 min' : '10 puzzles · ~8 min'}</span>
         </div>
         <button className="btn btn-block btn-start" onClick={() => onStart(currentId)}>
           {!profile.started ? 'Begin your journey' : best(currentId) ? 'Play again' : `Start Level ${level.number}`}
