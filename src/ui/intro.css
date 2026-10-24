@@ -100,6 +100,11 @@
   opacity: 0.8;
 }
 
+.intro-small a {
+  color: var(--amber);
+  text-underline-offset: 3px;
+}
+
 /* The living board: a knight fork on loop, with Bapu narrating. */
 .intro-show {
   display: flex;
