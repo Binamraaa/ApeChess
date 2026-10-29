@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Writes content/levels/L07.json (Opening Principles) from move sequences, and checks with Stockfish
 // that the move Bapu calls best really is clearly better than the other two options.
 //   npx tsx scripts/build-openings.ts

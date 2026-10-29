@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { Chess, type Color } from 'chess.js';
 import { LEVEL_BONUS, type Stars } from './scoring';
 import type { PuzzleDef, Uci } from './types';

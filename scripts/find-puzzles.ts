@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Finds candidate featured puzzles: scans the Lichess dump for puzzles whose solver plays a given
 // kind of move, then keeps those that pass the Stockfish checks. For hand-picking demos and guided
 // puzzles; the regular packs come from build-puzzles.ts.

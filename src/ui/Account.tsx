@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { useEffect, useState, useSyncExternalStore, type FormEvent } from 'react';
 import { BapuBubble } from '../bapu/BapuBubble';
 import { deleteCloudCopy, enterCode, getAccount, onAccount, prepareCloud, sendCode, signOut, syncNow } from '../progress/cloud';

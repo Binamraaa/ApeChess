@@ -86,12 +86,14 @@ Ideas for levels, fixes to Bapu's explanations and bug reports are all welcome. 
 
 ## License
 
-[GPL-3.0-or-later](LICENSE). ApeChess uses chessground and Stockfish, which are GPL-3.0.
+**License.** The ApeChess code and lessons are free and open source under the [GNU AGPL v3.0 or later](LICENSE). You may use, study, change and share them. If you distribute a modified version or run it as a website or service, you must publish your full source under the same license and keep the copyright and [NOTICE](NOTICE). Earlier versions were GPL-3.0-or-later; from this commit onward, AGPL-3.0-or-later applies. Stockfish and chessground remain GPL-3.0.
+
+**Trademark and Bapu.** The code is open; the ApeChess name and Bapu (his name, character and artwork) are not. See [TRADEMARK.md](TRADEMARK.md).
 
 ## Acknowledgements
 
 - [Lichess](https://lichess.org) for chessground and the open puzzle database (CC0)
 - [Stockfish](https://stockfishchess.org) for checking that the puzzles are sound
-- Colin M.L. Burnett for the chess piece set
+- Colin M.L. Burnett ([cburnett](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces)) for the chess piece set, used under GPL-2.0-or-later
 - Fraunces and Nunito fonts (SIL Open Font License)
 - Built with help from [Claude](https://claude.ai) by Anthropic, as a coding assistant

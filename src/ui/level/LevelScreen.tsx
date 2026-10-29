@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { useEffect, useMemo, useReducer, useState } from 'react';
 import { levelRun } from '../../levels/practice';
 import { currentPuzzle, initialRun, progress, runReducer, type RunAction, type RunState } from '../../levels/runner';

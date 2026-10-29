@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import type { Move, PieceSymbol } from 'chess.js';
 import type { PuzzleDef } from '../levels/types';
 import { PIECE_NAME, PIECE_VALUE, adjacent, isFork, type LineInsights, type LineTactic, type MoveFacts, type Target } from './facts';

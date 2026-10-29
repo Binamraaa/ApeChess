@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { LEVELS, ORDER } from '../../levels/curriculum';
 import { dueReview } from '../../levels/review';
 import { pickRiddle, riddleNumber, riddlePool } from '../../levels/riddle';

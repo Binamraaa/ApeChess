@@ -19,7 +19,12 @@ Owner: Binamra Bhusal. The goals are (1) learn chess himself, (2) a future curri
 - Vitest for unit tests
 
 ## License
-`chessground` and Stockfish are GPL-3.0, so the project is **GPL-3.0**. Don't add MIT-only claims, and don't pull in libraries whose licenses are incompatible with GPL-3.0.
+The project is **AGPL-3.0-or-later** (`LICENSE`, `NOTICE`). Stockfish (GPL-3.0) and `chessground` (GPL-3.0-or-later) keep their own licenses, which GPLv3 section 13 allows; don't relabel them. Don't add MIT-only claims.
+- Every new source file in `src/`, `scripts/` and `supabase/` starts with this header, in the file's comment syntax (`//` for TS/TSX, `/* */` for CSS, `--` for SQL):
+  `SPDX-License-Identifier: AGPL-3.0-or-later` and `Copyright (C) 2026 Binamra Bhusal`. Never add headers to vendored or generated files.
+- Only add dependencies whose licenses are compatible with AGPL-3.0.
+- Brand assets are reserved, not AGPL: the ApeChess and Bapu names, Bapu's character and art (`abu.png`, `public/bapu/*`, app icons), and his voice and theme recordings (`TRADEMARK.md`). Never relicense or redistribute Bapu's art.
+- Keep the in-app "Free and open source under AGPL-3.0 · Source code" link (AGPL section 13).
 
 ## Content pipeline
 - Puzzles come from the Lichess puzzle DB (CC0): https://database.lichess.org/#puzzles

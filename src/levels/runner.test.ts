@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { describe, expect, it } from 'vitest';
 import { currentPuzzle, initialRun, progress, runReducer, type RunState } from './runner';
 import type { LevelDef, PuzzleDef } from './types';

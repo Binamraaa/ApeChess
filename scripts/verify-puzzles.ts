@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Checks puzzles against Stockfish (see scripts/puzzle-check.ts for the rules):
 //   npm run verify-puzzles                         every level file
 //   npm run verify-puzzles -- content/levels/L08.json

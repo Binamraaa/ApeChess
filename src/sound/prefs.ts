@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 /** How Bapu's lines sound: read aloud in the device's most natural voice, his murmur, or nothing. */
 export type VoiceMode = 'murmur' | 'read' | 'off';
 

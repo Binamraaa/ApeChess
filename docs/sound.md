@@ -70,7 +70,7 @@ The synth murmur is a stand-in. The plan for a real voice is below: a recorded p
 
 What to record, most important first. Name the files as shown and send them over; wiring the voice clips in needs a small code change (the cues and music drop in through `sounds.json` already).
 
-**Whose voice:** one person for all of Bapu: low, warm, a little amused, an older gentleman who enjoys his tea. Get their clear OK, in writing, that the recordings ship in an open-source (GPL-3.0) app.
+**Whose voice:** one person for all of Bapu: low, warm, a little amused, an older gentleman who enjoys his tea. Get their clear OK, in writing, that the recordings ship in an open-source (AGPL-3.0) app. The recordings themselves are brand assets, not AGPL (see `TRADEMARK.md`).
 
 **How:** a quiet, soft-furnished room (a wardrobe full of clothes is perfect), the phone about 20 cm from the mouth, no music or fan. Record each take three times; the best one gets used. WAV or high-quality MP3, mono is fine. Leave half a second of silence around each take; the trimming happens later.
 

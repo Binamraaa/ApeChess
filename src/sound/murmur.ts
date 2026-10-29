@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 /**
  * Bapu's "voice": one short sung syllable per word, shaped like the word's vowel, so a line
  * sounds spoken without real speech. Works offline, for any line Bapu's templates produce,

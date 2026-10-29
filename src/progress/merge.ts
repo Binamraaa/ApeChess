@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { NO_GAMES, mergeGames, type GameState } from '../levels/game';
 import { REVIEW_LIMIT, type ReviewItem } from '../levels/review';
 import { RIDDLE_MEMORY } from '../levels/riddle';

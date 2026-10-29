@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import theme from '../../content/music/theme.json';
 import type { Cue } from './manifest';
 import { FORMANTS, type Syllable } from './murmur';

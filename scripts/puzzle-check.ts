@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Stockfish checks shared by verify-puzzles (hand-made levels) and build-puzzles (Lichess packs).
 import { Chess } from 'chess.js';
 import type { PuzzleDef } from '../src/levels/types';

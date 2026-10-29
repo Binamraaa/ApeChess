@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Builds small per-level puzzle packs from the Lichess puzzle database (CC0).
 //
 //   1. Download https://database.lichess.org/lichess_db_puzzle.csv.zst into data/raw/

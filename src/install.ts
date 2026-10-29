@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // "Install app" support: Chrome and Edge fire beforeinstallprompt when the PWA can be installed.
 // We keep the event so the intro page can offer an install button at the right moment.
 

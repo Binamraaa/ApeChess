@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import 'fake-indexeddb/auto';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { _resetConnection, getLevelProgress, getProfile, getReview, exportSnapshot, getRiddleState, mergeIntoLocal, onMerged, onSaved, recordReview, saveLevelResult, saveRiddleResult, todaysRiddle } from './store';

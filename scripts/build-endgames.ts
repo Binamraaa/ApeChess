@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Picks start positions for Level 18 (mate with queen or rook against a lone king). Positions are
 // generated with a seeded random generator, then measured with Stockfish so each one can be mated
 // comfortably inside the move limit. Prints JSON steps and the demo line to paste into L18.json.

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Minimal UCI driver for the Stockfish npm build under Node. Dev tooling only:
 // the app itself runs Stockfish in a Web Worker (src/engine/).
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';

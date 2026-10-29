@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { BapuBubble, BAPU } from '../bapu/BapuBubble';
 import { LEVELS, ORDER, UNITS, type MapEntry, type UnitInfo } from '../levels/curriculum';
 import { currentLevel } from '../levels/unlock';
@@ -179,6 +182,13 @@ export function Home({ profile, streak, progress, open, riddle, streakAtRisk, on
         ))}
         <p className="path-note">More levels are being carved by hand. Bapu is very picky.</p>
       </section>
+
+      <footer className="home-foot">
+        Free and open source under AGPL-3.0 ·{' '}
+        <a href="https://github.com/Binamraaa/ApeChess" target="_blank" rel="noreferrer">
+          Source code
+        </a>
+      </footer>
     </div>
   );
 }

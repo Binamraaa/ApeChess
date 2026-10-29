@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import type { PieceSymbol } from 'chess.js';
 
 /** What a level drills. Picks the prompt, default hint and wrong-move nudges. */

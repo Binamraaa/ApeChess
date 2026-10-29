@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { useSyncExternalStore } from 'react';
 import { BAPU } from '../bapu/BapuBubble';
 import { LEVELS, UNITS } from '../levels/curriculum';

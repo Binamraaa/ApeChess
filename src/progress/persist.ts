@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 /**
  * Asks the browser to keep ApeChess's data instead of clearing it when space runs low or the site
  * goes unvisited (Safari clears websites' data after 7 days without a visit). Each browser decides

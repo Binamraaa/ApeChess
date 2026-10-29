@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Level 1 drills: one white piece walks onto every star. chess.js insists on both kings being
 // on the board, so drills use their own tiny move generator instead.
 

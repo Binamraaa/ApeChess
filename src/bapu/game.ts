@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { Chess, type Move, type PieceSymbol, type Square } from 'chess.js';
 import type { Outcome } from '../levels/game';
 import type { Uci } from '../levels/types';

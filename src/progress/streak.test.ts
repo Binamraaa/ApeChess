@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { describe, expect, it } from 'vitest';
 import { NO_STREAK, currentStreak, freezesNeeded, localDay, recordSession } from './streak';
 

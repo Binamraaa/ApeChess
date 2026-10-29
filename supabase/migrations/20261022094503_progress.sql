@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: AGPL-3.0-or-later
+-- Copyright (C) 2026 Binamra Bhusal
+
 -- A learner's saved progress: one row per account, holding the same snapshot the app keeps in
 -- IndexedDB (stars, XP, streak, riddles, rematches). The app merges it with the device's copy, so
 -- the row is only a backup that travels between devices. `rev` goes up on every write, so two

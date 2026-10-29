@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 /**
  * A small Standard MIDI File reader, enough for Surilo's hum-to-notes exports:
  * named tracks of note on/off events, one tempo and one time signature.

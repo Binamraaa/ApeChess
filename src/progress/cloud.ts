@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import type { AuthError, SupabaseClient } from '@supabase/supabase-js';
 import { exportSnapshot, mergeIntoLocal, onSaved } from './store';
 import { syncOnce, type Cloud } from './sync';

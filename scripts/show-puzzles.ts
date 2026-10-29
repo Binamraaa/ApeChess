@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Usage: npx tsx scripts/show-puzzles.ts L05 [theme] [ids...]   Prints each pack puzzle, its line and Bapu's template output.
 import { Chess } from 'chess.js';
 import { readFileSync } from 'node:fs';

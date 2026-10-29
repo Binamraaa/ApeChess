@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Exports web-sized WebP variants of Bapu's master artwork (abu.png) into public/bapu/.
 // The master file is never modified. Run with: npm run bapu
 import sharp from 'sharp';

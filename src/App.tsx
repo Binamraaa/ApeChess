@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LEVELS, ORDER, isPlayable } from './levels/curriculum';
 import { nextLevel, unlockedLevels } from './levels/unlock';

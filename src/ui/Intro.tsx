@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { useEffect, useMemo, useState } from 'react';
 import { Chess, type Move } from 'chess.js';
 import type { DrawShape } from 'chessground/draw';
@@ -190,11 +193,13 @@ export function Intro({ onStart, returning, onBack }: Props) {
       </section>
 
       <footer className="intro-foot">
-        <span>Free and open source (GPL-3.0)</span>
+        <span>
+          Free and open source under AGPL-3.0 ·{' '}
+          <a href="https://github.com/Binamraaa/ApeChess" target="_blank" rel="noreferrer">
+            Source code
+          </a>
+        </span>
         <span>Puzzles from the Lichess database</span>
-        <a href="https://github.com/Binamraaa/ApeChess" target="_blank" rel="noreferrer">
-          Source on GitHub
-        </a>
       </footer>
     </div>
   );

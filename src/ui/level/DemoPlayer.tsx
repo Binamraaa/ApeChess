@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { useMemo, useState } from 'react';
 import { Chess, type Move } from 'chess.js';
 import type { DrawShape } from 'chessground/draw';

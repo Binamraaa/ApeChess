@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Turns a hummed MIDI file (e.g. a Surilo hum-to-notes export) into Bapu's theme:
 // content/music/theme.json, which the app plays as home music and borrows for level cues.
 // Run with: npm run theme [-- path/to/hum.mid]   (default: the newest .mid in content/music/)

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 /**
  * Picks the most natural-sounding voice the device offers for reading Bapu's lines aloud.
  * Devices list dozens of voices of very mixed quality: the neural ("Natural", "Enhanced") ones

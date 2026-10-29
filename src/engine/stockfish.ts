@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Stockfish (lite, single-threaded WASM) in a Web Worker, for the engine levels. Loaded on first use only.
 
 export interface EngineMove {

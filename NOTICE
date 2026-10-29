@@ -1,0 +1,22 @@
+ApeChess
+Copyright (C) 2026 Binamra Bhusal. Created by Binamra Bhusal:
+https://github.com/Binamraaa/ApeChess
+This notice must be kept in all copies and derivative works.
+
+Code and lesson content: AGPL-3.0-or-later (see LICENSE).
+Brand assets, NOT covered by the AGPL, all rights reserved: the names
+"ApeChess" and "Bapu", the Bapu character and artwork (abu.png,
+public/bapu/*, app icons), and Bapu's voice recordings and theme recordings
+once they're added. See TRADEMARK.md.
+
+Third-party components, under their own licenses:
+- Stockfish: GPL-3.0, https://stockfishchess.org
+- chessground: GPL-3.0-or-later, https://github.com/lichess-org/chessground
+- chess.js: BSD-2-Clause, https://github.com/jhlywa/chess.js
+- Lichess puzzle database: CC0, https://database.lichess.org/#puzzles
+- Piece images (public/pieces/*.svg and the board pieces): the "cburnett" set
+  by Colin M.L. Burnett, used under GPL-2.0-or-later (the author also offers
+  it under GFDL 1.2+, CC BY-SA 3.0 and BSD-3-Clause),
+  https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
+  The same files ship with chessground (chessground.cburnett.css).
+- Fraunces and Nunito fonts: SIL Open Font License 1.1

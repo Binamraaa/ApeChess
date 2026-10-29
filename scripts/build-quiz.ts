@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 // Builds content/puzzles/L03.json: positions for "check, checkmate, stalemate, or none?".
 // Check, mate and "none" come from real games in the Lichess puzzle database (CC0); stalemates
 // are rare in puzzles, so they come from simple endings with a seeded random generator.

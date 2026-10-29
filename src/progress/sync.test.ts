@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { describe, expect, it } from 'vitest';
 import { SNAPSHOT_VERSION, mergeSnapshots, sameSnapshot, type Snapshot } from './merge';
 import { syncOnce, type Cloud, type CloudCopy, type Local } from './sync';

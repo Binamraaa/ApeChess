@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import { updateRecent } from '../levels/practice';
 import { FINISHED_MEMORY, NO_GAMES, type GameState, type SavedGame } from '../levels/game';

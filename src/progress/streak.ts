@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 export interface Streak {
   count: number;
   /** Local calendar day of the last level session, as YYYY-MM-DD. */

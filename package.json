@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Learn chess the clever way: Bapu the ape shows you why every move works.",
-  "license": "GPL-3.0-or-later",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
   "scripts": {
     "predev": "node scripts/copy-engine.mjs",

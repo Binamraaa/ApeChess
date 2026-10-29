@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Binamra Bhusal
+
 /**
  * Recorded sounds that replace the built-in synth ones. `public/sounds/sounds.json` lists them,
  * so new audio (e.g. from Surilo) drops in without code changes. See docs/sound.md.
